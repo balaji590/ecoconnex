@@ -815,9 +815,12 @@ window.addEventListener('scroll',function(){navbar.classList.toggle('scrolled',w
 // ── MOBILE MENU ──
 var hamburger=document.getElementById('hamburger');
 var mobileMenu=document.getElementById('mobileMenu');
+var navbarEl=document.getElementById('navbar');
 var scrollLockY=0;
 function openMobile(){
   scrollLockY=window.scrollY||window.pageYOffset;
+  var navH=navbarEl.getBoundingClientRect().height;
+  mobileMenu.style.paddingTop=(navH+20)+'px';
   document.body.style.top=(-scrollLockY)+'px';
   document.body.classList.add('menu-open');
   mobileMenu.classList.add('open');
@@ -830,6 +833,11 @@ function closeMobile(){
 }
 hamburger.addEventListener('click',function(){
   if(mobileMenu.classList.contains('open')){closeMobile();}else{openMobile();}
+});
+window.addEventListener('resize',function(){
+  if(mobileMenu.classList.contains('open')){
+    mobileMenu.style.paddingTop=(navbarEl.getBoundingClientRect().height+20)+'px';
+  }
 });
 
 // ── FADE UP ──
