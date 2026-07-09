@@ -1,0 +1,122 @@
+/* ============================================================
+   Eco Connex — Shared Cart Module
+   Single cart data source for the whole site (persists via
+   localStorage, so the cart carries over between index.html and
+   products.html). Both pages render their own cart UI but call
+   into these same functions, so behaviour stays consistent.
+   ============================================================ */
+window.EcoConnex = window.EcoConnex || {};
+
+(function (ns) {
+  "use strict";
+
+  const STORAGE_KEY = "ecoconnex_cart_v1";
+  let cart = [];
+  const listeners = [];
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      cart = raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      cart = [];
+    }
+  }
+
+  function persist() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch (e) { /* ignore */ }
+    listeners.forEach(function (fn) { fn(cart.slice()); });
+  }
+
+  function onChange(fn) {
+    listeners.push(fn);
+  }
+
+  /**
+   * item: { name, sku, price (number or null/undefined for "Call for Price"), icon }
+   */
+  function addToCart(item) {
+    const existing = cart.find(function (i) { return i.sku === item.sku; });
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({
+        name: item.name,
+        sku: item.sku,
+        price: typeof item.price === "number" ? item.price : null,
+        icon: item.icon || "🔧",
+        qty: 1
+      });
+    }
+    persist();
+  }
+
+  function updateQty(sku, delta) {
+    const item = cart.find(function (i) { return i.sku === sku; });
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) cart = cart.filter(function (i) { return i.sku !== sku; });
+    persist();
+  }
+
+  function removeItem(sku) {
+    cart = cart.filter(function (i) { return i.sku !== sku; });
+    persist();
+  }
+
+  function clearCart() {
+    cart = [];
+    persist();
+  }
+
+  function getCart() { return cart.slice(); }
+  function getCount() { return cart.reduce(function (s, i) { return s + i.qty; }, 0); }
+  function getTotal() { return cart.reduce(function (s, i) { return s + (i.price || 0) * i.qty; }, 0); }
+  function hasCallForPrice() { return cart.some(function (i) { return i.price === null; }); }
+
+  /* ---------- Toast ---------- */
+  function showToast(msg) {
+    const t = document.createElement("div");
+    t.style.cssText = "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;border-left:3px solid #f97316;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,0.3);";
+    t.textContent = "✓ " + msg;
+    document.body.appendChild(t);
+    setTimeout(function () { t.remove(); }, 2500);
+  }
+
+  /**
+   * Convenience wrapper for "Add to Cart" buttons: adds the item,
+   * shows the success toast, and flashes the clicked button to
+   * "✓ Added" for 2 seconds before reverting — used by both pages.
+   */
+  function addToCartUI(btnEl, item) {
+    addToCart(item);
+    showToast("Added to Cart Successfully");
+    if (btnEl) {
+      const prevHtml = btnEl.innerHTML;
+      btnEl.classList.add("added");
+      btnEl.innerHTML = '<i class="ti ti-check"></i> Added';
+      btnEl.disabled = true;
+      setTimeout(function () {
+        btnEl.innerHTML = prevHtml;
+        btnEl.classList.remove("added");
+        btnEl.disabled = false;
+      }, 2000);
+    }
+  }
+
+  load();
+
+  ns.cart = {
+    addToCart: addToCart,
+    addToCartUI: addToCartUI,
+    updateQty: updateQty,
+    removeItem: removeItem,
+    clearCart: clearCart,
+    getCart: getCart,
+    getCount: getCount,
+    getTotal: getTotal,
+    hasCallForPrice: hasCallForPrice,
+    onChange: onChange
+  };
+  ns.showToast = showToast;
+})(window.EcoConnex);

@@ -151,17 +151,17 @@ img{max-width:100%;display:block;}
 .products{padding:96px 0;background:#fff;}
 .products-header{text-align:center;margin-bottom:56px;}
 .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
-.product-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;transition:all 0.3s ease;}
+.product-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;transition:all 0.3s ease;display:flex;flex-direction:column;height:100%;}
 .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
 .product-img{height:160px;background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;}
 .product-badge{position:absolute;top:12px;right:12px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase;}
-.product-body{padding:18px;}
+.product-body{padding:18px;display:flex;flex-direction:column;flex:1;}
 .product-name{font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:6px;}
 .product-desc{font-size:13px;color:var(--gray-500);line-height:1.5;margin-bottom:8px;}
 .product-compat{font-size:11px;color:var(--orange-dark);font-weight:500;background:#fff7ed;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:14px;}
 .product-price{font-size:18px;font-weight:800;color:var(--orange-dark);margin-bottom:14px;}
 .product-price span{font-size:12px;font-weight:400;color:var(--gray-400);}
-.product-actions{display:flex;gap:8px;}
+.product-actions{display:flex;gap:8px;margin-top:auto;}
 
 /* CATEGORY NAV */
 .category-nav{margin-bottom:40px;}
@@ -182,6 +182,9 @@ img{max-width:100%;display:block;}
 .products-empty i{font-size:44px;display:block;margin-bottom:14px;color:var(--gray-200);}
 .products-empty p{font-size:15px;font-weight:600;color:var(--gray-500);}
 .btn-add-cart{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--orange);color:#fff;padding:9px 12px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
+.btn-add-cart.added{background:#16a34a;}
+.cart-price-note{display:flex;align-items:center;gap:8px;background:#fff7ed;border:1px solid var(--orange-light);color:var(--orange-dark);font-size:12px;font-weight:600;padding:10px 14px;border-radius:var(--radius-sm);margin-bottom:12px;}
+.cart-price-note i{font-size:16px;flex-shrink:0;}
 .btn-add-cart:hover{background:var(--orange-dark);}
 .btn-wa-product{display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:#fff;padding:9px 12px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;}
 .btn-wa-product:hover{background:#1da851;}
@@ -255,8 +258,8 @@ img{max-width:100%;display:block;}
 /* ── TRUST ── */
 .trust{background:linear-gradient(135deg,#fff7ed,#fff);padding:72px 0;}
 .trust-header{text-align:center;margin-bottom:40px;}
-.trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;max-width:900px;margin:0 auto;}
-.trust-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px 16px;text-align:center;box-shadow:var(--shadow-sm);transition:all 0.3s;}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:0 auto;}
+.trust-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px 16px;text-align:center;box-shadow:var(--shadow-sm);transition:all 0.3s;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;}
 .trust-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--orange);}
 .trust-num{font-size:32px;font-weight:800;color:var(--orange-dark);line-height:1;margin-bottom:6px;}
 .trust-label{font-size:13px;color:var(--gray-500);font-weight:500;}
@@ -385,6 +388,7 @@ img{max-width:100%;display:block;}
   .wa-float-label{display:none;}
   .category-pill{padding:8px 14px;font-size:12px;}
   .category-nav{margin-bottom:28px;}
+  .trust-grid{grid-template-columns:repeat(2,1fr);max-width:480px;}
 }
 @media(max-width:600px){
   .nav{padding:8px 0;}
@@ -403,9 +407,13 @@ img{max-width:100%;display:block;}
   .hero-subtitle{font-size:13px;}
   .hero-trust-row{gap:12px;}
   .hero-trust-item{font-size:11px;}
-  .hero-scooter-img,.hero-scooter-fallback{width:160px;}
-  .hero-float-card{padding:6px 8px;gap:6px;}
-  .hero-float-icon{font-size:16px;}
+  .hero-right{min-height:auto;padding:8px 0 4px;gap:22px;flex-direction:column;}
+  .hero-scooter-img,.hero-scooter-fallback{position:static;width:min(78vw,300px);margin:0 auto;}
+  .hero-float-grid{position:static;display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:320px;margin:0 auto;}
+  .hero-float-card{position:static;animation:none;padding:10px 12px;gap:8px;}
+  .hero-float-icon{font-size:20px;}
+  .hero-float-name{font-size:11px;}
+  .hero-float-price{font-size:13px;}
   .section-title{font-size:22px;}
   .footer-inner{grid-template-columns:1fr;gap:28px;}
   .footer-bottom{flex-direction:column;text-align:center;}
@@ -484,10 +492,12 @@ img{max-width:100%;display:block;}
     <div class="hero-right">
       <img src="scooter.png" alt="EV Scooter" class="hero-scooter-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
       <div class="hero-scooter-fallback"><i class="ti ti-scooter-electric"></i></div>
-      <div class="hero-float-card card-1"><span class="hero-float-icon">🔋</span><div><div class="hero-float-name">Battery</div><div class="hero-float-price">₹3,500</div></div></div>
-      <div class="hero-float-card card-2"><span class="hero-float-icon">⚙️</span><div><div class="hero-float-name">Motor</div><div class="hero-float-price">₹2,800</div></div></div>
-      <div class="hero-float-card card-3"><span class="hero-float-icon">🔌</span><div><div class="hero-float-name">Charger</div><div class="hero-float-price">₹650</div></div></div>
-      <div class="hero-float-card card-4"><span class="hero-float-icon">🛞</span><div><div class="hero-float-name">Brake Kit</div><div class="hero-float-price">₹150</div></div></div>
+      <div class="hero-float-grid">
+        <div class="hero-float-card card-1"><span class="hero-float-icon">🔋</span><div><div class="hero-float-name">Battery</div><div class="hero-float-price">₹3,500</div></div></div>
+        <div class="hero-float-card card-2"><span class="hero-float-icon">⚙️</span><div><div class="hero-float-name">Motor</div><div class="hero-float-price">₹2,800</div></div></div>
+        <div class="hero-float-card card-3"><span class="hero-float-icon">🔌</span><div><div class="hero-float-name">Charger</div><div class="hero-float-price">₹650</div></div></div>
+        <div class="hero-float-card card-4"><span class="hero-float-icon">🛞</span><div><div class="hero-float-name">Brake Kit</div><div class="hero-float-price">₹150</div></div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -570,7 +580,6 @@ img{max-width:100%;display:block;}
       <div class="trust-card fade-up"><i class="ti ti-packages trust-icon"></i><div class="trust-num counter" data-target="138">0</div><div class="trust-label">Products in stock</div></div>
       <div class="trust-card fade-up"><i class="ti ti-users trust-icon"></i><div class="trust-num counter" data-target="500">0</div><div class="trust-label">Happy customers</div></div>
       <div class="trust-card fade-up"><i class="ti ti-shopping-bag trust-icon"></i><div class="trust-num counter" data-target="1000">0</div><div class="trust-label">Orders delivered</div></div>
-      <div class="trust-card fade-up"><i class="ti ti-calendar trust-icon"></i><div class="trust-num">5+</div><div class="trust-label">Years experience</div></div>
       <div class="trust-card fade-up"><i class="ti ti-file-invoice trust-icon"></i><div class="trust-num">GST</div><div class="trust-label">Registered business</div></div>
     </div>
   </div>
@@ -772,6 +781,7 @@ img{max-width:100%;display:block;}
 <style>@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}</style>
 
 <script src="products-data.js"></script>
+<script src="cart.js"></script>
 <script src="search-widget.js"></script>
 <script src="category-filter.js"></script>
 <script>
@@ -796,20 +806,10 @@ var cObs=new IntersectionObserver(function(entries){entries.forEach(function(e){
 counters.forEach(function(el){cObs.observe(el);});
 
 // ── CART ──
-var cart=[];
-
-function addToCart(name,sku,price,icon){
-  var existing=cart.find(function(i){return i.sku===sku;});
-  if(existing){existing.qty++;}
-  else{cart.push({name:name,sku:sku,price:price,icon:icon,qty:1});}
-  updateCartUI();
-  openCart();
-  showToast(name+' added to cart!');
-}
-
 function updateCartUI(){
-  var total=cart.reduce(function(s,i){return s+i.price*i.qty;},0);
-  var count=cart.reduce(function(s,i){return s+i.qty;},0);
+  var cart=window.EcoConnex.cart.getCart();
+  var total=window.EcoConnex.cart.getTotal();
+  var count=window.EcoConnex.cart.getCount();
   var badge=document.getElementById('cartBadge');
   badge.textContent=count;
   badge.style.display=count>0?'flex':'none';
@@ -822,28 +822,27 @@ function updateCartUI(){
     return;
   }
   footer.style.display='block';
-  container.innerHTML=cart.map(function(item,idx){
-    return '<div class="cart-item"><div class="cart-item-icon">'+item.icon+'</div><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">₹'+item.price.toLocaleString('en-IN')+' × '+item.qty+' = ₹'+(item.price*item.qty).toLocaleString('en-IN')+'</div><div class="cart-item-qty"><button class="qty-btn" onclick="updateQty('+idx+',-1)">−</button><span class="qty-num">'+item.qty+'</span><button class="qty-btn" onclick="updateQty('+idx+',1)">+</button></div></div><button class="cart-item-remove" onclick="removeItem('+idx+')" title="Remove"><i class="ti ti-trash"></i></button></div>';
+  var priceNote=window.EcoConnex.cart.hasCallForPrice()?'<div class="cart-price-note"><i class="ti ti-info-circle"></i> Price will be confirmed by Eco Connex</div>':'';
+  container.innerHTML=priceNote+cart.map(function(item){
+    var priceLine=item.price===null?'Call for Price × '+item.qty:'₹'+item.price.toLocaleString('en-IN')+' × '+item.qty+' = ₹'+(item.price*item.qty).toLocaleString('en-IN');
+    return '<div class="cart-item"><div class="cart-item-icon">'+item.icon+'</div><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">'+priceLine+'</div><div class="cart-item-qty"><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\''+item.sku+'\',-1)">−</button><span class="qty-num">'+item.qty+'</span><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\''+item.sku+'\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\''+item.sku+'\')" title="Remove"><i class="ti ti-trash"></i></button></div>';
   }).join('');
 }
+window.EcoConnex.cart.onChange(updateCartUI);
 
-function updateQty(idx,change){
-  cart[idx].qty+=change;
-  if(cart[idx].qty<=0)cart.splice(idx,1);
-  updateCartUI();
-}
-function removeItem(idx){cart.splice(idx,1);updateCartUI();}
 function openCart(){document.getElementById('cartOverlay').classList.add('open');document.getElementById('cartSidebar').classList.add('open');}
 function closeCart(){document.getElementById('cartOverlay').classList.remove('open');document.getElementById('cartSidebar').classList.remove('open');}
 
 // ── CHECKOUT ──
 function openCheckout(){
+  var cart=window.EcoConnex.cart.getCart();
   if(cart.length===0){alert('Your cart is empty!');return;}
   closeCart();
-  var total=cart.reduce(function(s,i){return s+i.price*i.qty;},0);
-  document.getElementById('modalTotal').textContent='₹'+total.toLocaleString('en-IN');
+  var total=window.EcoConnex.cart.getTotal();
+  document.getElementById('modalTotal').textContent='₹'+total.toLocaleString('en-IN')+(window.EcoConnex.cart.hasCallForPrice()?' + items to confirm':'');
   document.getElementById('modalItems').innerHTML=cart.map(function(item){
-    return '<div class="modal-item"><span>'+item.qty+' × '+item.name+'</span><strong>₹'+(item.price*item.qty).toLocaleString('en-IN')+'</strong></div>';
+    var priceStr=item.price===null?'Call for Price':'₹'+(item.price*item.qty).toLocaleString('en-IN');
+    return '<div class="modal-item"><span>'+item.qty+' × '+item.name+'</span><strong>'+priceStr+'</strong></div>';
   }).join('');
   document.getElementById('checkoutModal').classList.add('open');
 }
@@ -854,15 +853,17 @@ function sendWhatsAppOrder(){
   var phone=document.getElementById('cPhone').value.trim();
   var address=document.getElementById('cAddress').value.trim();
   if(!name||!phone){alert('Please enter your name and mobile number.');return;}
+  var cart=window.EcoConnex.cart.getCart();
   var today=new Date();
   var dd=String(today.getDate()).padStart(2,'0');
   var mm=String(today.getMonth()+1).padStart(2,'0');
   var yyyy=today.getFullYear();
   var dateStr=dd+'/'+mm+'/'+yyyy;
   var orderNum='EC-'+yyyy+mm+dd+'-'+Math.floor(Math.random()*900+100);
-  var total=cart.reduce(function(s,i){return s+i.price*i.qty;},0);
+  var total=window.EcoConnex.cart.getTotal();
   var itemLines=cart.map(function(item,i){
-    return (i+1)+'. '+item.name+'\n   SKU: '+item.sku+'\n   Qty: '+item.qty+'\n   Price: ₹'+(item.price*item.qty).toLocaleString('en-IN');
+    var priceLine=item.price===null?'Price: Call for Price':'Price: ₹'+(item.price*item.qty).toLocaleString('en-IN');
+    return (i+1)+'. '+item.name+'\n   SKU: '+item.sku+'\n   Qty: '+item.qty+'\n   '+priceLine;
   }).join('\n\n');
   var msg='🛒 *Order from Eco Connex*\n\n'
     +'*Order Number:* '+orderNum+'\n'
@@ -872,21 +873,11 @@ function sendWhatsAppOrder(){
     +'Phone: '+phone+'\n'
     +(address?'Address: '+address+'\n':'')+'\n'
     +'*Products Ordered:*\n'+itemLines+'\n\n'
-    +'*Grand Total: ₹'+total.toLocaleString('en-IN')+'*\n\n'
+    +'*Grand Total: ₹'+total.toLocaleString('en-IN')+(window.EcoConnex.cart.hasCallForPrice()?' + items to confirm':'')+'*\n\n'
     +'Please confirm my order. Thank you!';
   window.open('https://wa.me/918778657912?text='+encodeURIComponent(msg),'_blank');
   closeCheckout();
-  cart=[];
-  updateCartUI();
-}
-
-// ── TOAST ──
-function showToast(msg){
-  var t=document.createElement('div');
-  t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;border-left:3px solid var(--orange);white-space:nowrap;';
-  t.textContent='✓ '+msg;
-  document.body.appendChild(t);
-  setTimeout(function(){t.remove();},2500);
+  window.EcoConnex.cart.clearCart();
 }
 
 // ── FAQ ──
