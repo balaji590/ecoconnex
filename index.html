@@ -31,7 +31,7 @@ html{scroll-behavior:smooth;}
 body{font-family:'Inter',sans-serif;background:#fff;color:var(--gray-900);line-height:1.6;overflow-x:hidden;}
 a{text-decoration:none;color:inherit;}
 img{max-width:100%;display:block;}
-.container{max-width:1100px;margin:0 auto;padding:0 24px;}
+.container{max-width:1600px;margin:0 auto;padding:0 40px;}
 .eyebrow{font-size:11px;font-weight:600;color:var(--orange);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;}
 .section-title{font-size:32px;font-weight:700;line-height:1.2;margin-bottom:12px;}
 .section-sub{font-size:16px;color:var(--gray-500);line-height:1.7;}
@@ -50,7 +50,7 @@ img{max-width:100%;display:block;}
 .nav-links{display:flex;align-items:center;gap:4px;}
 .nav-links a{color:#ccc;font-size:13px;font-weight:500;padding:6px 12px;border-radius:8px;transition:color 0.2s,background 0.2s;}
 .nav-links a:hover{color:#fff;background:rgba(255,255,255,0.08);}
-.nav-actions{display:flex;align-items:center;gap:6px;}
+.nav-actions{display:flex;align-items:center;gap:10px;}
 .btn-cart-nav{position:relative;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;}
 .btn-cart-nav:hover{background:rgba(255,255,255,0.15);}
 .cart-badge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;display:none;}
@@ -63,32 +63,39 @@ img{max-width:100%;display:block;}
 .mobile-menu.open{display:flex;}
 .mobile-menu a{color:#fff;font-size:18px;font-weight:500;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
 
-/* ── HERO CAROUSEL ── */
-.carousel{position:relative;width:100%;height:clamp(160px,38vw,420px);overflow:hidden;margin-top:64px;background:#000;}
-.carousel-track{display:flex;height:100%;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);}
-.carousel-slide{min-width:100%;height:100%;position:relative;display:flex;align-items:center;overflow:hidden;}
-.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 8s ease;}
-.carousel-slide.active .slide-bg{transform:scale(1);}
-.slide-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.0) 100%);}
-.slide-content{display:none;}
-.slide-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.4);color:#fed7aa;font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;margin-bottom:20px;}
-.slide-title{font-size:52px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px;}
-.slide-title span{color:var(--orange);}
-.slide-desc{font-size:18px;color:rgba(255,255,255,0.85);line-height:1.6;margin-bottom:32px;max-width:480px;}
-.slide-btn{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:14px 32px;border-radius:var(--radius);font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all 0.2s;box-shadow:var(--shadow-orange);}
-.slide-btn:hover{background:var(--orange-dark);transform:translateY(-2px);}
-.carousel-prev,.carousel-next{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);color:#fff;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;font-size:20px;}
-.carousel-prev{left:20px;}
-.carousel-next{right:20px;}
-.carousel-prev:hover,.carousel-next:hover{background:rgba(249,115,22,0.8);border-color:var(--orange);}
-.carousel-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
-.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:all 0.3s;border:none;}
-.dot.active{background:var(--orange);width:24px;border-radius:4px;}
-
-/* Slide backgrounds */
-.slide-1 .slide-bg{background:url(banner1.png) center top/100% auto no-repeat;background-color:#000;}
-.slide-2 .slide-bg{background:url(banner2.png) center top/100% auto no-repeat;background-color:#000;}
-.slide-3 .slide-bg{background:url(banner3.png) center top/100% auto no-repeat;background-color:#000;}
+/* ── PREMIUM HERO ── */
+.hero-premium{position:relative;width:100%;min-height:700px;margin-top:64px;background:linear-gradient(135deg,#0D1117 0%,#111827 100%);overflow:hidden;display:flex;align-items:center;}
+.hero-glow{position:absolute;top:-18%;right:-10%;width:760px;height:760px;background:radial-gradient(circle,rgba(34,197,94,0.22) 0%,rgba(34,197,94,0) 70%);pointer-events:none;}
+.hero-glow-2{position:absolute;bottom:-20%;left:-10%;width:640px;height:640px;background:radial-gradient(circle,rgba(249,115,22,0.10) 0%,rgba(249,115,22,0) 70%);pointer-events:none;}
+.hero-inner{position:relative;z-index:2;display:flex;align-items:center;gap:48px;width:100%;padding-top:48px;padding-bottom:48px;}
+.hero-left{flex:0 0 45%;max-width:45%;animation:heroFadeIn 0.45s ease-out both;}
+.hero-right{flex:0 0 55%;max-width:55%;position:relative;display:flex;align-items:center;justify-content:center;min-height:400px;animation:heroFadeIn 0.45s ease-out 0.1s both;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.35);color:var(--orange-light);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:26px;}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite;flex-shrink:0;}
+.hero-title{font-size:51px;font-weight:800;color:#fff;line-height:1.14;margin-bottom:24px;}
+.hero-title span{color:var(--orange);}
+.hero-subtitle{font-size:17px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:36px;max-width:480px;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-trust-row{display:flex;gap:26px;flex-wrap:wrap;}
+.hero-trust-item{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,0.6);font-weight:500;}
+.hero-trust-item i{color:var(--orange);font-size:17px;}
+.hero-scooter-img{max-width:82%;width:390px;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.5));animation:floatY 4s ease-in-out infinite;}
+.hero-scooter-fallback{width:390px;max-width:82%;aspect-ratio:1.3;display:none;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-lg);animation:floatY 4s ease-in-out infinite;}
+.hero-scooter-fallback i{font-size:72px;color:var(--orange);}
+.hero-float-card{position:absolute;display:flex;align-items:center;gap:11px;background:rgba(255,255,255,0.09);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius);padding:12px 16px;box-shadow:0 10px 30px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.03) inset;animation:floatY 3.5s ease-in-out infinite;transition:transform 0.2s ease,box-shadow 0.2s ease,background 0.2s ease;}
+.hero-float-card:hover{transform:translateY(-4px) scale(1.03);background:rgba(255,255,255,0.13);box-shadow:0 14px 36px rgba(0,0,0,0.45);}
+.hero-float-icon{font-size:24px;}
+.hero-float-name{font-size:11.5px;color:rgba(255,255,255,0.6);font-weight:500;}
+.hero-float-price{font-size:15px;color:#fff;font-weight:700;}
+.hero-float-card.card-1{top:8%;left:2%;animation-delay:0s;}
+.hero-float-card.card-2{top:16%;right:2%;animation-delay:0.6s;}
+.hero-float-card.card-3{bottom:20%;left:6%;animation-delay:1.2s;}
+.hero-float-card.card-4{bottom:6%;right:8%;animation-delay:1.8s;}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
+@keyframes heroFadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@media(min-width:901px) and (max-width:1440px){
+  .hero-premium{min-height:650px;}
+}
 
 /* ── TRUSTED ── */
 .trusted{background:var(--gray-50);padding:28px 0;border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);}
@@ -99,8 +106,8 @@ img{max-width:100%;display:block;}
 .trusted-brand:hover{opacity:1;color:var(--orange);}
 
 /* ── PRODUCTS ── */
-.products{padding:80px 0;background:#fff;}
-.products-header{text-align:center;margin-bottom:48px;}
+.products{padding:96px 0;background:#fff;}
+.products-header{text-align:center;margin-bottom:56px;}
 .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
 .product-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;transition:all 0.3s ease;}
 .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
@@ -172,8 +179,8 @@ img{max-width:100%;display:block;}
 .btn-wa-order:hover{background:#1da851;}
 
 /* ── FEATURES ── */
-.features{background:var(--black);padding:80px 0;}
-.features-header{text-align:center;margin-bottom:48px;}
+.features{background:var(--black);padding:96px 0;}
+.features-header{text-align:center;margin-bottom:56px;}
 .features-header .section-title{color:#fff;}
 .features-header .section-sub{color:#9ca3af;}
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
@@ -185,7 +192,7 @@ img{max-width:100%;display:block;}
 .feature-desc{font-size:13px;color:#9ca3af;line-height:1.6;}
 
 /* ── TRUST ── */
-.trust{background:linear-gradient(135deg,#fff7ed,#fff);padding:64px 0;}
+.trust{background:linear-gradient(135deg,#fff7ed,#fff);padding:72px 0;}
 .trust-header{text-align:center;margin-bottom:40px;}
 .trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;max-width:900px;margin:0 auto;}
 .trust-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px 16px;text-align:center;box-shadow:var(--shadow-sm);transition:all 0.3s;}
@@ -195,7 +202,7 @@ img{max-width:100%;display:block;}
 .trust-icon{font-size:28px;margin-bottom:10px;color:var(--orange);}
 
 /* ── BRANDS ── */
-.brands{padding:64px 0;background:#fff;}
+.brands{padding:72px 0;background:#fff;}
 .brands-header{text-align:center;margin-bottom:40px;}
 .brands-grid{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
 .brand-pill{display:flex;align-items:center;gap:8px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:40px;padding:10px 20px;font-size:14px;font-weight:600;color:var(--gray-700);transition:all 0.2s;}
@@ -203,8 +210,8 @@ img{max-width:100%;display:block;}
 .brand-pill i{font-size:18px;color:var(--orange);}
 
 /* ── TESTIMONIALS ── */
-.testimonials{background:var(--gray-50);padding:80px 0;}
-.testimonials-header{text-align:center;margin-bottom:48px;}
+.testimonials{background:var(--gray-50);padding:96px 0;}
+.testimonials-header{text-align:center;margin-bottom:56px;}
 .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
 .testimonial-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:28px 24px;box-shadow:var(--shadow-sm);transition:all 0.3s;}
 .testimonial-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
@@ -216,18 +223,18 @@ img{max-width:100%;display:block;}
 .testimonial-role{font-size:12px;color:var(--gray-500);}
 
 /* ── DEALER BANNER ── */
-.dealer-banner{background:linear-gradient(135deg,var(--black) 0%,var(--black-3) 100%);padding:64px 0;text-align:center;border-top:1px solid rgba(249,115,22,0.2);border-bottom:1px solid rgba(249,115,22,0.2);}
+.dealer-banner{background:linear-gradient(135deg,var(--black) 0%,var(--black-3) 100%);padding:72px 0;text-align:center;border-top:1px solid rgba(249,115,22,0.2);border-bottom:1px solid rgba(249,115,22,0.2);}
 .dealer-banner h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px;}
 .dealer-banner p{font-size:16px;color:#9ca3af;margin-bottom:32px;}
 .dealer-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.btn-orange{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:14px 28px;border-radius:var(--radius);font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all 0.2s;box-shadow:var(--shadow-orange);}
-.btn-orange:hover{background:var(--orange-dark);transform:translateY(-2px);}
-.btn-outline-light{display:inline-flex;align-items:center;gap:8px;background:transparent;color:#fff;padding:14px 28px;border-radius:var(--radius);font-size:15px;font-weight:600;border:2px solid rgba(255,255,255,0.3);cursor:pointer;transition:all 0.2s;}
-.btn-outline-light:hover{background:rgba(255,255,255,0.08);border-color:#fff;}
+.btn-orange{display:inline-flex;align-items:center;gap:9px;background:var(--orange);color:#fff;padding:16px 32px;border-radius:var(--radius);font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all 0.2s ease;box-shadow:var(--shadow-orange);}
+.btn-orange:hover{background:var(--orange-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(249,115,22,0.45);}
+.btn-outline-light{display:inline-flex;align-items:center;gap:9px;background:transparent;color:#fff;padding:16px 32px;border-radius:var(--radius);font-size:16px;font-weight:600;border:2px solid rgba(255,255,255,0.3);cursor:pointer;transition:all 0.2s ease;}
+.btn-outline-light:hover{background:rgba(255,255,255,0.1);border-color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,0.08);}
 
 /* ── FAQ ── */
-.faq{padding:80px 0;background:#fff;}
-.faq-header{text-align:center;margin-bottom:48px;}
+.faq{padding:96px 0;background:#fff;}
+.faq-header{text-align:center;margin-bottom:56px;}
 .faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
 .faq-item{border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;}
 .faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;background:#fff;border:none;cursor:pointer;font-size:15px;font-weight:600;color:var(--gray-900);text-align:left;transition:background 0.2s;}
@@ -238,7 +245,7 @@ img{max-width:100%;display:block;}
 .faq-a.open{display:block;}
 
 /* ── CONTACT ── */
-.contact{padding:80px 0;background:var(--gray-50);}
+.contact{padding:96px 0;background:var(--gray-50);}
 .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
 .contact-left h2{font-size:28px;font-weight:700;margin-bottom:12px;}
 .contact-left p{font-size:15px;color:var(--gray-500);margin-bottom:28px;line-height:1.7;}
@@ -297,9 +304,19 @@ img{max-width:100%;display:block;}
   .nav-links{display:none;}
   .hamburger{display:block;}
   .btn-quote-nav{display:none;}
-  .carousel{height:clamp(120px,30vw,220px);}
-  .slide-content{padding:0 32px;}
-  .slide-title{font-size:36px;}
+  .hero-premium{min-height:520px;}
+  .hero-inner{flex-direction:column;text-align:center;gap:24px;padding-top:32px;padding-bottom:32px;}
+  .hero-left,.hero-right{flex:0 0 100%;max-width:100%;}
+  .hero-left{order:1;}
+  .hero-right{order:2;min-height:260px;}
+  .hero-btns{justify-content:center;}
+  .hero-trust-row{justify-content:center;}
+  .hero-title{font-size:34px;}
+  .hero-subtitle{margin-left:auto;margin-right:auto;}
+  .hero-scooter-img,.hero-scooter-fallback{width:220px;}
+  .hero-float-card{padding:8px 10px;}
+  .hero-float-name{font-size:10px;}
+  .hero-float-price{font-size:12px;}
   .contact-inner{grid-template-columns:1fr;}
   .footer-inner{grid-template-columns:1fr 1fr;}
   .wa-float-label{display:none;}
@@ -313,19 +330,19 @@ img{max-width:100%;display:block;}
   .btn-wa-nav{padding:7px 10px;}
   .btn-cart-nav{padding:7px 10px;font-size:12px;}
   .btn-quote-nav{display:none;}
-  .carousel{height:clamp(100px,28vw,180px);margin-top:56px;}
-  .slide-content{padding:0 16px;}
-  .slide-title{font-size:22px;}
-  .slide-desc{font-size:13px;margin-bottom:20px;}
-  .slide-btn{padding:11px 22px;font-size:14px;}
+  .hero-premium{min-height:420px;margin-top:56px;}
+  .hero-title{font-size:26px;}
+  .hero-subtitle{font-size:13px;}
+  .hero-trust-row{gap:12px;}
+  .hero-trust-item{font-size:11px;}
+  .hero-scooter-img,.hero-scooter-fallback{width:160px;}
+  .hero-float-card{padding:6px 8px;gap:6px;}
+  .hero-float-icon{font-size:16px;}
   .section-title{font-size:22px;}
   .footer-inner{grid-template-columns:1fr;gap:28px;}
   .footer-bottom{flex-direction:column;text-align:center;}
   .dealer-banner h2{font-size:22px;}
   .cart-sidebar{width:100vw;}
-  .carousel-prev{left:8px;width:38px;height:38px;}
-  .carousel-next{right:8px;width:38px;height:38px;}
-  .slide-badge{font-size:11px;padding:4px 10px;}
 }
 </style>
 </head>
@@ -351,7 +368,6 @@ img{max-width:100%;display:block;}
           <i class="ti ti-shopping-cart"></i> Cart
           <span class="cart-badge" id="cartBadge">0</span>
         </button>
-        <a href="https://wa.me/918778657912?text=Hi%20Eco%20Connex!" class="btn-wa-nav" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i><span>WhatsApp</span></a>
         <button class="btn-quote-nav" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Quote</button>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="ti ti-menu-2"></i></button>
@@ -369,54 +385,34 @@ img{max-width:100%;display:block;}
   <a href="https://wa.me/918778657912" target="_blank" style="color:#25D366;" onclick="closeMobile()"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
 </div>
 
-<!-- HERO CAROUSEL -->
-<section class="carousel" id="home" aria-label="Hero carousel">
-  <div class="carousel-track" id="carouselTrack">
-
-    <!-- Slide 1 -->
-    <div class="carousel-slide slide-1 active">
-      <div class="slide-bg"></div>
-      <div class="slide-overlay"></div>
-      <div class="slide-content">
-        <div class="slide-badge"><span style="width:6px;height:6px;background:var(--orange);border-radius:50%;animation:pulse 2s infinite;display:inline-block;"></span> Tiruvannamalai's #1 EV Parts Store</div>
-        <h1 class="slide-title">Premium EV<br><span>Spare Parts</span></h1>
-        <p class="slide-desc">High-quality genuine EV spare parts for all major electric scooters and bikes across Tamil Nadu.</p>
-        <button class="slide-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})"><i class="ti ti-packages"></i> Shop Now</button>
+<!-- HERO -->
+<section class="hero-premium" id="home" aria-label="Hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="container hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge"><span class="hero-badge-dot"></span> Tiruvannamalai's Trusted EV Spare Parts Store</div>
+      <h1 class="hero-title">Premium EV<br><span>Spare Parts</span></h1>
+      <p class="hero-subtitle">Genuine batteries, motors, controllers &amp; chargers for every electric bike — fast delivery across Tamil Nadu.</p>
+      <div class="hero-btns">
+        <button class="btn-orange" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})"><i class="ti ti-packages"></i> Shop Now</button>
+        <button class="btn-outline-light" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><i class="ti ti-mail"></i> Contact Us</button>
+      </div>
+      <div class="hero-trust-row">
+        <div class="hero-trust-item"><i class="ti ti-shield-check"></i> Genuine Parts</div>
+        <div class="hero-trust-item"><i class="ti ti-truck-delivery"></i> Fast Delivery</div>
+        <div class="hero-trust-item"><i class="ti ti-file-invoice"></i> GST Billing</div>
+        <div class="hero-trust-item"><i class="ti ti-headset"></i> Technical Support</div>
       </div>
     </div>
-
-    <!-- Slide 2 -->
-    <div class="carousel-slide slide-2">
-      <div class="slide-bg"></div>
-      <div class="slide-overlay"></div>
-      <div class="slide-content">
-        <div class="slide-badge"><span style="width:6px;height:6px;background:var(--orange);border-radius:50%;animation:pulse 2s infinite;display:inline-block;"></span> Wide Range Available</div>
-        <h1 class="slide-title">Lithium Battery<br><span>Chargers</span></h1>
-        <p class="slide-desc">Wide range of smart chargers with overcharge protection and warranty. All voltages available.</p>
-        <button class="slide-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})"><i class="ti ti-bolt"></i> View Products</button>
-      </div>
+    <div class="hero-right">
+      <img src="scooter.png" alt="EV Scooter" class="hero-scooter-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="hero-scooter-fallback"><i class="ti ti-scooter-electric"></i></div>
+      <div class="hero-float-card card-1"><span class="hero-float-icon">🔋</span><div><div class="hero-float-name">Battery</div><div class="hero-float-price">₹3,500</div></div></div>
+      <div class="hero-float-card card-2"><span class="hero-float-icon">⚙️</span><div><div class="hero-float-name">Motor</div><div class="hero-float-price">₹2,800</div></div></div>
+      <div class="hero-float-card card-3"><span class="hero-float-icon">🔌</span><div><div class="hero-float-name">Charger</div><div class="hero-float-price">₹650</div></div></div>
+      <div class="hero-float-card card-4"><span class="hero-float-icon">🛞</span><div><div class="hero-float-name">Brake Kit</div><div class="hero-float-price">₹150</div></div></div>
     </div>
-
-    <!-- Slide 3 -->
-    <div class="carousel-slide slide-3">
-      <div class="slide-bg"></div>
-      <div class="slide-overlay"></div>
-      <div class="slide-content">
-        <div class="slide-badge"><span style="width:6px;height:6px;background:var(--orange);border-radius:50%;animation:pulse 2s infinite;display:inline-block;"></span> Wholesale Pricing Available</div>
-        <h1 class="slide-title">Dealer<br><span>Registration</span></h1>
-        <p class="slide-desc">Become an Eco Connex dealer and grow your EV business with exclusive wholesale pricing and GST billing.</p>
-        <button class="slide-btn" onclick="document.getElementById('dealer').scrollIntoView({behavior:'smooth'})"><i class="ti ti-certificate"></i> Register Now</button>
-      </div>
-    </div>
-
-  </div>
-
-  <button class="carousel-prev" onclick="changeSlide(-1)" aria-label="Previous slide"><i class="ti ti-chevron-left"></i></button>
-  <button class="carousel-next" onclick="changeSlide(1)" aria-label="Next slide"><i class="ti ti-chevron-right"></i></button>
-  <div class="carousel-dots" id="carouselDots">
-    <button class="dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
-    <button class="dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
-    <button class="dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
   </div>
 </section>
 
@@ -792,34 +788,6 @@ var counters=document.querySelectorAll('.counter');
 var cObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var el=e.target,t=parseInt(el.getAttribute('data-target')),step=t/90,c=0;var timer=setInterval(function(){c=Math.min(c+step,t);el.textContent=Math.floor(c)+'+';if(c>=t)clearInterval(timer);},16);cObs.unobserve(el);}});},{threshold:0.5});
 counters.forEach(function(el){cObs.observe(el);});
 
-// ── CAROUSEL ──
-var currentSlide=0;var totalSlides=3;var autoSlide;
-var track=document.getElementById('carouselTrack');
-var dots=document.querySelectorAll('.dot');
-var slides=document.querySelectorAll('.carousel-slide');
-
-function goToSlide(n){
-  slides[currentSlide].classList.remove('active');
-  dots[currentSlide].classList.remove('active');
-  currentSlide=(n+totalSlides)%totalSlides;
-  track.style.transform='translateX(-'+currentSlide*100+'%)';
-  slides[currentSlide].classList.add('active');
-  dots[currentSlide].classList.add('active');
-}
-function changeSlide(dir){goToSlide(currentSlide+dir);}
-function startAuto(){autoSlide=setInterval(function(){goToSlide(currentSlide+1);},5000);}
-function stopAuto(){clearInterval(autoSlide);}
-startAuto();
-
-var carousel=document.querySelector('.carousel');
-carousel.addEventListener('mouseenter',stopAuto);
-carousel.addEventListener('mouseleave',startAuto);
-
-// Swipe support
-var touchStartX=0;
-carousel.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX;},{passive:true});
-carousel.addEventListener('touchend',function(e){var diff=touchStartX-e.changedTouches[0].clientX;if(Math.abs(diff)>50){changeSlide(diff>0?1:-1);}});
-
 // ── CART ──
 var cart=[];
 
@@ -932,8 +900,9 @@ function handleEnquiry(e){
   document.getElementById('formView').style.display='none';
   document.getElementById('successBox').style.display='block';
   var waText='Hi Eco Connex! I am '+name+' from '+city+'. I need: '+part+(msg?'. Details: '+msg:'')+'. My number: '+phone;
-  setTimeout(function(){window.open('https://wa.me/918778657912?text='+encodeURIComponent(waText),'_blank');},1500);
+  setTimeout(function(){window.open('https://wa.me/918778657912?text='+encodeURIComponent(waText),'_blank');},1500); 
 }
 </script>
 </body>
 </html>
+
