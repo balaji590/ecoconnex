@@ -155,6 +155,9 @@
     const q = input.value.trim();
     clearBtn.style.display = q ? "block" : "none";
     runSearch(q);
+    if (typeof window.EcoConnex.onHeaderSearchChange === "function") {
+      window.EcoConnex.onHeaderSearchChange(q);
+    }
   }, DEBOUNCE_MS);
 
   /* ---------- Event wiring ---------- */

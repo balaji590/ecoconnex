@@ -138,6 +138,82 @@ window.EcoConnex = window.EcoConnex || {};
 
   const POPULAR_SEARCHES = ["Battery", "Charger", "Motor", "Controller", "Brake Pad"];
 
+  /* ============================================================
+     CATEGORY GROUPS — maps the granular product categories
+     (throttle, disc, wiring, etc.) into the simplified nav
+     taxonomy shown in the homepage category bar.
+     To add/rename a homepage category: edit this list only.
+     ============================================================ */
+  const CATEGORY_GROUPS = [
+    { id: "all", label: "All Products", icon: "ti-apps", categories: null },
+    { id: "batteries", label: "Batteries", icon: "ti-battery-4", categories: ["battery", "batteries"] },
+    { id: "chargers", label: "Chargers", icon: "ti-plug", categories: ["charger"] },
+    { id: "motors", label: "Motors", icon: "ti-engine", categories: ["motor"] },
+    { id: "controllers", label: "Controllers", icon: "ti-cpu", categories: ["controller", "dc-converter", "mcb"] },
+    { id: "brake-parts", label: "Brake Parts", icon: "ti-disc", categories: ["brakes", "disc"] },
+    { id: "accessories", label: "Accessories", icon: "ti-adjustments", categories: ["mirrors", "lights", "led", "switches", "sensor", "locks", "throttle"] },
+    { id: "cables", label: "Cables", icon: "ti-cable", categories: ["wiring", "connector", "electrical"] },
+    { id: "body-parts", label: "Body Parts", icon: "ti-car", categories: ["body", "bearing"] }
+  ];
+
+  const _catToGroup = {};
+  CATEGORY_GROUPS.forEach(function (g) {
+    if (g.categories) g.categories.forEach(function (c) { _catToGroup[c] = g.id; });
+  });
+
+  function getGroupIdForCategory(category) {
+    return _catToGroup[category] || "accessories";
+  }
+
+  /* ============================================================
+     GENERIC FILTER PIPELINE — future-ready architecture.
+     Register a new filter once with registerFilter(name, fn);
+     it is then automatically combined with every other active
+     filter by applyFilters(). No existing filter code needs to
+     change when a new filter (Brand, Price, Voltage, Vehicle
+     Model, ...) is added.
+     ============================================================ */
+  const _filterRegistry = {};
+
+  function registerFilter(name, predicateFn) {
+    _filterRegistry[name] = predicateFn;
+  }
+
+  function applyFilters(products, activeFilters) {
+    const keys = Object.keys(activeFilters || {}).filter(function (k) {
+      const v = activeFilters[k];
+      return v !== null && v !== undefined && v !== "" && v !== "all";
+    });
+    if (!keys.length) return products.slice();
+    return products.filter(function (p) {
+      return keys.every(function (k) {
+        const fn = _filterRegistry[k];
+        return fn ? fn(p, activeFilters[k]) : true;
+      });
+    });
+  }
+
+  // Built-in filters
+  registerFilter("categoryGroup", function (p, groupId) {
+    return getGroupIdForCategory(p.category) === groupId;
+  });
+  registerFilter("search", function (p, query) {
+    const q = (query || "").toLowerCase().trim();
+    if (!q) return true;
+    return (
+      p.name.toLowerCase().indexOf(q) !== -1 ||
+      p.sku.toLowerCase().indexOf(q) !== -1 ||
+      p.category.toLowerCase().indexOf(q) !== -1 ||
+      (p.categoryLabel || "").toLowerCase().indexOf(q) !== -1 ||
+      p.brand.toLowerCase().indexOf(q) !== -1 ||
+      (p.keywords || []).some(function (k) { return k.indexOf(q) !== -1; })
+    );
+  });
+  // Example future filters (inactive until UI sets them):
+  // registerFilter('brand', function(p, brand){ return p.brand === brand; });
+  // registerFilter('maxPrice', function(p, max){ return p.price != null && p.price <= max; });
+  // registerFilter('voltage', function(p, v){ return (p.keywords||[]).indexOf(v) !== -1; });
+
   ns.loadProducts = loadProducts;
   ns.getProductById = getProductById;
   ns.getByCategory = getByCategory;
@@ -147,4 +223,8 @@ window.EcoConnex = window.EcoConnex || {};
   ns.getRecentSearches = getRecentSearches;
   ns.addRecentSearch = addRecentSearch;
   ns.POPULAR_SEARCHES = POPULAR_SEARCHES;
+  ns.CATEGORY_GROUPS = CATEGORY_GROUPS;
+  ns.getGroupIdForCategory = getGroupIdForCategory;
+  ns.registerFilter = registerFilter;
+  ns.applyFilters = applyFilters;
 })(window.EcoConnex);

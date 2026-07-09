@@ -162,6 +162,25 @@ img{max-width:100%;display:block;}
 .product-price{font-size:18px;font-weight:800;color:var(--orange-dark);margin-bottom:14px;}
 .product-price span{font-size:12px;font-weight:400;color:var(--gray-400);}
 .product-actions{display:flex;gap:8px;}
+
+/* CATEGORY NAV */
+.category-nav{margin-bottom:40px;}
+.category-scroll{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin;}
+.category-scroll::-webkit-scrollbar{height:5px;}
+.category-scroll::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:6px;}
+.category-pill{display:flex;align-items:center;gap:7px;flex-shrink:0;background:var(--black);color:rgba(255,255,255,0.75);border:1.5px solid transparent;padding:10px 18px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background 0.2s ease,color 0.2s ease,border-color 0.2s ease,transform 0.15s ease;}
+.category-pill i{font-size:16px;}
+.category-pill .cat-count{font-size:11px;font-weight:600;opacity:0.6;}
+.category-pill:hover{background:#1a1a1a;transform:translateY(-2px);}
+.category-pill.active{background:var(--orange);color:#fff;border-color:var(--orange-dark);}
+.category-pill.active .cat-count{opacity:0.85;}
+.products-grid-wrap{position:relative;min-height:120px;}
+.products-grid.filtering{opacity:0;transition:opacity 0.2s ease;}
+.products-grid.filtered-in{opacity:1;transition:opacity 0.2s ease;}
+.products-empty{display:none;text-align:center;padding:70px 20px;color:var(--gray-400);}
+.products-empty.show{display:block;}
+.products-empty i{font-size:44px;display:block;margin-bottom:14px;color:var(--gray-200);}
+.products-empty p{font-size:15px;font-weight:600;color:var(--gray-500);}
 .btn-add-cart{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--orange);color:#fff;padding:9px 12px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
 .btn-add-cart:hover{background:var(--orange-dark);}
 .btn-wa-product{display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:#fff;padding:9px 12px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;}
@@ -364,6 +383,8 @@ img{max-width:100%;display:block;}
   .contact-inner{grid-template-columns:1fr;}
   .footer-inner{grid-template-columns:1fr 1fr;}
   .wa-float-label{display:none;}
+  .category-pill{padding:8px 14px;font-size:12px;}
+  .category-nav{margin-bottom:28px;}
 }
 @media(max-width:600px){
   .nav{padding:8px 0;}
@@ -497,94 +518,22 @@ img{max-width:100%;display:block;}
       <div class="eyebrow">Our Catalog</div>
       <h2 class="section-title">EV Spare Parts</h2>
       <p class="section-sub">Quality-tested genuine parts — add to cart and order via WhatsApp!</p>
-      <a href="products.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:var(--black);color:#fff;padding:11px 24px;border-radius:10px;font-size:14px;font-weight:600;transition:background 0.2s;" onmouseover="this.style.background='var(--orange-dark)'" onmouseout="this.style.background='var(--black)'"><i class="ti ti-packages"></i> View All 138+ Products</a>
     </div>
-    <div class="products-grid">
 
-      <article class="product-card fade-up">
-        <div class="product-img">🔋<span class="product-badge">Popular</span></div>
-        <div class="product-body">
-          <h3 class="product-name">Lithium Battery Pack</h3>
-          <p class="product-desc">High-capacity lithium cells for extended range and longer life.</p>
-          <span class="product-compat">48V / 60V · All brands</span>
-          <div class="product-price">₹3,500 <span>/ unit</span></div>
-          <div class="product-actions">
-            <button class="btn-add-cart" onclick="addToCart('Lithium Battery Pack','LBP-001',3500,'🔋')"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>
-            <button class="btn-wa-product" onclick="waEnquiry('Lithium Battery Pack')"><i class="ti ti-brand-whatsapp"></i></button>
-          </div>
-        </div>
-      </article>
+    <div class="category-nav" id="categoryNav">
+      <div class="category-scroll" id="categoryScroll"></div>
+    </div>
 
-      <article class="product-card fade-up" style="transition-delay:0.05s">
-        <div class="product-img">⚙️<span class="product-badge">Top Seller</span></div>
-        <div class="product-body">
-          <h3 class="product-name">BLDC Hub Motor</h3>
-          <p class="product-desc">Brushless DC motors for smooth, efficient torque delivery.</p>
-          <span class="product-compat">250W – 1500W · All types</span>
-          <div class="product-price">₹2,800 <span>/ unit</span></div>
-          <div class="product-actions">
-            <button class="btn-add-cart" onclick="addToCart('BLDC Hub Motor','BHM-001',2800,'⚙️')"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>
-            <button class="btn-wa-product" onclick="waEnquiry('BLDC Hub Motor')"><i class="ti ti-brand-whatsapp"></i></button>
-          </div>
-        </div>
-      </article>
+    <div class="products-grid-wrap">
+      <div class="products-grid filtered-in" id="homeProductsGrid"></div>
+      <div class="products-empty" id="homeProductsEmpty">
+        <i class="ti ti-package-off"></i>
+        <p>No products available in this category.</p>
+      </div>
+    </div>
 
-      <article class="product-card fade-up" style="transition-delay:0.1s">
-        <div class="product-img">🖥️</div>
-        <div class="product-body">
-          <h3 class="product-name">Motor Controller</h3>
-          <p class="product-desc">Programmable controllers for precise speed and power management.</p>
-          <span class="product-compat">All capacities · Universal</span>
-          <div class="product-price">₹850 <span>/ unit</span></div>
-          <div class="product-actions">
-            <button class="btn-add-cart" onclick="addToCart('Motor Controller','MC-001',850,'🖥️')"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>
-            <button class="btn-wa-product" onclick="waEnquiry('Motor Controller')"><i class="ti ti-brand-whatsapp"></i></button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card fade-up" style="transition-delay:0.15s">
-        <div class="product-img">🔌</div>
-        <div class="product-body">
-          <h3 class="product-name">Smart Charger</h3>
-          <p class="product-desc">Fast-charging units with overcharge protection and LED indicators.</p>
-          <span class="product-compat">Standard & smart · All V</span>
-          <div class="product-price">₹650 <span>/ unit</span></div>
-          <div class="product-actions">
-            <button class="btn-add-cart" onclick="addToCart('Smart Charger','SC-001',650,'🔌')"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>
-            <button class="btn-wa-product" onclick="waEnquiry('Smart Charger')"><i class="ti ti-brand-whatsapp"></i></button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card fade-up" style="transition-delay:0.2s">
-        <div class="product-img">📊</div>
-        <div class="product-body">
-          <h3 class="product-name">Throttle & Display</h3>
-          <p class="product-desc">Digital LCD/LED displays and twist throttles for all models.</p>
-          <span class="product-compat">LCD / LED · Universal fit</span>
-          <div class="product-price">₹350 <span>/ unit</span></div>
-          <div class="product-actions">
-            <button class="btn-add-cart" onclick="addToCart('Throttle & Display','TD-001',350,'📊')"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>
-            <button class="btn-wa-product" onclick="waEnquiry('Throttle & Display')"><i class="ti ti-brand-whatsapp"></i></button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card fade-up" style="transition-delay:0.25s">
-        <div class="product-img">🛞</div>
-        <div class="product-body">
-          <h3 class="product-name">Brake & Wiring Kit</h3>
-          <p class="product-desc">Complete brake sets and wiring harnesses for safe reliable stops.</p>
-          <span class="product-compat">All major models · OEM grade</span>
-          <div class="product-price">₹150 <span>/ unit</span></div>
-          <div class="product-actions">
-            <button class="btn-add-cart" onclick="addToCart('Brake & Wiring Kit','BWK-001',150,'🛞')"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>
-            <button class="btn-wa-product" onclick="waEnquiry('Brake & Wiring Kit')"><i class="ti ti-brand-whatsapp"></i></button>
-          </div>
-        </div>
-      </article>
-
+    <div style="text-align:center;margin-top:36px;">
+      <a href="products.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--black);color:#fff;padding:11px 24px;border-radius:10px;font-size:14px;font-weight:600;transition:background 0.2s;" onmouseover="this.style.background='var(--orange-dark)'" onmouseout="this.style.background='var(--black)'"><i class="ti ti-packages"></i> View Full Catalog</a>
     </div>
   </div>
 </section>
@@ -824,6 +773,7 @@ img{max-width:100%;display:block;}
 
 <script src="products-data.js"></script>
 <script src="search-widget.js"></script>
+<script src="category-filter.js"></script>
 <script>
 // ── NAV ──
 var navbar=document.getElementById('navbar');
