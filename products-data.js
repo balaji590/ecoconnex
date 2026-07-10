@@ -214,6 +214,45 @@ window.EcoConnex = window.EcoConnex || {};
   // registerFilter('maxPrice', function(p, max){ return p.price != null && p.price <= max; });
   // registerFilter('voltage', function(p, v){ return (p.keywords||[]).indexOf(v) !== -1; });
 
+  /* ---- Recently viewed products (localStorage) ---- */
+  const VIEWED_KEY = "ecoconnex_recently_viewed";
+  const VIEWED_MAX = 6;
+
+  function getRecentlyViewed() {
+    try {
+      const raw = localStorage.getItem(VIEWED_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+
+  function addRecentlyViewed(id) {
+    id = Number(id);
+    try {
+      let list = getRecentlyViewed().filter(function (x) { return x !== id; });
+      list.unshift(id);
+      list = list.slice(0, VIEWED_MAX);
+      localStorage.setItem(VIEWED_KEY, JSON.stringify(list));
+    } catch (e) { /* ignore */ }
+  }
+
+  /**
+   * Returns up to `limit` related products from the same category
+   * group as `product`. If fewer than `limit` exist in that group,
+   * fills the remainder with other popular/available products.
+   */
+  function getRelatedProducts(products, product, limit) {
+    limit = limit || 4;
+    const groupId = getGroupIdForCategory(product.category);
+    const sameGroup = products.filter(function (p) {
+      return p.id !== product.id && getGroupIdForCategory(p.category) === groupId;
+    });
+    if (sameGroup.length >= limit) return sameGroup.slice(0, limit);
+    const fillers = products.filter(function (p) {
+      return p.id !== product.id && sameGroup.indexOf(p) === -1;
+    });
+    return sameGroup.concat(fillers).slice(0, limit);
+  }
+
   ns.loadProducts = loadProducts;
   ns.getProductById = getProductById;
   ns.getByCategory = getByCategory;
@@ -227,4 +266,7 @@ window.EcoConnex = window.EcoConnex || {};
   ns.getGroupIdForCategory = getGroupIdForCategory;
   ns.registerFilter = registerFilter;
   ns.applyFilters = applyFilters;
+  ns.getRecentlyViewed = getRecentlyViewed;
+  ns.addRecentlyViewed = addRecentlyViewed;
+  ns.getRelatedProducts = getRelatedProducts;
 })(window.EcoConnex);

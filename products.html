@@ -284,7 +284,7 @@ function cardHtml(p) {
   var hasPrice = typeof p.price === 'number' && p.price > 0;
   var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, icon: p.image }));
   return (
-    '<div class="product-card" id="product-' + p.id + '" data-cat="' + p.category + '" data-name="' + window.EcoConnex.escapeHtml(p.name.toLowerCase()) + '" data-sku="' + p.sku + '">' +
+    '<div class="product-card" id="product-' + p.id + '" data-cat="' + p.category + '" data-name="' + window.EcoConnex.escapeHtml(p.name.toLowerCase()) + '" data-sku="' + p.sku + '" onclick="if(!event.target.closest(\'button\')&&!event.target.closest(\'a\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
       '<div class="product-img">' + p.image +
         '<span class="stock-badge ' + stockClass(p.stock) + '">' + window.EcoConnex.escapeHtml(p.stock) + '</span>' +
         '<span class="cat-badge">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + '</span>' +
@@ -399,10 +399,24 @@ function checkoutViaWhatsApp() {
   window.open('https://wa.me/918778657912?text=' + encodeURIComponent(msg), '_blank');
 }
 
+function applyCategoryFromUrl() {
+  var params = new URLSearchParams(window.location.search);
+  var cat = params.get('category');
+  if (!cat) return;
+  var btns = document.querySelectorAll('.filter-btn');
+  for (var i = 0; i < btns.length; i++) {
+    if (btns[i].getAttribute('onclick').indexOf("'" + cat + "'") !== -1) {
+      setFilter(cat, btns[i]);
+      return;
+    }
+  }
+}
+
 window.EcoConnex.loadProducts().then(function (products) {
   ALL_PRODUCTS = products;
   renderProducts(products);
   document.getElementById('resultCount').textContent = products.length;
+  applyCategoryFromUrl();
   highlightFromSearch();
 });
 </script>

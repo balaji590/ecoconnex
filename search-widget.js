@@ -134,7 +134,7 @@
 
   function goToProduct(id, query) {
     if (query) window.EcoConnex.addRecentSearch(query);
-    window.location.href = "products.html?highlight=" + encodeURIComponent(id);
+    window.location.href = "product.html?id=" + encodeURIComponent(id);
   }
 
   /* ---------- Search execution ---------- */

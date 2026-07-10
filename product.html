@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title id="pageTitle">Product Details – Eco Connex</title>
+  <meta name="description" id="pageDesc" content="Genuine EV spare parts at Eco Connex, Tiruvannamalai. Fast delivery across Tamil Nadu."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+:root{
+  --orange:#f97316;--orange-dark:#ea580c;--orange-light:#fed7aa;
+  --black:#0a0a0a;--black-2:#111111;
+  --gray-900:#111827;--gray-700:#374151;--gray-500:#6b7280;--gray-400:#9ca3af;--gray-200:#e5e7eb;--gray-100:#f3f4f6;--gray-50:#f9fafb;
+  --white:#ffffff;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.05);--shadow-md:0 4px 16px rgba(0,0,0,0.1);--shadow-lg:0 8px 32px rgba(0,0,0,0.15);
+  --radius:12px;--radius-sm:8px;--radius-lg:18px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:#f9fafb;color:var(--gray-900);line-height:1.6;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* NAV (reused from Product Catalog / Homepage header) */
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(249,115,22,0.15);padding:12px 0;}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{height:44px;width:auto;object-fit:contain;}
+.nav-brand{color:#fff;}
+.nav-brand-name{font-size:17px;font-weight:700;color:#fff;line-height:1;}
+.nav-brand-sub{font-size:10px;color:var(--orange);font-weight:400;margin-top:2px;}
+.nav-back{display:flex;align-items:center;gap:6px;color:#ccc;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;background:rgba(255,255,255,0.06);transition:all 0.2s;}
+.nav-back:hover{color:#fff;background:rgba(255,255,255,0.12);}
+.nav-wa{display:flex;align-items:center;gap:6px;background:#25D366;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;transition:background 0.2s;}
+.nav-wa:hover{background:#1da851;}
+.nav-cart-btn{position:relative;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;}
+.nav-cart-btn:hover{background:rgba(255,255,255,0.12);}
+.nav-actions-group{display:flex;align-items:center;gap:10px;}
+.cart-badge{background:var(--orange);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 4px;}
+
+/* BREADCRUMB */
+.breadcrumb{max-width:1200px;margin:0 auto;padding:16px 24px 0;font-size:12.5px;color:var(--gray-500);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.breadcrumb a{color:var(--gray-500);transition:color 0.2s;}
+.breadcrumb a:hover{color:var(--orange-dark);}
+.breadcrumb i{font-size:12px;color:var(--gray-400);}
+.breadcrumb .current{color:var(--gray-900);font-weight:600;}
+
+/* PDP LAYOUT */
+.pdp-wrap{max-width:1200px;margin:0 auto;padding:20px 24px 60px;}
+.pdp-grid{display:grid;grid-template-columns:440px 1fr;gap:44px;}
+.pdp-gallery{position:sticky;top:80px;align-self:start;}
+.pdp-image-frame{background:linear-gradient(135deg,#fff7ed,#fed7aa);border-radius:var(--radius-lg);border:1px solid var(--gray-200);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:180px;overflow:hidden;cursor:zoom-in;position:relative;}
+.pdp-image-frame .emoji-fallback{transition:transform 0.35s ease;}
+.pdp-image-frame:hover .emoji-fallback{transform:scale(1.12);}
+.pdp-image-frame.zoomed .emoji-fallback{transform:scale(1.5);}
+.pdp-thumbs{display:flex;gap:10px;margin-top:12px;}
+.pdp-thumb{width:64px;height:64px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;transition:border-color 0.2s;}
+.pdp-thumb.active{border-color:var(--orange);}
+
+.pdp-info-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.pdp-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:0.4px;}
+.pdp-badge.cat{background:var(--gray-100);color:var(--gray-700);}
+.pdp-badge.stock.in-stock{background:#dcfce7;color:#16a34a;}
+.pdp-badge.stock.low{background:#fef9c3;color:#854d0e;}
+.pdp-badge.stock.enquire{background:#dbeafe;color:#1d4ed8;}
+.pdp-title{font-size:26px;font-weight:800;color:var(--gray-900);margin-bottom:8px;line-height:1.3;}
+.pdp-meta-row{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--gray-500);margin-bottom:18px;}
+.pdp-meta-row span strong{color:var(--gray-700);font-weight:600;}
+.pdp-price-block{margin-bottom:18px;}
+.pdp-price{font-size:32px;font-weight:800;color:var(--orange-dark);}
+.pdp-price.call{font-size:20px;color:var(--gray-600);}
+.pdp-desc{font-size:14px;color:var(--gray-700);margin-bottom:22px;line-height:1.7;}
+
+.pdp-qty-row{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+.pdp-qty{display:flex;align-items:center;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;}
+.pdp-qty button{width:40px;height:40px;background:var(--gray-50);border:none;font-size:18px;cursor:pointer;color:var(--gray-700);transition:background 0.2s;}
+.pdp-qty button:hover{background:var(--gray-100);}
+.pdp-qty-num{width:48px;text-align:center;font-size:15px;font-weight:700;}
+.pdp-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;}
+.btn-pdp-cart{flex:1;min-width:180px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;padding:14px 20px;border-radius:var(--radius);font-size:14.5px;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
+.btn-pdp-cart:hover{background:var(--orange-dark);}
+.btn-pdp-cart.added{background:#16a34a;}
+.btn-pdp-wa{flex:1;min-width:180px;display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:14px 20px;border-radius:var(--radius);font-size:14.5px;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
+.btn-pdp-wa:hover{background:#1da851;}
+.pdp-trust-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:18px;padding-top:18px;border-top:1px solid var(--gray-200);font-size:12px;color:var(--gray-500);}
+.pdp-trust-row span{display:flex;align-items:center;gap:6px;}
+.pdp-trust-row i{color:var(--orange);font-size:15px;}
+
+/* DESCRIPTION SECTIONS */
+.pdp-sections{margin-top:48px;display:grid;gap:20px;}
+.pdp-section-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:24px 26px;}
+.pdp-section-card h3{font-size:15px;font-weight:700;color:var(--gray-900);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.pdp-section-card h3 i{color:var(--orange);font-size:18px;}
+.pdp-section-card p{font-size:13.5px;color:var(--gray-700);line-height:1.7;}
+.pdp-spec-table{width:100%;border-collapse:collapse;font-size:13px;}
+.pdp-spec-table tr{border-bottom:1px solid var(--gray-100);}
+.pdp-spec-table tr:last-child{border-bottom:none;}
+.pdp-spec-table td{padding:9px 0;}
+.pdp-spec-table td:first-child{color:var(--gray-500);width:40%;}
+.pdp-spec-table td:last-child{color:var(--gray-900);font-weight:600;}
+.pdp-feature-list{list-style:none;display:grid;gap:10px;}
+.pdp-feature-list li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--gray-700);}
+.pdp-feature-list i{color:#16a34a;font-size:16px;margin-top:2px;flex-shrink:0;}
+
+/* RELATED / RECENTLY VIEWED */
+.pdp-strip{margin-top:48px;}
+.pdp-strip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.pdp-strip-header h3{font-size:18px;font-weight:800;color:var(--gray-900);}
+.pdp-strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.mini-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:all 0.25s ease;display:flex;flex-direction:column;}
+.mini-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
+.mini-card-img{height:110px;background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:42px;}
+.mini-card-body{padding:12px;}
+.mini-card-name{font-size:12.5px;font-weight:600;color:var(--gray-900);margin-bottom:6px;line-height:1.4;height:34px;overflow:hidden;}
+.mini-card-price{font-size:14px;font-weight:800;color:var(--orange-dark);}
+.mini-card-price.call{font-size:11.5px;color:var(--gray-500);font-weight:500;}
+
+/* CART SIDEBAR (reused) */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;opacity:0;visibility:hidden;transition:opacity 0.25s ease,visibility 0.25s ease;}
+.cart-overlay.open{opacity:1;visibility:visible;}
+.cart-sidebar{position:fixed;top:0;right:0;bottom:0;width:380px;max-width:92vw;background:#fff;z-index:1001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.3s ease;box-shadow:-8px 0 30px rgba(0,0,0,0.15);}
+.cart-sidebar.open{transform:translateX(0);}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--gray-200);}
+.cart-header h3{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.cart-close{background:var(--gray-100);border:none;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;color:var(--gray-700);}
+.cart-items{flex:1;overflow-y:auto;padding:16px 20px;}
+.cart-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--gray-100);}
+.cart-item-icon{width:44px;height:44px;flex-shrink:0;background:#fff7ed;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.cart-item-info{flex:1;min-width:0;}
+.cart-item-name{font-size:13px;font-weight:600;color:var(--gray-900);}
+.cart-item-price{font-size:12px;color:var(--gray-500);margin-top:2px;}
+.cart-item-qty{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.qty-btn{width:22px;height:22px;border-radius:5px;border:1px solid var(--gray-200);background:#fff;cursor:pointer;font-size:14px;line-height:1;}
+.qty-num{font-size:12px;font-weight:600;min-width:16px;text-align:center;}
+.cart-item-remove{background:none;border:none;color:var(--gray-400);cursor:pointer;font-size:16px;flex-shrink:0;}
+.cart-item-remove:hover{color:#dc2626;}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--gray-400);}
+.cart-empty i{font-size:40px;display:block;margin-bottom:12px;}
+.cart-footer{padding:16px 20px;border-top:1px solid var(--gray-200);}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700;margin-bottom:12px;}
+.btn-cart-checkout{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:13px;border-radius:var(--radius);font-size:14px;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
+.btn-cart-checkout:hover{background:#1da851;}
+.cart-price-note{display:flex;align-items:center;gap:8px;background:#fff7ed;border:1px solid var(--orange-light);color:var(--orange-dark);font-size:11.5px;font-weight:600;padding:9px 12px;border-radius:var(--radius-sm);margin-bottom:12px;}
+.cart-price-note i{font-size:15px;flex-shrink:0;}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:998;}
+.wa-float-btn{width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);transition:transform 0.2s;}
+.wa-float-btn:hover{transform:scale(1.08);}
+.wa-float-btn i{font-size:26px;color:#fff;}
+
+/* FOOTER */
+.footer{background:var(--black);padding:24px;text-align:center;border-top:1px solid rgba(249,115,22,0.1);}
+.footer p{font-size:13px;color:#4b5563;}
+.footer a{color:var(--orange);}
+
+.pdp-loading{text-align:center;padding:100px 20px;color:var(--gray-400);}
+.pdp-loading i{font-size:36px;display:block;margin-bottom:12px;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media(max-width:900px){
+  .pdp-grid{grid-template-columns:1fr;gap:28px;}
+  .pdp-gallery{position:static;}
+  .pdp-image-frame{font-size:130px;}
+  .pdp-strip-grid{grid-template-columns:repeat(2,1fr);}
+  .nav-cart-btn span:not(.cart-badge){display:none;}
+}
+@media(max-width:600px){
+  .nav-brand-name{font-size:14px;}
+  .nav-logo img{height:34px;}
+  .nav-inner{gap:8px;}
+  .nav-back span,.nav-back{font-size:12px;padding:7px 10px;}
+  .nav-cart-btn{padding:7px 10px;font-size:0;gap:0;}
+  .nav-cart-btn i{font-size:16px;}
+  .cart-sidebar{width:100vw;max-width:100vw;}
+  .pdp-title{font-size:21px;}
+  .pdp-price{font-size:26px;}
+  .pdp-actions{flex-direction:column;}
+  .pdp-strip-grid{grid-template-columns:repeat(2,1fr);}
+  .breadcrumb{font-size:11.5px;padding:12px 16px 0;}
+  .pdp-wrap{padding:14px 16px 40px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="Eco Connex Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div style="display:none;width:40px;height:40px;background:var(--orange);border-radius:10px;align-items:center;justify-content:center;"><i class="ti ti-bolt" style="color:#fff;font-size:22px;"></i></div>
+      <div class="nav-brand"><div class="nav-brand-name">Eco Connex</div><div class="nav-brand-sub">EV Spare Parts</div></div>
+    </a>
+    <a href="index.html" class="nav-back"><i class="ti ti-arrow-left"></i> <span>Home</span></a>
+    <div class="nav-actions-group">
+      <button class="nav-cart-btn" onclick="openCart()" aria-label="Shopping Cart"><i class="ti ti-shopping-cart"></i> <span>Cart</span><span class="cart-badge" id="cartBadge">0</span></button>
+      <a href="https://wa.me/918778657912?text=Hi%20Eco%20Connex!%20I%20need%20spare%20parts%20info." class="nav-wa" target="_blank"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb" id="breadcrumb">
+  <a href="index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <a href="products.html">Products</a><i class="ti ti-chevron-right"></i>
+  <span class="current">Loading...</span>
+</div>
+
+<div id="pdpRoot" class="pdp-wrap">
+  <div class="pdp-loading"><i class="ti ti-loader-2"></i>Loading product...</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>&copy; 2025 Eco Connex · Tiruvannamalai, Tamil Nadu · <a href="tel:+918778657912">+91 87786 57912</a> · <a href="index.html">Home</a></p>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3><i class="ti ti-shopping-cart"></i> Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()" aria-label="Close cart"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total-row"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+    <button class="btn-cart-checkout" onclick="checkoutViaWhatsApp()"><i class="ti ti-brand-whatsapp"></i> Checkout via WhatsApp</button>
+  </div>
+</div>
+
+<!-- WA FLOAT -->
+<div class="wa-float">
+  <a href="https://wa.me/918778657912?text=Hi%20Eco%20Connex!%20I%20need%20spare%20parts%20info." class="wa-float-btn" target="_blank"><i class="ti ti-brand-whatsapp"></i></a>
+</div>
+
+<script src="products-data.js"></script>
+<script src="cart.js"></script>
+<script src="product-detail.js"></script>
+
+<script>
+// ── CART UI (identical behaviour to products.html / index.html) ──
+function updateCartUI() {
+  var cart = window.EcoConnex.cart.getCart();
+  var total = window.EcoConnex.cart.getTotal();
+  var count = window.EcoConnex.cart.getCount();
+  var badge = document.getElementById('cartBadge');
+  badge.textContent = count;
+  badge.style.display = count > 0 ? 'flex' : 'none';
+  var container = document.getElementById('cartItems');
+  var footer = document.getElementById('cartFooter');
+  document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty"><i class="ti ti-shopping-cart-off"></i><p>Your cart is empty</p></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  var priceNote = window.EcoConnex.cart.hasCallForPrice()
+    ? '<div class="cart-price-note"><i class="ti ti-info-circle"></i> Price will be confirmed by Eco Connex</div>'
+    : '';
+  container.innerHTML = priceNote + cart.map(function (item) {
+    var priceLine = item.price === null
+      ? 'Call for Price × ' + item.qty
+      : '₹' + item.price.toLocaleString('en-IN') + ' × ' + item.qty + ' = ₹' + (item.price * item.qty).toLocaleString('en-IN');
+    return '<div class="cart-item"><div class="cart-item-icon">' + item.icon + '</div><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">' + priceLine + '</div><div class="cart-item-qty"><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\'' + item.sku + '\')" title="Remove"><i class="ti ti-trash"></i></button></div>';
+  }).join('');
+}
+window.EcoConnex.cart.onChange(updateCartUI);
+
+function openCart() { document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartSidebar').classList.add('open'); }
+function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartSidebar').classList.remove('open'); }
+
+function checkoutViaWhatsApp() {
+  var cart = window.EcoConnex.cart.getCart();
+  if (cart.length === 0) return;
+  var total = window.EcoConnex.cart.getTotal();
+  var itemLines = cart.map(function (item, i) {
+    var priceLine = item.price === null ? 'Price: Call for Price' : 'Price: ₹' + (item.price * item.qty).toLocaleString('en-IN');
+    return (i + 1) + '. ' + item.name + '\n   SKU: ' + item.sku + '\n   Qty: ' + item.qty + '\n   ' + priceLine;
+  }).join('\n\n');
+  var msg = '🛒 *Order from Eco Connex*\n\n*Products:*\n' + itemLines +
+    '\n\n*Total: ₹' + total.toLocaleString('en-IN') + (window.EcoConnex.cart.hasCallForPrice() ? ' + items to confirm' : '') + '*\n\n' +
+    'Please confirm my order and share delivery details. Thank you!';
+  window.open('https://wa.me/918778657912?text=' + encodeURIComponent(msg), '_blank');
+}
+</script>
+</body>
+</html>

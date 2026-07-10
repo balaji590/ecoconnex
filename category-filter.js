@@ -39,7 +39,7 @@
     const actionBtn = '<button class="btn-add-cart" onclick="EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')))" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>';
 
     return (
-      '<article class="product-card" id="home-product-' + p.id + '">' +
+      '<article class="product-card" id="home-product-' + p.id + '" onclick="if(!event.target.closest(\'button\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
         '<div class="product-img">' + p.image + '<span class="product-badge" style="background:' + (stockClass(p.stock) === "in-stock" ? "var(--orange)" : "#6b7280") + '">' + window.EcoConnex.escapeHtml(p.stock) + "</span></div>" +
         '<div class="product-body">' +
           '<h3 class="product-name">' + window.EcoConnex.escapeHtml(p.name) + "</h3>" +
