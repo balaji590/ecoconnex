@@ -130,9 +130,9 @@ function cardHtml(p) {
       '<div class="product-body">' +
         '<div class="product-name">' + window.EcoConnex.escapeHtml(p.name) + '</div>' +
         priceHtml(p) +
-        qtyStepper +
         '<div class="product-actions">' +
-          '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>' +
+          qtyStepper +
+          '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>' +
           '<a href="tel:+918778657912" class="btn-call"><i class="ti ti-phone"></i></a>' +
         '</div>' +
       '</div>' +

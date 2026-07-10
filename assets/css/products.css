@@ -56,7 +56,7 @@ a{text-decoration:none;color:inherit;}
 .product-name{font-size:13px;font-weight:600;color:var(--gray-900);margin-bottom:6px;line-height:1.4;}
 .product-price{font-size:17px;font-weight:800;color:var(--orange-dark);margin-bottom:12px;}
 .product-price.call{font-size:13px;color:var(--gray-500);font-weight:500;}
-.product-actions{display:flex;gap:6px;margin-top:auto;}
+.product-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:auto;}
 .btn-enquire{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;background:var(--orange);color:#fff;padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
 .btn-enquire:hover{background:var(--orange-dark);}
 .btn-call{display:flex;align-items:center;justify-content:center;background:var(--gray-100);color:var(--gray-700);padding:8px 10px;border-radius:var(--radius-sm);font-size:16px;border:none;cursor:pointer;transition:background 0.2s;}
@@ -126,7 +126,7 @@ a{text-decoration:none;color:inherit;}
 .price-savings i{font-size:13px;}
 
 /* ── TILE QTY STEPPER ── */
-.tile-qty{display:flex;align-items:center;gap:0;width:fit-content;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;margin-top:8px;margin-bottom:4px;}
-.tile-qty button{width:26px;height:26px;background:var(--gray-50);border:none;font-size:14px;font-weight:700;color:var(--gray-700);cursor:pointer;transition:background 0.2s;line-height:1;}
+.tile-qty{display:flex;align-items:center;gap:0;flex-shrink:0;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;}
+.tile-qty button{width:22px;height:32px;background:var(--gray-50);border:none;font-size:13px;font-weight:700;color:var(--gray-700);cursor:pointer;transition:background 0.2s;line-height:1;}
 .tile-qty button:hover{background:var(--gray-100);color:var(--orange-dark);}
-.tile-qty-num{min-width:26px;text-align:center;font-size:12px;font-weight:700;color:var(--gray-900);}
+.tile-qty-num{min-width:18px;text-align:center;font-size:11px;font-weight:700;color:var(--gray-900);}
