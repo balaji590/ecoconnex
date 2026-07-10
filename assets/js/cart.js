@@ -44,6 +44,7 @@ window.EcoConnex = window.EcoConnex || {};
         name: item.name,
         sku: item.sku,
         price: typeof item.price === "number" ? item.price : null,
+        mrp: typeof item.mrp === "number" ? item.mrp : null,
         icon: item.icon || "🔧",
         qty: 1
       });

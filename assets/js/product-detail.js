@@ -27,11 +27,15 @@
   }
 
   function priceHtml(p, big) {
-    const cls = big ? "pdp-price" : "mini-card-price";
+    if (big) return EC.renderPriceHtml(p, { sizeClass: "price-lg" });
+    // Compact mini-card variant: selling price + small struck MRP, no savings line
     if (typeof p.price === "number" && p.price > 0) {
-      return '<div class="' + cls + '">₹' + p.price.toLocaleString("en-IN") + "</div>";
+      const offer = EC.getOffer(p);
+      let html = '<span class="mini-card-price">₹' + p.price.toLocaleString("en-IN") + "</span>";
+      if (offer) html += ' <span class="mini-card-mrp">₹' + p.mrp.toLocaleString("en-IN") + "</span>";
+      return html;
     }
-    return '<div class="' + cls + ' call">' + EC.escapeHtml(p.priceDisplay || "Call for Price") + "</div>";
+    return '<span class="mini-card-price call">' + EC.escapeHtml(p.priceDisplay || "Call for Price") + "</span>";
   }
 
   /* ---------- Related / recently-viewed mini cards ---------- */
@@ -186,7 +190,7 @@
 
     const cartBtn = document.getElementById("pdpAddToCart");
     cartBtn.addEventListener("click", function () {
-      const item = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, icon: product.image };
+      const item = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, icon: product.image };
       for (let i = 0; i < qty; i++) window.EcoConnex.cart.addToCart(item);
       window.EcoConnex.showToast("Added to Cart Successfully");
       const prevHtml = cartBtn.innerHTML;
@@ -201,7 +205,15 @@
     });
 
     document.getElementById("pdpBuyWhatsApp").addEventListener("click", function () {
-      const priceLine = hasPrice ? "Price: ₹" + product.price.toLocaleString("en-IN") : "Price: Call for Price";
+      const offer = hasPrice ? window.EcoConnex.getOffer(product) : null;
+      let priceLine;
+      if (!hasPrice) {
+        priceLine = "Price: Call for Price";
+      } else if (offer) {
+        priceLine = "MRP: ₹" + product.mrp.toLocaleString("en-IN") + " (strikethrough)\nPrice: ₹" + product.price.toLocaleString("en-IN") + " (" + offer.percent + "% OFF, you save ₹" + offer.savings.toLocaleString("en-IN") + ")";
+      } else {
+        priceLine = "Price: ₹" + product.price.toLocaleString("en-IN");
+      }
       const msg = "🛒 *Buy Request from Eco Connex Website*\n\n" +
         "Product: " + product.name + "\n" +
         "SKU: " + product.sku + "\n" +

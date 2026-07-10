@@ -87,6 +87,7 @@ a{text-decoration:none;color:inherit;}
 .mini-card-body{padding:12px;}
 .mini-card-name{font-size:12.5px;font-weight:600;color:var(--gray-900);margin-bottom:6px;line-height:1.4;height:34px;overflow:hidden;}
 .mini-card-price{font-size:14px;font-weight:800;color:var(--orange-dark);}
+.mini-card-mrp{font-size:11px;color:var(--gray-400);text-decoration:line-through;font-weight:500;}
 .mini-card-price.call{font-size:11.5px;color:var(--gray-500);font-weight:500;}
 
 /* CART SIDEBAR (reused) */
@@ -137,3 +138,14 @@ a{text-decoration:none;color:inherit;}
   .breadcrumb{font-size:11.5px;padding:12px 16px 0;margin-top:56px;}
   .pdp-wrap{padding:14px 16px 40px;}
 }
+
+/* ── OFFER PRICING SYSTEM ── */
+.price-block{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.price-block.price-lg .price-selling{font-size:32px;}
+.price-block.price-lg .price-mrp{font-size:18px;}
+.price-selling{font-weight:800;color:var(--orange-dark);}
+.price-mrp{font-size:0.78em;color:var(--gray-500);text-decoration:line-through;font-weight:500;}
+.price-off-badge{background:var(--orange);color:#fff;font-size:12px;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:0.2px;}
+.price-call{color:var(--gray-600);font-weight:600;font-size:20px;}
+.price-savings{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#16a34a;margin-top:4px;}
+.price-savings i{font-size:15px;}

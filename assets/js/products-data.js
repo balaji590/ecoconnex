@@ -236,10 +236,51 @@ window.EcoConnex = window.EcoConnex || {};
   }
 
   /**
-   * Returns up to `limit` related products from the same category
-   * group as `product`. If fewer than `limit` exist in that group,
-   * fills the remainder with other popular/available products.
+   * Returns true if a product has a genuine active offer
+   * (numeric MRP strictly greater than the selling price).
    */
+  function hasOffer(p) {
+    return typeof p.mrp === "number" && typeof p.price === "number" && p.mrp > p.price;
+  }
+
+  /**
+   * Returns { savings, percent } for a product with an active offer.
+   * Returns null if there is no genuine offer (mrp missing/equal/lower,
+   * or the product is Call for Price).
+   */
+  function getOffer(p) {
+    if (!hasOffer(p)) return null;
+    const savings = p.mrp - p.price;
+    const percent = Math.round((savings / p.mrp) * 100);
+    return { savings: savings, percent: percent };
+  }
+
+  /**
+   * Renders a consistent MRP / Selling Price / discount-badge block
+   * used by Product Listing, PDP, Cart and WhatsApp Checkout.
+   * opts.sizeClass lets a page opt into a larger/smaller variant
+   * via CSS (e.g. "price-lg" on the PDP) without duplicating markup.
+   */
+  function renderPriceHtml(p, opts) {
+    opts = opts || {};
+    const sizeClass = opts.sizeClass || "";
+    if (typeof p.price !== "number" || p.price <= 0) {
+      return '<div class="price-block ' + sizeClass + '"><span class="price-call">' + escapeHtml(p.priceDisplay || "Call for Price") + "</span></div>";
+    }
+    const offer = getOffer(p);
+    let html = '<div class="price-block ' + sizeClass + '">';
+    html += '<span class="price-selling">₹' + p.price.toLocaleString("en-IN") + "</span>";
+    if (offer) {
+      html += '<span class="price-mrp">₹' + p.mrp.toLocaleString("en-IN") + "</span>";
+      html += '<span class="price-off-badge">' + offer.percent + "% OFF</span>";
+    }
+    html += "</div>";
+    if (offer && opts.hideSavingsLine !== true) {
+      html += '<div class="price-savings"><i class="ti ti-discount-2"></i> You save ₹' + offer.savings.toLocaleString("en-IN") + "</div>";
+    }
+    return html;
+  }
+
   function getRelatedProducts(products, product, limit) {
     limit = limit || 4;
     const groupId = getGroupIdForCategory(product.category);
@@ -269,4 +310,7 @@ window.EcoConnex = window.EcoConnex || {};
   ns.getRecentlyViewed = getRecentlyViewed;
   ns.addRecentlyViewed = addRecentlyViewed;
   ns.getRelatedProducts = getRelatedProducts;
+  ns.hasOffer = hasOffer;
+  ns.getOffer = getOffer;
+  ns.renderPriceHtml = renderPriceHtml;
 })(window.EcoConnex);

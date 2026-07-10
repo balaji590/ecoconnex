@@ -32,10 +32,8 @@
 
   function cardHtml(p) {
     const hasPrice = typeof p.price === "number" && p.price > 0;
-    const priceBlock = hasPrice
-      ? '<div class="product-price">₹' + p.price.toLocaleString("en-IN") + " <span>/ unit</span></div>"
-      : '<div class="product-price" style="font-size:14px;color:var(--gray-500);">Call for price</div>';
-    const itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, icon: p.image }));
+    const priceBlock = window.EcoConnex.renderPriceHtml(p, { hideSavingsLine: true });
+    const itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, icon: p.image }));
     const actionBtn = '<button class="btn-add-cart" onclick="EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')))" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>';
 
     return (

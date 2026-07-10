@@ -108,13 +108,12 @@ function stockClass(stock) {
 }
 
 function priceHtml(p) {
-  if (p.price) return '<div class="product-price">' + window.EcoConnex.escapeHtml(p.priceDisplay) + '</div>';
-  return '<div class="product-price call">' + window.EcoConnex.escapeHtml(p.priceDisplay || 'Call for price') + '</div>';
+  return window.EcoConnex.renderPriceHtml(p, { hideSavingsLine: true });
 }
 
 function cardHtml(p) {
   var hasPrice = typeof p.price === 'number' && p.price > 0;
-  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, icon: p.image }));
+  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, icon: p.image }));
   return (
     '<div class="product-card" id="product-' + p.id + '" data-cat="' + p.category + '" data-name="' + window.EcoConnex.escapeHtml(p.name.toLowerCase()) + '" data-sku="' + p.sku + '" onclick="if(!event.target.closest(\'button\')&&!event.target.closest(\'a\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
       '<div class="product-img">' + p.image +
@@ -206,9 +205,17 @@ function updateCartUI() {
     ? '<div class="cart-price-note"><i class="ti ti-info-circle"></i> Price will be confirmed by Eco Connex</div>'
     : '';
   container.innerHTML = priceNote + cart.map(function (item) {
-    var priceLine = item.price === null
-      ? 'Call for Price × ' + item.qty
-      : '₹' + item.price.toLocaleString('en-IN') + ' × ' + item.qty + ' = ₹' + (item.price * item.qty).toLocaleString('en-IN');
+    var priceLine;
+    if (item.price === null) {
+      priceLine = 'Call for Price × ' + item.qty;
+    } else {
+      var unitLine = '₹' + item.price.toLocaleString('en-IN');
+      if (item.mrp && item.mrp > item.price) {
+        var pct = Math.round((item.mrp - item.price) / item.mrp * 100);
+        unitLine += ' <span class="price-mrp">₹' + item.mrp.toLocaleString('en-IN') + '</span> <span class="price-off-badge">' + pct + '% OFF</span>';
+      }
+      priceLine = unitLine + ' × ' + item.qty + ' = ₹' + (item.price * item.qty).toLocaleString('en-IN');
+    }
     return '<div class="cart-item"><div class="cart-item-icon">' + item.icon + '</div><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">' + priceLine + '</div><div class="cart-item-qty"><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\'' + item.sku + '\')" title="Remove"><i class="ti ti-trash"></i></button></div>';
   }).join('');
 }
@@ -222,7 +229,15 @@ function checkoutViaWhatsApp() {
   if (cart.length === 0) return;
   var total = window.EcoConnex.cart.getTotal();
   var itemLines = cart.map(function (item, i) {
-    var priceLine = item.price === null ? 'Price: Call for Price' : 'Price: ₹' + (item.price * item.qty).toLocaleString('en-IN');
+    var priceLine;
+    if (item.price === null) {
+      priceLine = 'Price: Call for Price';
+    } else if (item.mrp && item.mrp > item.price) {
+      var pct = Math.round((item.mrp - item.price) / item.mrp * 100);
+      priceLine = 'MRP: ₹' + item.mrp.toLocaleString('en-IN') + ' (strikethrough)\n   Price: ₹' + (item.price * item.qty).toLocaleString('en-IN') + ' (' + pct + '% OFF)';
+    } else {
+      priceLine = 'Price: ₹' + (item.price * item.qty).toLocaleString('en-IN');
+    }
     return (i + 1) + '. ' + item.name + '\n   SKU: ' + item.sku + '\n   Qty: ' + item.qty + '\n   ' + priceLine;
   }).join('\n\n');
   var msg = '🛒 *Order from Eco Connex*\n\n*Products:*\n' + itemLines +
