@@ -1,0 +1,42 @@
+<nav class="nav" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="Eco Connex Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div style="display:none;width:40px;height:40px;background:var(--orange,#f97316);border-radius:10px;align-items:center;justify-content:center;"><i class="ti ti-bolt" style="color:#fff;font-size:22px;"></i></div>
+        <div class="nav-brand"><div class="nav-brand-name">Eco Connex</div><div class="nav-brand-sub">EV Spare Parts</div></div>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#products">Products</a>
+        <a href="index.html#about">Why Us</a>
+        <a href="index.html#dealer">Dealer</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="nav-search" id="navSearch">
+        <div class="search-box">
+          <i class="ti ti-search search-box-icon" aria-hidden="true"></i>
+          <input type="text" id="searchInput" class="search-box-input" placeholder="Search EV Spare Parts..." autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchDropdown" aria-autocomplete="list" aria-label="Search EV Spare Parts"/>
+          <i class="ti ti-x search-box-clear" id="searchClearBtn" style="display:none;" role="button" aria-label="Clear search"></i>
+        </div>
+        <div class="search-dropdown" id="searchDropdown" role="listbox" aria-label="Search results"></div>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-cart-nav" onclick="openCart()" aria-label="Shopping Cart">
+          <i class="ti ti-shopping-cart"></i> Cart
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <a href="index.html#contact" class="btn-quote-nav">Get Quote</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="ti ti-menu-2"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#products" onclick="closeMobileMenu()">Products</a>
+  <a href="index.html#about" onclick="closeMobileMenu()">Why Us</a>
+  <a href="index.html#dealer" onclick="closeMobileMenu()">Dealer</a>
+  <a href="index.html#contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="javascript:void(0)" onclick="closeMobileMenu();openCart();" style="color:var(--orange,#f97316)"><i class="ti ti-shopping-cart"></i> Cart</a>
+  <a href="https://wa.me/918778657912" target="_blank" style="color:#25D366;" onclick="closeMobileMenu()"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
+</div>

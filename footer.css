@@ -1,0 +1,45 @@
+/* ============================================================
+   Eco Connex — SHARED FOOTER STYLESHEET
+   One single footer (+ floating WhatsApp button) used by every
+   page. Edit this file once — every page updates automatically.
+   ============================================================ */
+.footer{background:#0a0a0a;padding:56px 0 0;}
+.footer .container{max-width:1600px;margin:0 auto;padding:0 40px;}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-logo img{height:40px;width:auto;}
+.footer-brand-name{font-size:16px;font-weight:700;color:#fff;}
+.footer-brand-sub{font-size:11px;color:#f97316;}
+.footer-desc{font-size:13px;color:#4b5563;line-height:1.7;margin-bottom:20px;}
+.footer-social{display:flex;gap:10px;}
+.social-btn{width:36px;height:36px;background:rgba(255,255,255,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9ca3af;transition:all 0.2s;}
+.social-btn:hover{background:#f97316;color:#fff;}
+.social-btn i{font-size:18px;}
+.footer-col h4{font-size:13px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;}
+.footer-links{display:flex;flex-direction:column;gap:10px;}
+.footer-links a{font-size:13px;color:#4b5563;transition:color 0.2s;}
+.footer-links a:hover{color:#f97316;}
+.footer-bottom{padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:12px;color:#4b5563;}
+.footer-bottom a{color:#f97316;}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{font-size:12px;color:#4b5563;}
+.footer-legal a:hover{color:#f97316;}
+
+/* ── WA FLOAT ── */
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:998;}
+.wa-float-btn{width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);transition:transform 0.2s;}
+.wa-float-btn:hover{transform:scale(1.08);}
+.wa-float-btn i{font-size:28px;color:#fff;}
+.wa-float-label{position:absolute;right:68px;top:50%;transform:translateY(-50%);background:#fff;color:#111827;font-size:12px;font-weight:600;padding:6px 12px;border-radius:20px;box-shadow:0 4px 16px rgba(0,0,0,0.1);white-space:nowrap;pointer-events:none;}
+
+@media(max-width:900px){
+  .footer .container{padding:0 20px;}
+  .footer-inner{grid-template-columns:1fr 1fr;}
+  .wa-float-label{display:none;}
+}
+@media(max-width:600px){
+  .footer .container{padding:0 16px;}
+  .footer-inner{grid-template-columns:1fr;gap:28px;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+}

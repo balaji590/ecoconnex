@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <link rel="stylesheet" href="header.css"/>
+  <link rel="stylesheet" href="footer.css"/>
 <style>
 :root{
   --orange:#f97316;--orange-dark:#ea580c;--orange-light:#fed7aa;
@@ -22,22 +24,10 @@
 html{scroll-behavior:smooth;}
 body{font-family:'Inter',sans-serif;background:#f9fafb;color:var(--gray-900);line-height:1.6;overflow-x:hidden;}
 a{text-decoration:none;color:inherit;}
-
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(249,115,22,0.15);padding:12px 0;}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
-.nav-logo{display:flex;align-items:center;gap:10px;}
-.nav-logo img{height:44px;width:auto;object-fit:contain;}
-.nav-brand{color:#fff;}
-.nav-brand-name{font-size:17px;font-weight:700;color:#fff;line-height:1;}
-.nav-brand-sub{font-size:10px;color:var(--orange);font-weight:400;margin-top:2px;}
-.nav-back{display:flex;align-items:center;gap:6px;color:#ccc;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;background:rgba(255,255,255,0.06);transition:all 0.2s;}
-.nav-back:hover{color:#fff;background:rgba(255,255,255,0.12);}
-.nav-wa{display:flex;align-items:center;gap:6px;background:#25D366;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;transition:background 0.2s;}
-.nav-wa:hover{background:#1da851;}
+/* Header/nav/search/mobile-menu styles now live in header.css (shared across every page) */
 
 /* HERO */
-.hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:40px 24px;text-align:center;border-bottom:1px solid rgba(249,115,22,0.15);}
+.hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:40px 24px;text-align:center;border-bottom:1px solid rgba(249,115,22,0.15);margin-top:64px;}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:var(--orange-light);font-size:12px;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
 .hero h1{font-size:32px;font-weight:800;color:#fff;margin-bottom:10px;}
 .hero h1 span{color:var(--orange);}
@@ -86,12 +76,6 @@ a{text-decoration:none;color:inherit;}
 .btn-call{display:flex;align-items:center;justify-content:center;background:var(--gray-100);color:var(--gray-700);padding:8px 10px;border-radius:var(--radius-sm);font-size:16px;border:none;cursor:pointer;transition:background 0.2s;}
 .btn-enquire.added{background:#16a34a;}
 
-/* NAV CART */
-.nav-cart-btn{position:relative;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;}
-.nav-cart-btn:hover{background:rgba(255,255,255,0.12);}
-.nav-actions-group{display:flex;align-items:center;gap:10px;}
-.cart-badge{background:var(--orange);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 4px;}
-
 /* CART SIDEBAR */
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;opacity:0;visibility:hidden;transition:opacity 0.25s ease,visibility 0.25s ease;}
 .cart-overlay.open{opacity:1;visibility:visible;}
@@ -126,33 +110,17 @@ a{text-decoration:none;color:inherit;}
 .no-results i{font-size:48px;margin-bottom:12px;display:block;}
 .no-results p{font-size:16px;font-weight:500;}
 .no-results small{font-size:13px;margin-top:6px;display:block;}
-
-/* WA FLOAT */
-.wa-float{position:fixed;bottom:24px;right:24px;z-index:998;}
-.wa-float-btn{width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);transition:transform 0.2s;}
-.wa-float-btn:hover{transform:scale(1.08);}
-.wa-float-btn i{font-size:26px;color:#fff;}
-
-/* FOOTER */
-.footer{background:var(--black);padding:24px;text-align:center;border-top:1px solid rgba(249,115,22,0.1);}
-.footer p{font-size:13px;color:#4b5563;}
-.footer a{color:var(--orange);}
+/* Floating WhatsApp button and footer styles now live in footer.css (shared across every page) */
 
 @media(max-width:900px){
   .products-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));}
-  .nav-cart-btn span:not(.cart-badge){display:none;}
 }
 @media(max-width:600px){
+  .hero{margin-top:56px;}
   .hero h1{font-size:24px;}
   .hero-stats{grid-template-columns:repeat(2,1fr);max-width:320px;}
   .products-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;}
   .product-img{height:120px;font-size:42px;}
-  .nav-brand-name{font-size:14px;}
-  .nav-logo img{height:34px;}
-  .nav-inner{gap:8px;}
-  .nav-back span,.nav-back{font-size:12px;padding:7px 10px;}
-  .nav-cart-btn{padding:7px 10px;font-size:0;gap:0;}
-  .nav-cart-btn i{font-size:16px;}
   .cart-sidebar{width:100vw;max-width:100vw;}
   .controls{padding:16px 16px 0;}
 }
@@ -165,21 +133,8 @@ a{text-decoration:none;color:inherit;}
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="Eco Connex Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div style="display:none;width:40px;height:40px;background:var(--orange);border-radius:10px;align-items:center;justify-content:center;"><i class="ti ti-bolt" style="color:#fff;font-size:22px;"></i></div>
-      <div class="nav-brand"><div class="nav-brand-name">Eco Connex</div><div class="nav-brand-sub">EV Spare Parts</div></div>
-    </a>
-    <a href="index.html" class="nav-back"><i class="ti ti-arrow-left"></i> Home</a>
-    <div class="nav-actions-group">
-      <button class="nav-cart-btn" onclick="openCart()" aria-label="Shopping Cart"><i class="ti ti-shopping-cart"></i> <span>Cart</span><span class="cart-badge" id="cartBadge">0</span></button>
-      <a href="https://wa.me/918778657912?text=Hi%20Eco%20Connex!%20I%20need%20spare%20parts%20info." class="nav-wa" target="_blank"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
-    </div>
-  </div>
-</nav>
+<!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
+<div id="site-header"></div>
 
 <!-- HERO -->
 <div class="hero">
@@ -198,8 +153,8 @@ a{text-decoration:none;color:inherit;}
 <div class="controls">
   <div class="search-wrap">
     <i class="ti ti-search search-icon"></i>
-    <input type="text" class="search-input" id="searchInput" placeholder="Search parts... throttle, bearing, motor, disc, charger..." oninput="filterProducts()"/>
-    <i class="ti ti-x search-clear" id="searchClear" onclick="clearSearch()"></i>
+    <input type="text" class="search-input" id="catalogSearchInput" placeholder="Search parts... throttle, bearing, motor, disc, charger..." oninput="filterProducts()"/>
+    <i class="ti ti-x search-clear" id="catalogSearchClear" onclick="clearSearch()"></i>
   </div>
   <div class="filter-scroll" id="filterBtns">
     <button class="filter-btn active" onclick="setFilter('all',this)"><i class="ti ti-layout-grid"></i> All</button>
@@ -238,10 +193,8 @@ a{text-decoration:none;color:inherit;}
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <p>&copy; 2025 Eco Connex · Tiruvannamalai, Tamil Nadu · <a href="tel:+918778657912">+91 87786 57912</a> · <a href="index.html">Home</a></p>
-</footer>
+<!-- SHARED FOOTER (loaded from footer.html by shared-layout.js) -->
+<div id="site-footer"></div>
 
 <!-- CART SIDEBAR -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
@@ -257,13 +210,10 @@ a{text-decoration:none;color:inherit;}
   </div>
 </div>
 
-<!-- WA FLOAT -->
-<div class="wa-float">
-  <a href="https://wa.me/918778657912?text=Hi%20Eco%20Connex!%20I%20need%20spare%20parts%20info." class="wa-float-btn" target="_blank"><i class="ti ti-brand-whatsapp"></i></a>
-</div>
-
 <script src="products-data.js"></script>
 <script src="cart.js"></script>
+<script src="search-widget.js"></script>
+<script src="shared-layout.js"></script>
 <script>
 var ALL_PRODUCTS = [];
 var currentFilter = 'all';
@@ -313,8 +263,8 @@ function setFilter(cat, btn) {
 }
 
 function filterProducts() {
-  var search = document.getElementById('searchInput').value.toLowerCase().trim();
-  var clear = document.getElementById('searchClear');
+  var search = document.getElementById('catalogSearchInput').value.toLowerCase().trim();
+  var clear = document.getElementById('catalogSearchClear');
   clear.style.display = search ? 'block' : 'none';
 
   var filtered = window.EcoConnex.getByCategory(ALL_PRODUCTS, currentFilter);
@@ -331,7 +281,7 @@ function filterProducts() {
 }
 
 function clearSearch() {
-  document.getElementById('searchInput').value = '';
+  document.getElementById('catalogSearchInput').value = '';
   filterProducts();
 }
 

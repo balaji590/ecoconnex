@@ -3,8 +3,13 @@
    Live search, debounce, keyboard nav, recent + popular searches.
    Reads product data from the shared EcoConnex.loadProducts()
    module (products-data.js) — no product data lives in this file.
+
+   Exposed as window.EcoConnex.initSearchWidget() so shared-layout.js
+   can call it right after the shared header is injected into the
+   page (the #searchInput element does not exist until then).
    ============================================================ */
-(function () {
+window.EcoConnex = window.EcoConnex || {};
+window.EcoConnex.initSearchWidget = function () {
   "use strict";
 
   const DEBOUNCE_MS = 250;
@@ -14,6 +19,8 @@
   const clearBtn = document.getElementById("searchClearBtn");
   const dropdown = document.getElementById("searchDropdown");
   if (!input || !dropdown) return; // widget not present on this page
+  if (input.dataset.searchWidgetInit) return; // avoid double-binding
+  input.dataset.searchWidgetInit = "1";
 
   let allProducts = [];
   let currentItems = []; // items currently rendered & keyboard-navigable
@@ -224,4 +231,4 @@
       }
     });
   }
-})();
+};

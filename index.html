@@ -17,6 +17,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <link rel="stylesheet" href="header.css"/>
+  <link rel="stylesheet" href="footer.css"/>
 <style>
 :root{
   --orange:#f97316;--orange-dark:#ea580c;--orange-light:#fed7aa;
@@ -39,71 +41,7 @@ img{max-width:100%;display:block;}
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
 .fade-up.visible{opacity:1;transform:translateY(0);}
 
-/* ── NAV ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(249,115,22,0.15);transition:padding 0.3s ease;padding:10px 0;}
-.nav.scrolled{padding:9px 0;box-shadow:0 4px 24px rgba(0,0,0,0.4);}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap;}
-.nav-logo{display:flex;align-items:center;gap:10px;}
-.nav-logo img{height:44px;width:auto;object-fit:contain;}
-.nav-brand{color:#fff;}
-.nav-brand-name{font-size:17px;font-weight:700;line-height:1;}
-.nav-brand-sub{font-size:10px;color:var(--orange);font-weight:400;margin-top:2px;}
-.nav-links{display:flex;align-items:center;gap:4px;}
-.nav-links a{color:#ccc;font-size:13px;font-weight:500;padding:6px 12px;border-radius:8px;transition:color 0.2s,background 0.2s;}
-.nav-links a:hover{color:#fff;background:rgba(255,255,255,0.08);}
-.nav-actions{display:flex;align-items:center;gap:10px;}
-
-/* SEARCH BAR */
-.nav-search{position:relative;flex:0 0 340px;width:340px;}
-.search-box{position:relative;display:flex;align-items:center;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;transition:border-color 0.2s ease,box-shadow 0.2s ease,background 0.2s ease;}
-.search-box:focus-within{border-color:#22c55e;background:rgba(255,255,255,0.09);box-shadow:0 0 0 3px rgba(34,197,94,0.15);}
-.search-box-icon{position:absolute;left:13px;font-size:16px;color:rgba(255,255,255,0.45);pointer-events:none;}
-.search-box-input{width:100%;background:transparent;border:none;outline:none;color:#fff;font-family:'Inter',sans-serif;font-size:13px;padding:10px 34px 10px 36px;}
-.search-box-input::placeholder{color:rgba(255,255,255,0.4);}
-.search-box-clear{position:absolute;right:12px;font-size:14px;color:rgba(255,255,255,0.45);cursor:pointer;padding:4px;}
-.search-box-clear:hover{color:#fff;}
-.search-dropdown{position:absolute;top:calc(100% + 10px);left:0;width:100%;min-width:340px;max-height:440px;overflow-y:auto;background:rgba(17,20,24,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.12);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,0.5);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity 0.18s ease,transform 0.18s ease,visibility 0.18s;z-index:200;}
-.search-dropdown.open{opacity:1;visibility:visible;transform:translateY(0);}
-.search-dropdown::-webkit-scrollbar{width:6px;}
-.search-dropdown::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:6px;}
-.sd-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.4);padding:14px 16px 8px;}
-.sd-tags{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 14px;}
-.sd-tag{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.75);font-size:12px;font-weight:500;padding:7px 13px;border-radius:20px;cursor:pointer;transition:all 0.15s ease;}
-.sd-tag:hover{background:rgba(34,197,94,0.15);border-color:rgba(34,197,94,0.4);color:#fff;}
-.sd-recent-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:rgba(255,255,255,0.7);font-size:13px;transition:background 0.15s ease;}
-.sd-recent-item:hover,.sd-recent-item.active{background:rgba(255,255,255,0.06);}
-.sd-recent-item i{font-size:15px;color:rgba(255,255,255,0.35);flex-shrink:0;}
-.sd-divider{height:1px;background:rgba(255,255,255,0.08);margin:4px 0;}
-.sd-result{display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;transition:background 0.15s ease;border-radius:10px;margin:2px 8px;}
-.sd-result:hover,.sd-result.active{background:rgba(255,255,255,0.08);}
-.sd-result-img{width:44px;height:44px;flex-shrink:0;background:linear-gradient(135deg,rgba(249,115,22,0.18),rgba(249,115,22,0.06));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;}
-.sd-result-info{flex:1;min-width:0;}
-.sd-result-name{font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.sd-result-name mark{background:rgba(34,197,94,0.35);color:#fff;border-radius:3px;padding:0 1px;}
-.sd-result-meta{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;}
-.sd-result-meta .dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.3);}
-.sd-result-right{text-align:right;flex-shrink:0;}
-.sd-result-price{font-size:13px;font-weight:700;color:var(--orange-light);}
-.sd-result-stock{font-size:10px;font-weight:600;margin-top:3px;padding:2px 7px;border-radius:5px;display:inline-block;}
-.sd-result-stock.in-stock{background:rgba(34,197,94,0.15);color:#4ade80;}
-.sd-result-stock.low{background:rgba(234,179,8,0.15);color:#facc15;}
-.sd-result-stock.enquire{background:rgba(59,130,246,0.15);color:#60a5fa;}
-.sd-empty{text-align:center;padding:36px 20px;color:rgba(255,255,255,0.4);}
-.sd-empty i{font-size:34px;display:block;margin-bottom:10px;color:rgba(255,255,255,0.25);}
-.sd-empty p{font-size:14px;font-weight:600;color:rgba(255,255,255,0.6);}
-.sd-empty small{font-size:12px;display:block;margin-top:4px;}
-.btn-cart-nav{position:relative;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;}
-.btn-cart-nav:hover{background:rgba(255,255,255,0.15);}
-.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;display:none;}
-.btn-wa-nav{display:flex;align-items:center;gap:6px;background:#25D366;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;transition:background 0.2s;}
-.btn-wa-nav:hover{background:#1da851;}
-.btn-quote-nav{display:flex;align-items:center;gap:6px;background:var(--orange);color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;}
-.btn-quote-nav:hover{background:var(--orange-dark);}
-.hamburger{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:4px;}
-.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100vh;height:100dvh;background:var(--black);z-index:999;padding:80px 24px 40px;flex-direction:column;gap:12px;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-.mobile-menu.open{display:flex;}
-body.menu-open{overflow:hidden;position:fixed;width:100%;}
-.mobile-menu a{color:#fff;font-size:18px;font-weight:500;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+/* Nav, search bar, hamburger and mobile-menu styles now live in header.css (shared across all pages) */
 
 /* ── PREMIUM HERO ── */
 .hero-premium{position:relative;width:100%;min-height:700px;margin-top:64px;background:linear-gradient(135deg,#0D1117 0%,#111827 100%);overflow:hidden;display:flex;align-items:center;}
@@ -137,8 +75,6 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
 @keyframes heroFadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 @media(min-width:901px) and (max-width:1440px){
   .hero-premium{min-height:650px;}
-  .nav-search{flex:0 0 300px;width:300px;}
-  .search-dropdown{min-width:300px;}
 }
 
 /* ── TRUSTED ── */
@@ -340,42 +276,10 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
 .map-wrap iframe{width:100%;height:100%;border:none;}
 
 /* ── FOOTER ── */
-.footer{background:var(--black);padding:56px 0 0;}
-.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.08);}
-.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.footer-logo img{height:40px;width:auto;}
-.footer-brand-name{font-size:16px;font-weight:700;color:#fff;}
-.footer-brand-sub{font-size:11px;color:var(--orange);}
-.footer-desc{font-size:13px;color:#4b5563;line-height:1.7;margin-bottom:20px;}
-.footer-social{display:flex;gap:10px;}
-.social-btn{width:36px;height:36px;background:rgba(255,255,255,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9ca3af;transition:all 0.2s;}
-.social-btn:hover{background:var(--orange);color:#fff;}
-.social-btn i{font-size:18px;}
-.footer-col h4{font-size:13px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;}
-.footer-links{display:flex;flex-direction:column;gap:10px;}
-.footer-links a{font-size:13px;color:#4b5563;transition:color 0.2s;}
-.footer-links a:hover{color:var(--orange);}
-.footer-bottom{padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.footer-bottom p{font-size:12px;color:#4b5563;}
-.footer-bottom a{color:var(--orange);}
-.footer-legal{display:flex;gap:20px;}
-.footer-legal a{font-size:12px;color:#4b5563;}
-.footer-legal a:hover{color:var(--orange);}
-
-/* ── WA FLOAT ── */
-.wa-float{position:fixed;bottom:24px;right:24px;z-index:998;}
-.wa-float-btn{width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);transition:transform 0.2s;}
-.wa-float-btn:hover{transform:scale(1.08);}
-.wa-float-btn i{font-size:28px;color:#fff;}
-.wa-float-label{position:absolute;right:68px;top:50%;transform:translateY(-50%);background:#fff;color:var(--gray-900);font-size:12px;font-weight:600;padding:6px 12px;border-radius:20px;box-shadow:var(--shadow-md);white-space:nowrap;pointer-events:none;}
+/* Footer and floating WhatsApp button styles now live in footer.css (shared across all pages) */
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .nav-links{display:none;}
-  .hamburger{display:block;}
-  .btn-quote-nav{display:none;}
-  .nav-search{flex:0 0 250px;width:250px;}
-  .search-dropdown{min-width:250px;}
   .hero-premium{min-height:520px;}
   .hero-inner{flex-direction:column;text-align:center;gap:24px;padding-top:32px;padding-bottom:32px;}
   .hero-left,.hero-right{flex:0 0 100%;max-width:100%;}
@@ -390,8 +294,6 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
   .hero-float-name{font-size:10px;}
   .hero-float-price{font-size:12px;}
   .contact-inner{grid-template-columns:1fr;}
-  .footer-inner{grid-template-columns:1fr 1fr;}
-  .wa-float-label{display:none;}
   .category-pill{padding:8px 14px;font-size:12px;}
   .category-nav{margin-bottom:28px;}
   .trust-grid{grid-template-columns:repeat(2,1fr);max-width:480px;}
@@ -399,17 +301,6 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
   .trusted{padding:24px 0;}
 }
 @media(max-width:600px){
-  .nav{padding:8px 0;}
-  .nav-inner{flex-wrap:wrap;}
-  .nav-logo img{height:34px;}
-  .nav-brand-name{font-size:14px;}
-  .nav-brand-sub{font-size:9px;}
-  .btn-wa-nav span{display:none;}
-  .btn-wa-nav{padding:7px 10px;}
-  .btn-cart-nav{padding:7px 10px;font-size:12px;}
-  .btn-quote-nav{display:none;}
-  .nav-search{order:5;flex-basis:100%;width:100%;margin-top:10px;}
-  .search-dropdown{min-width:100%;}
   .hero-premium{min-height:420px;margin-top:56px;}
   .hero-title{font-size:26px;}
   .hero-subtitle{font-size:13px;}
@@ -423,8 +314,6 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
   .hero-float-name{font-size:11px;}
   .hero-float-price{font-size:13px;}
   .section-title{font-size:22px;}
-  .footer-inner{grid-template-columns:1fr;gap:28px;}
-  .footer-bottom{flex-direction:column;text-align:center;}
   .dealer-banner h2{font-size:22px;}
   .cart-sidebar{width:100vw;}
   .container{padding:0 16px;}
@@ -441,50 +330,8 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav" id="navbar">
-  <div class="container">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">
-        <img src="logo.png" alt="Eco Connex Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div style="display:none;width:40px;height:40px;background:var(--orange);border-radius:10px;align-items:center;justify-content:center;"><i class="ti ti-bolt" style="color:#fff;font-size:22px;"></i></div>
-        <div class="nav-brand"><div class="nav-brand-name">Eco Connex</div><div class="nav-brand-sub">EV Spare Parts</div></div>
-      </a>
-      <nav class="nav-links">
-        <a href="#products">Products</a>
-        <a href="#about">Why Us</a>
-        <a href="#dealer">Dealer</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="nav-search" id="navSearch">
-        <div class="search-box">
-          <i class="ti ti-search search-box-icon" aria-hidden="true"></i>
-          <input type="text" id="searchInput" class="search-box-input" placeholder="Search EV Spare Parts..." autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchDropdown" aria-autocomplete="list" aria-label="Search EV Spare Parts"/>
-          <i class="ti ti-x search-box-clear" id="searchClearBtn" style="display:none;" role="button" aria-label="Clear search"></i>
-        </div>
-        <div class="search-dropdown" id="searchDropdown" role="listbox" aria-label="Search results"></div>
-      </div>
-      <div class="nav-actions">
-        <button class="btn-cart-nav" onclick="openCart()" aria-label="Shopping Cart">
-          <i class="ti ti-shopping-cart"></i> Cart
-          <span class="cart-badge" id="cartBadge">0</span>
-        </button>
-        <button class="btn-quote-nav" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Quote</button>
-      </div>
-      <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="ti ti-menu-2"></i></button>
-    </div>
-  </div>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#products" onclick="closeMobile()">Products</a>
-  <a href="#about" onclick="closeMobile()">Why Us</a>
-  <a href="#dealer" onclick="closeMobile()">Dealer</a>
-  <a href="#contact" onclick="closeMobile()">Contact</a>
-  <a href="#" onclick="closeMobile();openCart();" style="color:var(--orange)"><i class="ti ti-shopping-cart"></i> Cart</a>
-  <a href="https://wa.me/918778657912" target="_blank" style="color:#25D366;" onclick="closeMobile()"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
-</div>
+<!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
+<div id="site-header"></div>
 
 <!-- HERO -->
 <section class="hero-premium" id="home" aria-label="Hero">
@@ -725,38 +572,8 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div>
-        <div class="footer-logo">
-          <img src="logo.png" alt="Eco Connex" style="height:36px;" onerror="this.style.display='none'"/>
-          <div><div class="footer-brand-name">Eco Connex</div><div class="footer-brand-sub">EV Spare Parts</div></div>
-        </div>
-        <p class="footer-desc">Tiruvannamalai's trusted EV spare parts supplier. Genuine parts for all major electric bikes. Fast delivery across Tamil Nadu. GST Registered.</p>
-        <div class="footer-social">
-          <a href="https://wa.me/918778657912" class="social-btn" target="_blank"><i class="ti ti-brand-whatsapp"></i></a>
-          <a href="#" class="social-btn"><i class="ti ti-brand-facebook"></i></a>
-          <a href="#" class="social-btn"><i class="ti ti-brand-instagram"></i></a>
-        </div>
-      </div>
-      <div class="footer-col"><h4>Products</h4><div class="footer-links"><a href="#products">Lithium Battery</a><a href="#products">BLDC Motor</a><a href="#products">Controller</a><a href="#products">Charger</a><a href="#products">Throttle & Display</a><a href="#products">Brake Kits</a></div></div>
-      <div class="footer-col"><h4>Company</h4><div class="footer-links"><a href="#home">Home</a><a href="#about">About Us</a><a href="#dealer">Dealer Program</a><a href="#contact">Contact</a></div></div>
-      <div class="footer-col"><h4>Contact</h4><div class="footer-links"><a href="tel:+918778657912">+91 87786 57912</a><a href="https://wa.me/918778657912" target="_blank">WhatsApp</a><span style="color:#4b5563;font-size:13px;">Tiruvannamalai, Tamil Nadu</span><span style="color:#4b5563;font-size:13px;">Mon–Sat · 9AM–7PM</span></div></div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Eco Connex · <a href="https://ecoconnex.in">ecoconnex.in</a></p>
-      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
-    </div>
-  </div>
-</footer>
-
-<!-- WA FLOAT -->
-<div class="wa-float">
-  <span class="wa-float-label">Chat with us!</span>
-  <a href="https://wa.me/918778657912?text=Hi%20Eco%20Connex!" class="wa-float-btn" target="_blank"><i class="ti ti-brand-whatsapp"></i></a>
-</div>
+<!-- SHARED FOOTER (loaded from footer.html by shared-layout.js) -->
+<div id="site-footer"></div>
 
 <!-- CART SIDEBAR -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
@@ -807,39 +624,8 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
 <script src="cart.js"></script>
 <script src="search-widget.js"></script>
 <script src="category-filter.js"></script>
+<script src="shared-layout.js"></script>
 <script>
-// ── NAV ──
-var navbar=document.getElementById('navbar');
-window.addEventListener('scroll',function(){navbar.classList.toggle('scrolled',window.scrollY>50);},{passive:true});
-
-// ── MOBILE MENU ──
-var hamburger=document.getElementById('hamburger');
-var mobileMenu=document.getElementById('mobileMenu');
-var navbarEl=document.getElementById('navbar');
-var scrollLockY=0;
-function openMobile(){
-  scrollLockY=window.scrollY||window.pageYOffset;
-  var navH=navbarEl.getBoundingClientRect().height;
-  mobileMenu.style.paddingTop=(navH+20)+'px';
-  document.body.style.top=(-scrollLockY)+'px';
-  document.body.classList.add('menu-open');
-  mobileMenu.classList.add('open');
-}
-function closeMobile(){
-  mobileMenu.classList.remove('open');
-  document.body.classList.remove('menu-open');
-  document.body.style.top='';
-  window.scrollTo(0,scrollLockY);
-}
-hamburger.addEventListener('click',function(){
-  if(mobileMenu.classList.contains('open')){closeMobile();}else{openMobile();}
-});
-window.addEventListener('resize',function(){
-  if(mobileMenu.classList.contains('open')){
-    mobileMenu.style.paddingTop=(navbarEl.getBoundingClientRect().height+20)+'px';
-  }
-});
-
 // ── FADE UP ──
 var fadeEls=document.querySelectorAll('.fade-up');
 var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.12});

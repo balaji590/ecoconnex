@@ -1,0 +1,102 @@
+/* ============================================================
+   Eco Connex — SHARED HEADER STYLESHEET
+   One single header design used by every page (Homepage,
+   Products, Product Details, and all future pages).
+   Edit this file once — every page updates automatically.
+   ============================================================ */
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(249,115,22,0.15);transition:padding 0.3s ease;padding:10px 0;}
+.nav.scrolled{padding:9px 0;box-shadow:0 4px 24px rgba(0,0,0,0.4);}
+.nav .container{max-width:1600px;margin:0 auto;padding:0 40px;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{height:44px;width:auto;object-fit:contain;}
+.nav-brand{color:#fff;}
+.nav-brand-name{font-size:17px;font-weight:700;line-height:1;color:#fff;}
+.nav-brand-sub{font-size:10px;color:#f97316;font-weight:400;margin-top:2px;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{color:#ccc;font-size:13px;font-weight:500;padding:6px 12px;border-radius:8px;transition:color 0.2s,background 0.2s;}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,0.08);}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+
+/* SEARCH BAR (works identically on every page) */
+.nav-search{position:relative;flex:0 0 340px;width:340px;}
+.search-box{position:relative;display:flex;align-items:center;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;transition:border-color 0.2s ease,box-shadow 0.2s ease,background 0.2s ease;}
+.search-box:focus-within{border-color:#22c55e;background:rgba(255,255,255,0.09);box-shadow:0 0 0 3px rgba(34,197,94,0.15);}
+.search-box-icon{position:absolute;left:13px;font-size:16px;color:rgba(255,255,255,0.45);pointer-events:none;}
+.search-box-input{width:100%;background:transparent;border:none;outline:none;color:#fff;font-family:'Inter',sans-serif;font-size:13px;padding:10px 34px 10px 36px;}
+.search-box-input::placeholder{color:rgba(255,255,255,0.4);}
+.search-box-clear{position:absolute;right:12px;font-size:14px;color:rgba(255,255,255,0.45);cursor:pointer;padding:4px;}
+.search-box-clear:hover{color:#fff;}
+.search-dropdown{position:absolute;top:calc(100% + 10px);left:0;width:100%;min-width:340px;max-height:440px;overflow-y:auto;background:rgba(17,20,24,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.12);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,0.5);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity 0.18s ease,transform 0.18s ease,visibility 0.18s;z-index:200;}
+.search-dropdown.open{opacity:1;visibility:visible;transform:translateY(0);}
+.search-dropdown::-webkit-scrollbar{width:6px;}
+.search-dropdown::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:6px;}
+.sd-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.4);padding:14px 16px 8px;}
+.sd-tags{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 14px;}
+.sd-tag{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.75);font-size:12px;font-weight:500;padding:7px 13px;border-radius:20px;cursor:pointer;transition:all 0.15s ease;}
+.sd-tag:hover{background:rgba(34,197,94,0.15);border-color:rgba(34,197,94,0.4);color:#fff;}
+.sd-recent-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:rgba(255,255,255,0.7);font-size:13px;transition:background 0.15s ease;}
+.sd-recent-item:hover,.sd-recent-item.active{background:rgba(255,255,255,0.06);}
+.sd-recent-item i{font-size:15px;color:rgba(255,255,255,0.35);flex-shrink:0;}
+.sd-divider{height:1px;background:rgba(255,255,255,0.08);margin:4px 0;}
+.sd-result{display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;transition:background 0.15s ease;border-radius:10px;margin:2px 8px;}
+.sd-result:hover,.sd-result.active{background:rgba(255,255,255,0.08);}
+.sd-result-img{width:44px;height:44px;flex-shrink:0;background:linear-gradient(135deg,rgba(249,115,22,0.18),rgba(249,115,22,0.06));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.sd-result-info{flex:1;min-width:0;}
+.sd-result-name{font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sd-result-name mark{background:rgba(34,197,94,0.35);color:#fff;border-radius:3px;padding:0 1px;}
+.sd-result-meta{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;}
+.sd-result-meta .dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.3);}
+.sd-result-right{text-align:right;flex-shrink:0;}
+.sd-result-price{font-size:13px;font-weight:700;color:#fed7aa;}
+.sd-result-stock{font-size:10px;font-weight:600;margin-top:3px;padding:2px 7px;border-radius:5px;display:inline-block;}
+.sd-result-stock.in-stock{background:rgba(34,197,94,0.15);color:#4ade80;}
+.sd-result-stock.low{background:rgba(234,179,8,0.15);color:#facc15;}
+.sd-result-stock.enquire{background:rgba(59,130,246,0.15);color:#60a5fa;}
+.sd-empty{text-align:center;padding:36px 20px;color:rgba(255,255,255,0.4);}
+.sd-empty i{font-size:34px;display:block;margin-bottom:10px;color:rgba(255,255,255,0.25);}
+.sd-empty p{font-size:14px;font-weight:600;color:rgba(255,255,255,0.6);}
+.sd-empty small{font-size:12px;display:block;margin-top:4px;}
+
+/* CART BUTTON + BADGE */
+.btn-cart-nav{position:relative;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;}
+.btn-cart-nav:hover{background:rgba(255,255,255,0.15);}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:#f97316;color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;}
+
+.btn-quote-nav{display:flex;align-items:center;gap:6px;background:#f97316;color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s;}
+.btn-quote-nav:hover{background:#ea580c;}
+
+/* HAMBURGER + MOBILE MENU (identical full-screen overlay on every page) */
+.hamburger{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:4px;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100vh;height:100dvh;background:#0a0a0a;z-index:999;padding:80px 24px 40px;flex-direction:column;gap:12px;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:#fff;font-size:18px;font-weight:500;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+body.menu-open{overflow:hidden;position:fixed;width:100%;}
+
+/* ── RESPONSIVE ── */
+@media(min-width:901px) and (max-width:1440px){
+  .nav-search{flex:0 0 300px;width:300px;}
+  .search-dropdown{min-width:300px;}
+}
+@media(max-width:900px){
+  .nav .container{padding:0 20px;}
+  .nav-links{display:none;}
+  .hamburger{display:block;}
+  .btn-quote-nav{display:none;}
+  .nav-search{flex:0 0 250px;width:250px;}
+  .search-dropdown{min-width:250px;}
+}
+@media(max-width:600px){
+  .nav{padding:8px 0;}
+  .nav .container{padding:0 16px;}
+  .nav-inner{flex-wrap:wrap;}
+  .nav-logo img{height:34px;}
+  .nav-brand-name{font-size:14px;}
+  .nav-brand-sub{font-size:9px;}
+  .btn-cart-nav{padding:7px 10px;font-size:12px;}
+  .btn-quote-nav{display:none;}
+  .nav-search{order:5;flex-basis:100%;width:100%;margin-top:10px;}
+  .search-dropdown{min-width:100%;}
+}
