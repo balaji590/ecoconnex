@@ -72,7 +72,7 @@
 
   if (headerMount) {
     tasks.push(
-      fetchPartial("header.html")
+      fetchPartial("components/header.html")
         .then(function (html) {
           headerMount.innerHTML = html;
           wireHamburger();
@@ -92,7 +92,7 @@
 
   if (footerMount) {
     tasks.push(
-      fetchPartial("footer.html")
+      fetchPartial("components/footer.html")
         .then(function (html) {
           footerMount.innerHTML = html;
         })

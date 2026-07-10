@@ -23,7 +23,7 @@ window.EcoConnex = window.EcoConnex || {};
   function loadProducts() {
     if (_cache) return Promise.resolve(_cache);
     if (_loadingPromise) return _loadingPromise;
-    _loadingPromise = fetch("products.json", { cache: "no-cache" })
+    _loadingPromise = fetch("data/products.json", { cache: "no-cache" })
       .then(function (res) {
         if (!res.ok) throw new Error("Failed to load products.json");
         return res.json();

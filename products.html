@@ -9,127 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
-  <link rel="stylesheet" href="header.css"/>
-  <link rel="stylesheet" href="footer.css"/>
-<style>
-:root{
-  --orange:#f97316;--orange-dark:#ea580c;--orange-light:#fed7aa;
-  --black:#0a0a0a;--black-2:#111111;
-  --gray-900:#111827;--gray-700:#374151;--gray-500:#6b7280;--gray-400:#9ca3af;--gray-200:#e5e7eb;--gray-100:#f3f4f6;--gray-50:#f9fafb;
-  --white:#ffffff;
-  --shadow-sm:0 1px 2px rgba(0,0,0,0.05);--shadow-md:0 4px 16px rgba(0,0,0,0.1);--shadow-lg:0 8px 32px rgba(0,0,0,0.15);
-  --radius:12px;--radius-sm:8px;--radius-lg:18px;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;background:#f9fafb;color:var(--gray-900);line-height:1.6;overflow-x:hidden;}
-a{text-decoration:none;color:inherit;}
-/* Header/nav/search/mobile-menu styles now live in header.css (shared across every page) */
-
-/* HERO */
-.hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:40px 24px;text-align:center;border-bottom:1px solid rgba(249,115,22,0.15);margin-top:64px;}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:var(--orange-light);font-size:12px;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
-.hero h1{font-size:32px;font-weight:800;color:#fff;margin-bottom:10px;}
-.hero h1 span{color:var(--orange);}
-.hero p{font-size:15px;color:#9ca3af;margin-bottom:20px;}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:640px;margin:0 auto;}
-.hero-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(249,115,22,0.15);border-radius:10px;padding:12px 14px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.hero-stat-num{font-size:22px;font-weight:800;color:var(--orange);}
-.hero-stat-label{font-size:11px;color:#9ca3af;margin-top:2px;}
-
-/* SEARCH + FILTER */
-.controls{max-width:1200px;margin:0 auto;padding:24px 24px 0;}
-.search-wrap{position:relative;margin-bottom:16px;}
-.search-input{width:100%;padding:13px 16px 13px 44px;border:1.5px solid var(--gray-200);border-radius:var(--radius);font-size:14px;font-family:'Inter',sans-serif;background:#fff;color:var(--gray-900);outline:none;transition:border-color 0.2s;box-shadow:var(--shadow-sm);}
-.search-input:focus{border-color:var(--orange);}
-.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:20px;}
-.search-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:18px;cursor:pointer;display:none;}
-.filter-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
-.filter-scroll::-webkit-scrollbar{display:none;}
-.filter-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:500;border:1.5px solid var(--gray-200);background:#fff;color:var(--gray-700);cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
-.filter-btn:hover{border-color:var(--orange);color:var(--orange);}
-.filter-btn.active{background:var(--orange);border-color:var(--orange);color:#fff;}
-.results-count{max-width:1200px;margin:16px auto 0;padding:0 24px;font-size:13px;color:var(--gray-500);}
-.results-count span{font-weight:600;color:var(--orange-dark);}
-
-/* PRODUCTS GRID */
-.products-wrap{max-width:1200px;margin:0 auto;padding:16px 24px 60px;}
-.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
-.product-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;transition:all 0.25s ease;position:relative;display:flex;flex-direction:column;height:100%;}
-.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
-.product-card.hidden{display:none;}
-.product-card-highlight{animation:productHighlightPulse 1.2s ease 2;box-shadow:0 0 0 3px var(--orange),var(--shadow-lg)!important;}
-@keyframes productHighlightPulse{0%,100%{box-shadow:0 0 0 3px var(--orange),var(--shadow-lg);}50%{box-shadow:0 0 0 6px rgba(249,115,22,0.35),var(--shadow-lg);}}
-.product-img{height:140px;background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;}
-.stock-badge{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;}
-.stock-badge.in-stock{background:#dcfce7;color:#16a34a;}
-.stock-badge.low{background:#fef9c3;color:#854d0e;}
-.stock-badge.enquire{background:#dbeafe;color:#1d4ed8;}
-.cat-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:600;padding:3px 7px;border-radius:4px;background:rgba(0,0,0,0.6);color:#fff;text-transform:uppercase;}
-.product-body{padding:14px;display:flex;flex-direction:column;flex:1;}
-.product-name{font-size:13px;font-weight:600;color:var(--gray-900);margin-bottom:6px;line-height:1.4;}
-.product-price{font-size:17px;font-weight:800;color:var(--orange-dark);margin-bottom:12px;}
-.product-price.call{font-size:13px;color:var(--gray-500);font-weight:500;}
-.product-actions{display:flex;gap:6px;margin-top:auto;}
-.btn-enquire{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;background:var(--orange);color:#fff;padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
-.btn-enquire:hover{background:var(--orange-dark);}
-.btn-call{display:flex;align-items:center;justify-content:center;background:var(--gray-100);color:var(--gray-700);padding:8px 10px;border-radius:var(--radius-sm);font-size:16px;border:none;cursor:pointer;transition:background 0.2s;}
-.btn-enquire.added{background:#16a34a;}
-
-/* CART SIDEBAR */
-.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;opacity:0;visibility:hidden;transition:opacity 0.25s ease,visibility 0.25s ease;}
-.cart-overlay.open{opacity:1;visibility:visible;}
-.cart-sidebar{position:fixed;top:0;right:0;bottom:0;width:380px;max-width:92vw;background:#fff;z-index:1001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.3s ease;box-shadow:-8px 0 30px rgba(0,0,0,0.15);}
-.cart-sidebar.open{transform:translateX(0);}
-.cart-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--gray-200);}
-.cart-header h3{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;}
-.cart-close{background:var(--gray-100);border:none;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;color:var(--gray-700);}
-.cart-items{flex:1;overflow-y:auto;padding:16px 20px;}
-.cart-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--gray-100);}
-.cart-item-icon{width:44px;height:44px;flex-shrink:0;background:#fff7ed;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;}
-.cart-item-info{flex:1;min-width:0;}
-.cart-item-name{font-size:13px;font-weight:600;color:var(--gray-900);}
-.cart-item-price{font-size:12px;color:var(--gray-500);margin-top:2px;}
-.cart-item-qty{display:flex;align-items:center;gap:8px;margin-top:6px;}
-.qty-btn{width:22px;height:22px;border-radius:5px;border:1px solid var(--gray-200);background:#fff;cursor:pointer;font-size:14px;line-height:1;}
-.qty-num{font-size:12px;font-weight:600;min-width:16px;text-align:center;}
-.cart-item-remove{background:none;border:none;color:var(--gray-400);cursor:pointer;font-size:16px;flex-shrink:0;}
-.cart-item-remove:hover{color:#dc2626;}
-.cart-empty{text-align:center;padding:60px 20px;color:var(--gray-400);}
-.cart-empty i{font-size:40px;display:block;margin-bottom:12px;}
-.cart-footer{padding:16px 20px;border-top:1px solid var(--gray-200);}
-.cart-total-row{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700;margin-bottom:12px;}
-.btn-cart-checkout{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:13px;border-radius:var(--radius);font-size:14px;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;}
-.btn-cart-checkout:hover{background:#1da851;}
-.cart-price-note{display:flex;align-items:center;gap:8px;background:#fff7ed;border:1px solid var(--orange-light);color:var(--orange-dark);font-size:11.5px;font-weight:600;padding:9px 12px;border-radius:var(--radius-sm);margin-bottom:12px;}
-.cart-price-note i{font-size:15px;flex-shrink:0;}
-.btn-call:hover{background:var(--gray-200);}
-
-/* NO RESULTS */
-.no-results{display:none;text-align:center;padding:60px 20px;color:var(--gray-400);}
-.no-results i{font-size:48px;margin-bottom:12px;display:block;}
-.no-results p{font-size:16px;font-weight:500;}
-.no-results small{font-size:13px;margin-top:6px;display:block;}
-/* Floating WhatsApp button and footer styles now live in footer.css (shared across every page) */
-
-@media(max-width:900px){
-  .products-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));}
-}
-@media(max-width:600px){
-  .hero{margin-top:56px;}
-  .hero h1{font-size:24px;}
-  .hero-stats{grid-template-columns:repeat(2,1fr);max-width:320px;}
-  .products-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;}
-  .product-img{height:120px;font-size:42px;}
-  .cart-sidebar{width:100vw;max-width:100vw;}
-  .controls{padding:16px 16px 0;}
-}
-@media(max-width:400px){
-  .products-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
-  .hero-stats{gap:10px;}
-  .hero-stat{padding:10px 8px;}
-}
-</style>
+  <link rel="stylesheet" href="assets/css/header.css"/>
+  <link rel="stylesheet" href="assets/css/footer.css"/>
+<link rel="stylesheet" href="assets/css/products.css"/>
 </head>
 <body>
 
@@ -210,10 +92,10 @@ a{text-decoration:none;color:inherit;}
   </div>
 </div>
 
-<script src="products-data.js"></script>
-<script src="cart.js"></script>
-<script src="search-widget.js"></script>
-<script src="shared-layout.js"></script>
+<script src="assets/js/products-data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/search-widget.js"></script>
+<script src="assets/js/shared-layout.js"></script>
 <script>
 var ALL_PRODUCTS = [];
 var currentFilter = 'all';
