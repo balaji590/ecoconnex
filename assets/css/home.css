@@ -315,3 +315,9 @@ img{max-width:100%;display:block;}
 .price-call{color:var(--gray-500);font-weight:600;}
 .price-savings{display:flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;color:#16a34a;margin-top:2px;}
 .price-savings i{font-size:13px;}
+
+/* ── TILE QTY STEPPER ── */
+.tile-qty{display:flex;align-items:center;gap:0;width:fit-content;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;margin-top:8px;margin-bottom:4px;}
+.tile-qty button{width:28px;height:28px;background:var(--gray-50);border:none;font-size:15px;font-weight:700;color:var(--gray-700);cursor:pointer;transition:background 0.2s;line-height:1;}
+.tile-qty button:hover{background:var(--gray-100);color:var(--orange-dark);}
+.tile-qty-num{min-width:30px;text-align:center;font-size:13px;font-weight:700;color:var(--gray-900);}

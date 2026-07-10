@@ -114,6 +114,13 @@ function priceHtml(p) {
 function cardHtml(p) {
   var hasPrice = typeof p.price === 'number' && p.price > 0;
   var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, icon: p.image }));
+  var qtyId = 'tqty-cat-' + p.id;
+  var qtyStepper =
+    '<div class="tile-qty" onclick="event.stopPropagation()">' +
+      '<button type="button" aria-label="Decrease quantity" onclick="var el=document.getElementById(\'' + qtyId + '\');el.textContent=Math.max(1,parseInt(el.textContent,10)-1);">−</button>' +
+      '<span class="tile-qty-num" id="' + qtyId + '">1</span>' +
+      '<button type="button" aria-label="Increase quantity" onclick="var el=document.getElementById(\'' + qtyId + '\');el.textContent=parseInt(el.textContent,10)+1;">+</button>' +
+    '</div>';
   return (
     '<div class="product-card" id="product-' + p.id + '" data-cat="' + p.category + '" data-name="' + window.EcoConnex.escapeHtml(p.name.toLowerCase()) + '" data-sku="' + p.sku + '" onclick="if(!event.target.closest(\'button\')&&!event.target.closest(\'a\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
       '<div class="product-img">' + p.image +
@@ -123,8 +130,9 @@ function cardHtml(p) {
       '<div class="product-body">' +
         '<div class="product-name">' + window.EcoConnex.escapeHtml(p.name) + '</div>' +
         priceHtml(p) +
+        qtyStepper +
         '<div class="product-actions">' +
-          '<button class="btn-enquire" onclick="EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')))" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>' +
+          '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>' +
           '<a href="tel:+918778657912" class="btn-call"><i class="ti ti-phone"></i></a>' +
         '</div>' +
       '</div>' +

@@ -34,11 +34,13 @@ window.EcoConnex = window.EcoConnex || {};
 
   /**
    * item: { name, sku, price (number or null/undefined for "Call for Price"), icon }
+   * qty: optional, defaults to 1 (used by product-tile quantity selectors)
    */
-  function addToCart(item) {
+  function addToCart(item, qty) {
+    qty = (typeof qty === "number" && qty > 0) ? Math.floor(qty) : 1;
     const existing = cart.find(function (i) { return i.sku === item.sku; });
     if (existing) {
-      existing.qty += 1;
+      existing.qty += qty;
     } else {
       cart.push({
         name: item.name,
@@ -46,7 +48,7 @@ window.EcoConnex = window.EcoConnex || {};
         price: typeof item.price === "number" ? item.price : null,
         mrp: typeof item.mrp === "number" ? item.mrp : null,
         icon: item.icon || "🔧",
-        qty: 1
+        qty: qty
       });
     }
     persist();
@@ -89,8 +91,8 @@ window.EcoConnex = window.EcoConnex || {};
    * shows the success toast, and flashes the clicked button to
    * "✓ Added" for 2 seconds before reverting — used by both pages.
    */
-  function addToCartUI(btnEl, item) {
-    addToCart(item);
+  function addToCartUI(btnEl, item, qty) {
+    addToCart(item, qty);
     showToast("Added to Cart Successfully");
     if (btnEl) {
       const prevHtml = btnEl.innerHTML;

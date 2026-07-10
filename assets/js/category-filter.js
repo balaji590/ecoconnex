@@ -34,7 +34,14 @@
     const hasPrice = typeof p.price === "number" && p.price > 0;
     const priceBlock = window.EcoConnex.renderPriceHtml(p, { hideSavingsLine: true });
     const itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, icon: p.image }));
-    const actionBtn = '<button class="btn-add-cart" onclick="EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')))" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>';
+    const qtyId = "tqty-home-" + p.id;
+    const qtyStepper =
+      '<div class="tile-qty" onclick="event.stopPropagation()">' +
+        '<button type="button" aria-label="Decrease quantity" onclick="var el=document.getElementById(\'' + qtyId + '\');el.textContent=Math.max(1,parseInt(el.textContent,10)-1);">−</button>' +
+        '<span class="tile-qty-num" id="' + qtyId + '">1</span>' +
+        '<button type="button" aria-label="Increase quantity" onclick="var el=document.getElementById(\'' + qtyId + '\');el.textContent=parseInt(el.textContent,10)+1;">+</button>' +
+      "</div>";
+    const actionBtn = '<button class="btn-add-cart" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>';
 
     return (
       '<article class="product-card" id="home-product-' + p.id + '" onclick="if(!event.target.closest(\'button\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
@@ -44,6 +51,7 @@
           '<p class="product-desc">' + window.EcoConnex.escapeHtml(p.description) + "</p>" +
           '<span class="product-compat">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + " · " + window.EcoConnex.escapeHtml(p.sku) + "</span>" +
           priceBlock +
+          qtyStepper +
           '<div class="product-actions">' +
             actionBtn +
             '<button class="btn-wa-product" onclick="waEnquiry(\'' + p.name.replace(/'/g, "\\'") + '\')"><i class="ti ti-brand-whatsapp"></i></button>' +
