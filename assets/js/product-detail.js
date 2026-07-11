@@ -78,12 +78,69 @@
   }
 
   /* ---------- Main render ---------- */
+  function setEl(id, attr, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.setAttribute(attr, value);
+  }
+
+  function updateSeoTags(product) {
+    const hasPrice = typeof product.price === "number" && product.price > 0;
+    const pageUrl = "https://ecoconnex.in/product.html?id=" + product.id;
+    const shortDesc = (product.description || product.name).slice(0, 160);
+    const catLabel = product.categoryLabel || product.category;
+
+    setEl("pageKeywords", "content", product.name + ", " + catLabel + ", " + product.sku + ", EV spare parts, Tiruvannamalai");
+    setEl("pageCanonical", "href", pageUrl);
+    setEl("ogTitle", "content", product.name + " – Eco Connex");
+    setEl("ogDesc", "content", shortDesc);
+    setEl("ogUrl", "content", pageUrl);
+    setEl("twitterTitle", "content", product.name + " – Eco Connex");
+    setEl("twitterDesc", "content", shortDesc);
+
+    const breadcrumbLd = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ecoconnex.in/" },
+        { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://ecoconnex.in/products.html" },
+        { "@type": "ListItem", "position": 3, "name": catLabel, "item": "https://ecoconnex.in/products.html?category=" + encodeURIComponent(product.category) },
+        { "@type": "ListItem", "position": 4, "name": product.name, "item": pageUrl }
+      ]
+    };
+    const breadcrumbEl = document.getElementById("breadcrumbSchema");
+    if (breadcrumbEl) breadcrumbEl.textContent = JSON.stringify(breadcrumbLd);
+
+    const productLd = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": product.name,
+      "sku": product.sku,
+      "description": product.description || product.name,
+      "category": catLabel,
+      "brand": { "@type": "Brand", "name": product.brand || "Eco Connex" },
+      "url": pageUrl
+    };
+    if (hasPrice) {
+      productLd.offers = {
+        "@type": "Offer",
+        "priceCurrency": "INR",
+        "price": product.price,
+        "availability": /low/i.test(product.stock || "") ? "https://schema.org/LimitedAvailability" : (/enquire/i.test(product.stock || "") ? "https://schema.org/PreOrder" : "https://schema.org/InStock"),
+        "url": pageUrl
+      };
+    }
+    const productEl = document.getElementById("productSchema");
+    if (productEl) productEl.textContent = JSON.stringify(productLd);
+  }
+
   function render(product, allProducts) {
     currentProduct = product;
     qty = 1;
 
-    document.getElementById("pageTitle").textContent = product.name + " – Eco Connex";
+    document.getElementById("pageTitle").textContent = product.name + " – Buy Genuine " + (product.categoryLabel || product.category) + " Online | Eco Connex";
     document.getElementById("pageDesc").setAttribute("content", product.description || product.name);
+    updateSeoTags(product);
 
     document.getElementById("breadcrumb").innerHTML =
       '<a href="index.html">Home</a><i class="ti ti-chevron-right"></i>' +
