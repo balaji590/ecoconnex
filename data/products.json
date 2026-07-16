@@ -17,7 +17,9 @@
       "throttle",
       "switch"
     ],
-    "mrp": 100
+    "mrp": 100,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 2,
@@ -43,7 +45,9 @@
       "3",
       "2"
     ],
-    "mrp": 160
+    "mrp": 160,
+    "currency": "INR",
+    "discount": 16
   },
   {
     "id": 3,
@@ -65,7 +69,9 @@
       "with",
       "switch"
     ],
-    "mrp": 120
+    "mrp": 120,
+    "currency": "INR",
+    "discount": 8
   },
   {
     "id": 4,
@@ -87,7 +93,9 @@
       "l",
       "switch"
     ],
-    "mrp": 120
+    "mrp": 120,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 5,
@@ -110,7 +118,9 @@
       "switch",
       "2"
     ],
-    "mrp": 130
+    "mrp": 130,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 6,
@@ -133,7 +143,9 @@
       "d",
       "switch"
     ],
-    "mrp": 140
+    "mrp": 140,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 7,
@@ -158,7 +170,9 @@
       "10a",
       "dc-converter"
     ],
-    "mrp": 150
+    "mrp": 150,
+    "currency": "INR",
+    "discount": 13
   },
   {
     "id": 8,
@@ -184,7 +198,9 @@
       "10a",
       "dc-converter"
     ],
-    "mrp": 160
+    "mrp": 160,
+    "currency": "INR",
+    "discount": 6
   },
   {
     "id": 9,
@@ -204,7 +220,9 @@
       "mcb",
       "dc"
     ],
-    "mrp": 80
+    "mrp": 80,
+    "currency": "INR",
+    "discount": 12
   },
   {
     "id": 10,
@@ -224,7 +242,9 @@
       "dc",
       "63a"
     ],
-    "mrp": 7545
+    "mrp": 7545,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 11,
@@ -246,7 +266,9 @@
       "sb",
       "50a"
     ],
-    "mrp": 40
+    "mrp": 40,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 12,
@@ -268,7 +290,9 @@
       "sb",
       "50a"
     ],
-    "mrp": 100
+    "mrp": 100,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 13,
@@ -290,7 +314,9 @@
       "sb",
       "75x"
     ],
-    "mrp": 300
+    "mrp": 300,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 14,
@@ -312,7 +338,9 @@
       "pin",
       "3"
     ],
-    "mrp": 30
+    "mrp": 30,
+    "currency": "INR",
+    "discount": 17
   },
   {
     "id": 15,
@@ -336,7 +364,9 @@
       "pin",
       "3"
     ],
-    "mrp": 70
+    "mrp": 70,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 16,
@@ -358,7 +388,9 @@
       "pin",
       "3"
     ],
-    "mrp": 45
+    "mrp": 45,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 17,
@@ -380,7 +412,9 @@
       "pin",
       "3"
     ],
-    "mrp": 50
+    "mrp": 50,
+    "currency": "INR",
+    "discount": 10
   },
   {
     "id": 18,
@@ -404,7 +438,9 @@
       "xt",
       "anti"
     ],
-    "mrp": 270
+    "mrp": 270,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 19,
@@ -428,7 +464,9 @@
       "4",
       "2"
     ],
-    "mrp": 250
+    "mrp": 250,
+    "currency": "INR",
+    "discount": 12
   },
   {
     "id": 20,
@@ -451,7 +489,9 @@
       "4",
       "2"
     ],
-    "mrp": 1500
+    "mrp": 1500,
+    "currency": "INR",
+    "discount": 13
   },
   {
     "id": 21,
@@ -472,7 +512,9 @@
       "male",
       "amphenol"
     ],
-    "mrp": 1890
+    "mrp": 1890,
+    "currency": "INR",
+    "discount": 15
   },
   {
     "id": 22,
@@ -491,7 +533,9 @@
       "6004",
       "bearing"
     ],
-    "mrp": 80
+    "mrp": 80,
+    "currency": "INR",
+    "discount": 12
   },
   {
     "id": 23,
@@ -510,7 +554,9 @@
       "bearing",
       "6200"
     ],
-    "mrp": 70
+    "mrp": 70,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 24,
@@ -529,7 +575,9 @@
       "6201",
       "bearing"
     ],
-    "mrp": 55
+    "mrp": 55,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 25,
@@ -548,7 +596,9 @@
       "6202",
       "bearing"
     ],
-    "mrp": 70
+    "mrp": 70,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 26,
@@ -567,7 +617,9 @@
       "bearing",
       "6203"
     ],
-    "mrp": 80
+    "mrp": 80,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 27,
@@ -589,7 +641,9 @@
       "6204",
       "hero"
     ],
-    "mrp": 130
+    "mrp": 130,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 28,
@@ -609,7 +663,9 @@
       "bearing",
       "ola"
     ],
-    "mrp": 130
+    "mrp": 130,
+    "currency": "INR",
+    "discount": 15
   },
   {
     "id": 29,
@@ -629,7 +685,9 @@
       "6005",
       "ola"
     ],
-    "mrp": 150
+    "mrp": 150,
+    "currency": "INR",
+    "discount": 20
   },
   {
     "id": 30,
@@ -649,7 +707,9 @@
       "stand",
       "side"
     ],
-    "mrp": 190
+    "mrp": 190,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 31,
@@ -669,7 +729,9 @@
       "sensor",
       "41n"
     ],
-    "mrp": 15
+    "mrp": 15,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 32,
@@ -690,7 +752,9 @@
       "brakes",
       "brake"
     ],
-    "mrp": 70
+    "mrp": 70,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 33,
@@ -711,7 +775,9 @@
       "110mm",
       "brake"
     ],
-    "mrp": 85
+    "mrp": 85,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 34,
@@ -732,7 +798,9 @@
       "brake",
       "130mm"
     ],
-    "mrp": 120
+    "mrp": 120,
+    "currency": "INR",
+    "discount": 8
   },
   {
     "id": 35,
@@ -754,7 +822,9 @@
       "spring",
       "brakes"
     ],
-    "mrp": 5
+    "mrp": 5,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 36,
@@ -777,7 +847,9 @@
       "brakes",
       "inch"
     ],
-    "mrp": 95
+    "mrp": 95,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 37,
@@ -800,7 +872,9 @@
       "brakes",
       "inch"
     ],
-    "mrp": 95
+    "mrp": 95,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 38,
@@ -823,7 +897,9 @@
       "brakes",
       "inch"
     ],
-    "mrp": 120
+    "mrp": 120,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 39,
@@ -846,7 +922,9 @@
       "brakes",
       "inch"
     ],
-    "mrp": 140
+    "mrp": 140,
+    "currency": "INR",
+    "discount": 14
   },
   {
     "id": 40,
@@ -868,7 +946,9 @@
       "brakes",
       "ola"
     ],
-    "mrp": 160
+    "mrp": 160,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 41,
@@ -888,7 +968,9 @@
       "common",
       "disc"
     ],
-    "mrp": 50
+    "mrp": 50,
+    "currency": "INR",
+    "discount": 10
   },
   {
     "id": 42,
@@ -909,7 +991,9 @@
       "ola",
       "disc"
     ],
-    "mrp": 100
+    "mrp": 100,
+    "currency": "INR",
+    "discount": 20
   },
   {
     "id": 43,
@@ -930,7 +1014,9 @@
       "ola",
       "disc"
     ],
-    "mrp": 110
+    "mrp": 110,
+    "currency": "INR",
+    "discount": 18
   },
   {
     "id": 44,
@@ -950,7 +1036,9 @@
       "gaura",
       "disc"
     ],
-    "mrp": 70
+    "mrp": 70,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 45,
@@ -971,7 +1059,9 @@
       "rear",
       "disc"
     ],
-    "mrp": 110
+    "mrp": 110,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 46,
@@ -992,7 +1082,9 @@
       "front",
       "disc"
     ],
-    "mrp": 140
+    "mrp": 140,
+    "currency": "INR",
+    "discount": 21
   },
   {
     "id": 47,
@@ -1011,7 +1103,9 @@
       "caliper",
       "disc"
     ],
-    "mrp": 590
+    "mrp": 590,
+    "currency": "INR",
+    "discount": 15
   },
   {
     "id": 48,
@@ -1033,7 +1127,9 @@
       "disc",
       "3mm"
     ],
-    "mrp": 480
+    "mrp": 480,
+    "currency": "INR",
+    "discount": 21
   },
   {
     "id": 49,
@@ -1055,7 +1151,9 @@
       "disc",
       "3mm"
     ],
-    "mrp": 490
+    "mrp": 490,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 50,
@@ -1075,7 +1173,9 @@
       "seatlock",
       "locks"
     ],
-    "mrp": 70
+    "mrp": 70,
+    "currency": "INR",
+    "discount": 14
   },
   {
     "id": 51,
@@ -1097,7 +1197,9 @@
       "locks",
       "seat"
     ],
-    "mrp": 90
+    "mrp": 90,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 52,
@@ -1117,7 +1219,9 @@
       "lockset",
       "locks"
     ],
-    "mrp": 220
+    "mrp": 220,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 53,
@@ -1137,7 +1241,9 @@
       "37mm",
       "locks"
     ],
-    "mrp": 250
+    "mrp": 250,
+    "currency": "INR",
+    "discount": 8
   },
   {
     "id": 54,
@@ -1157,7 +1263,9 @@
       "locks",
       "47mm"
     ],
-    "mrp": 240
+    "mrp": 240,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 55,
@@ -1177,7 +1285,9 @@
       "locks",
       "57mm"
     ],
-    "mrp": 290
+    "mrp": 290,
+    "currency": "INR",
+    "discount": 10
   },
   {
     "id": 56,
@@ -1198,7 +1308,9 @@
       "vespa",
       "self"
     ],
-    "mrp": 20
+    "mrp": 20,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 57,
@@ -1219,7 +1331,9 @@
       "vespa",
       "switches"
     ],
-    "mrp": 20
+    "mrp": 20,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 58,
@@ -1240,7 +1354,9 @@
       "activa",
       "switches"
     ],
-    "mrp": 20
+    "mrp": 20,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 59,
@@ -1259,7 +1375,9 @@
       "led",
       "oval"
     ],
-    "mrp": 95
+    "mrp": 95,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 60,
@@ -1279,7 +1397,9 @@
       "2",
       "led"
     ],
-    "mrp": 110
+    "mrp": 110,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 61,
@@ -1298,7 +1418,9 @@
       "comb",
       "led"
     ],
-    "mrp": 110
+    "mrp": 110,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 62,
@@ -1318,7 +1440,9 @@
       "led",
       "3"
     ],
-    "mrp": 110
+    "mrp": 110,
+    "currency": "INR",
+    "discount": 9
   },
   {
     "id": 63,
@@ -1337,7 +1461,9 @@
       "hero",
       "led"
     ],
-    "mrp": 160
+    "mrp": 160,
+    "currency": "INR",
+    "discount": 19
   },
   {
     "id": 64,
@@ -1360,7 +1486,9 @@
       "aluminium",
       "model"
     ],
-    "mrp": 160
+    "mrp": 160,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 65,
@@ -1380,7 +1508,9 @@
       "ladies",
       "body"
     ],
-    "mrp": 280
+    "mrp": 280,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 66,
@@ -1401,7 +1531,9 @@
       "side",
       "common"
     ],
-    "mrp": 110
+    "mrp": 110,
+    "currency": "INR",
+    "discount": 18
   },
   {
     "id": 67,
@@ -1423,7 +1555,9 @@
       "patti",
       "screw"
     ],
-    "mrp": 10
+    "mrp": 10,
+    "currency": "INR",
+    "discount": 50
   },
   {
     "id": 68,
@@ -1442,7 +1576,9 @@
       "horn",
       "electrical"
     ],
-    "mrp": 90
+    "mrp": 90,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 69,
@@ -1466,7 +1602,9 @@
       "pin",
       "hall"
     ],
-    "mrp": 90
+    "mrp": 90,
+    "currency": "INR",
+    "discount": 11
   },
   {
     "id": 70,
@@ -1488,7 +1626,9 @@
       "junction",
       "3"
     ],
-    "mrp": 40
+    "mrp": 40,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 71,
@@ -1511,7 +1651,9 @@
       "32a",
       "smart"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 72,
@@ -1534,7 +1676,9 @@
       "40a",
       "smart"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 73,
@@ -1557,7 +1701,9 @@
       "smart",
       "50a"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 74,
@@ -1577,7 +1723,9 @@
       "hero",
       "controller"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 75,
@@ -1597,7 +1745,9 @@
       "hero",
       "controller"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 76,
@@ -1620,7 +1770,9 @@
       "okinawa",
       "inch"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 77,
@@ -1644,7 +1796,9 @@
       "inch",
       "drum"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 78,
@@ -1666,7 +1820,9 @@
       "inch",
       "1000w"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 79,
@@ -1688,7 +1844,9 @@
       "1000w",
       "drum"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 80,
@@ -1712,7 +1870,9 @@
       "10a",
       "2"
     ],
-    "mrp": 3800
+    "mrp": 3800,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 81,
@@ -1735,7 +1895,9 @@
       "72v",
       "10a"
     ],
-    "mrp": 4480
+    "mrp": 4480,
+    "currency": "INR",
+    "discount": 11
   },
   {
     "id": 82,
@@ -1757,7 +1919,9 @@
       "48v",
       "charger"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 83,
@@ -1779,7 +1943,9 @@
       "acid",
       "charger"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 84,
@@ -1802,7 +1968,9 @@
       "charger",
       "6v"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 85,
@@ -1825,7 +1993,9 @@
       "4v",
       "58"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 86,
@@ -1848,7 +2018,9 @@
       "67",
       "2v"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 87,
@@ -1869,7 +2041,9 @@
       "nyx",
       "wiring"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 88,
@@ -1893,7 +2067,9 @@
       "can",
       "wiring"
     ],
-    "mrp": null
+    "mrp": null,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 89,
@@ -1914,7 +2090,9 @@
       "fancy",
       "mirrors"
     ],
-    "mrp": 140
+    "mrp": 140,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 90,
@@ -1935,7 +2113,9 @@
       "oval",
       "mirrors"
     ],
-    "mrp": 130
+    "mrp": 130,
+    "currency": "INR",
+    "discount": 8
   },
   {
     "id": 91,
@@ -1957,7 +2137,9 @@
       "heavy",
       "steel"
     ],
-    "mrp": 1320
+    "mrp": 1320,
+    "currency": "INR",
+    "discount": 17
   },
   {
     "id": 92,
@@ -1980,7 +2162,9 @@
       "steel",
       "single"
     ],
-    "mrp": 850
+    "mrp": 850,
+    "currency": "INR",
+    "discount": 0
   },
   {
     "id": 93,
@@ -2003,6 +2187,8 @@
       "double",
       "steel"
     ],
-    "mrp": 900
+    "mrp": 900,
+    "currency": "INR",
+    "discount": 0
   }
 ]

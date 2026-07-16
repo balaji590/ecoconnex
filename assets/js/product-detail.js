@@ -35,7 +35,7 @@
       if (offer) html += ' <span class="mini-card-mrp">₹' + p.mrp.toLocaleString("en-IN") + "</span>";
       return html;
     }
-    return '<span class="mini-card-price call">' + EC.escapeHtml(p.priceDisplay || "Call for Price") + "</span>";
+    return '<span class="mini-card-price call">Price on Request</span>';
   }
 
   /* ---------- Related / recently-viewed mini cards ---------- */
@@ -247,7 +247,7 @@
 
     const cartBtn = document.getElementById("pdpAddToCart");
     cartBtn.addEventListener("click", function () {
-      const item = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, icon: product.image };
+      const item = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.image };
       for (let i = 0; i < qty; i++) window.EcoConnex.cart.addToCart(item);
       window.EcoConnex.showToast("Added to Cart Successfully");
       const prevHtml = cartBtn.innerHTML;
@@ -265,7 +265,7 @@
       const offer = hasPrice ? window.EcoConnex.getOffer(product) : null;
       let priceLine;
       if (!hasPrice) {
-        priceLine = "Price: Call for Price";
+        priceLine = "Price on Request";
       } else if (offer) {
         priceLine = "MRP: ₹" + product.mrp.toLocaleString("en-IN") + " (strikethrough)\nPrice: ₹" + product.price.toLocaleString("en-IN") + " (" + offer.percent + "% OFF, you save ₹" + offer.savings.toLocaleString("en-IN") + ")";
       } else {

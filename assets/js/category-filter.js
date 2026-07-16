@@ -33,7 +33,7 @@
   function cardHtml(p) {
     const hasPrice = typeof p.price === "number" && p.price > 0;
     const priceBlock = window.EcoConnex.renderPriceHtml(p, { hideSavingsLine: true });
-    const itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, icon: p.image }));
+    const itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || "INR", icon: p.image }));
     const qtyId = "tqty-home-" + p.id;
     const qtyStepper =
       '<div class="tile-qty" onclick="event.stopPropagation()">' +

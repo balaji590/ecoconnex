@@ -59,7 +59,7 @@ window.EcoConnex.initSearchWidget = function () {
   }
 
   function priceLabel(p) {
-    return p.priceDisplay || (p.price ? ("₹" + p.price) : "Call for price");
+    return p.priceDisplay || (p.price ? ("₹" + p.price) : "Price on Request");
   }
 
   /* ---------- Rendering ---------- */

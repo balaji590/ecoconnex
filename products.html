@@ -114,6 +114,10 @@
   </div>
   <div class="cart-items" id="cartItems"></div>
   <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-summary-extra" id="cartSummaryExtra" style="display:none;">
+      <div class="cart-mrp-row"><span>Total MRP</span><strong id="cartMrpTotal">₹0</strong></div>
+      <div class="cart-savings-row"><span>You Save</span><strong id="cartSavingsTotal">₹0</strong></div>
+    </div>
     <div class="cart-total-row"><span>Total</span><strong id="cartTotal">₹0</strong></div>
     <button class="btn-cart-checkout" onclick="checkoutViaWhatsApp()"><i class="ti ti-brand-whatsapp"></i> Checkout via WhatsApp</button>
   </div>
@@ -140,7 +144,7 @@ function priceHtml(p) {
 
 function cardHtml(p) {
   var hasPrice = typeof p.price === 'number' && p.price > 0;
-  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, icon: p.image }));
+  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || 'INR', icon: p.image }));
   var qtyId = 'tqty-cat-' + p.id;
   var qtyStepper =
     '<div class="tile-qty" onclick="event.stopPropagation()">' +
@@ -224,12 +228,21 @@ function updateCartUI() {
   var cart = window.EcoConnex.cart.getCart();
   var total = window.EcoConnex.cart.getTotal();
   var count = window.EcoConnex.cart.getCount();
+  var totalSavings = window.EcoConnex.cart.getTotalSavings();
   var badge = document.getElementById('cartBadge');
   badge.textContent = count;
   badge.style.display = count > 0 ? 'flex' : 'none';
   var container = document.getElementById('cartItems');
   var footer = document.getElementById('cartFooter');
   document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+  var summaryExtra = document.getElementById('cartSummaryExtra');
+  if (totalSavings > 0) {
+    document.getElementById('cartMrpTotal').textContent = '₹' + window.EcoConnex.cart.getTotalMRP().toLocaleString('en-IN');
+    document.getElementById('cartSavingsTotal').textContent = '₹' + totalSavings.toLocaleString('en-IN');
+    summaryExtra.style.display = 'block';
+  } else {
+    summaryExtra.style.display = 'none';
+  }
   if (cart.length === 0) {
     container.innerHTML = '<div class="cart-empty"><i class="ti ti-shopping-cart-off"></i><p>Your cart is empty</p></div>';
     footer.style.display = 'none';
@@ -242,7 +255,7 @@ function updateCartUI() {
   container.innerHTML = priceNote + cart.map(function (item) {
     var priceLine;
     if (item.price === null) {
-      priceLine = 'Call for Price × ' + item.qty;
+      priceLine = 'Price on Request × ' + item.qty;
     } else {
       var unitLine = '₹' + item.price.toLocaleString('en-IN');
       if (item.mrp && item.mrp > item.price) {
@@ -263,10 +276,12 @@ function checkoutViaWhatsApp() {
   var cart = window.EcoConnex.cart.getCart();
   if (cart.length === 0) return;
   var total = window.EcoConnex.cart.getTotal();
+  var totalMrp = window.EcoConnex.cart.getTotalMRP();
+  var totalSavings = window.EcoConnex.cart.getTotalSavings();
   var itemLines = cart.map(function (item, i) {
     var priceLine;
     if (item.price === null) {
-      priceLine = 'Price: Call for Price';
+      priceLine = 'Price on Request';
     } else if (item.mrp && item.mrp > item.price) {
       var pct = Math.round((item.mrp - item.price) / item.mrp * 100);
       priceLine = 'MRP: ₹' + item.mrp.toLocaleString('en-IN') + ' (strikethrough)\n   Price: ₹' + (item.price * item.qty).toLocaleString('en-IN') + ' (' + pct + '% OFF)';
@@ -276,7 +291,8 @@ function checkoutViaWhatsApp() {
     return (i + 1) + '. ' + item.name + '\n   SKU: ' + item.sku + '\n   Qty: ' + item.qty + '\n   ' + priceLine;
   }).join('\n\n');
   var msg = '🛒 *Order from Eco Connex*\n\n*Products:*\n' + itemLines +
-    '\n\n*Total: ₹' + total.toLocaleString('en-IN') + (window.EcoConnex.cart.hasCallForPrice() ? ' + items to confirm' : '') + '*\n\n' +
+    '\n\n' + (totalSavings > 0 ? 'Subtotal (MRP): ₹' + totalMrp.toLocaleString('en-IN') + '\nYou Save: ₹' + totalSavings.toLocaleString('en-IN') + '\n' : '') +
+    '*Total: ₹' + total.toLocaleString('en-IN') + (window.EcoConnex.cart.hasCallForPrice() ? ' + items to confirm' : '') + '*\n\n' +
     'Please confirm my order and share delivery details. Thank you!';
   window.open('https://wa.me/918778657912?text=' + encodeURIComponent(msg), '_blank');
 }

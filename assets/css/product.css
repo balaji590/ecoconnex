@@ -149,3 +149,9 @@ a{text-decoration:none;color:inherit;}
 .price-call{color:var(--gray-600);font-weight:600;font-size:20px;}
 .price-savings{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#16a34a;margin-top:4px;}
 .price-savings i{font-size:15px;}
+
+/* ── CART PRICING SUMMARY (Total MRP / Savings) ── */
+.cart-summary-extra{margin-bottom:6px;}
+.cart-mrp-row,.cart-savings-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:4px;}
+.cart-mrp-row span,.cart-mrp-row strong{color:var(--gray-400);text-decoration:line-through;font-weight:500;}
+.cart-savings-row span,.cart-savings-row strong{color:#16a34a;font-weight:700;}

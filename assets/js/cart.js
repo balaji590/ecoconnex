@@ -47,6 +47,7 @@ window.EcoConnex = window.EcoConnex || {};
         sku: item.sku,
         price: typeof item.price === "number" ? item.price : null,
         mrp: typeof item.mrp === "number" ? item.mrp : null,
+        currency: item.currency || "INR",
         icon: item.icon || "🔧",
         qty: qty
       });
@@ -75,7 +76,16 @@ window.EcoConnex = window.EcoConnex || {};
   function getCart() { return cart.slice(); }
   function getCount() { return cart.reduce(function (s, i) { return s + i.qty; }, 0); }
   function getTotal() { return cart.reduce(function (s, i) { return s + (i.price || 0) * i.qty; }, 0); }
+  /** Sum of MRP × qty for items that actually have an MRP set (falls back to selling price when MRP is missing, so it never overstates). */
+  function getTotalMRP() { return cart.reduce(function (s, i) { return s + (typeof i.mrp === "number" && i.mrp > 0 ? i.mrp : (i.price || 0)) * i.qty; }, 0); }
+  /** Total MRP minus Total selling price — always >= 0, safe when no items have an offer. */
+  function getTotalSavings() { return Math.max(0, getTotalMRP() - getTotal()); }
   function hasCallForPrice() { return cart.some(function (i) { return i.price === null; }); }
+  /** Currency of the cart — assumes a single-currency catalog (INR today); defaults gracefully if items predate the field. */
+  function getCurrency() {
+    const withCurrency = cart.find(function (i) { return i.currency; });
+    return (withCurrency && withCurrency.currency) || "INR";
+  }
 
   /* ---------- Toast ---------- */
   function showToast(msg) {
@@ -118,6 +128,9 @@ window.EcoConnex = window.EcoConnex || {};
     getCart: getCart,
     getCount: getCount,
     getTotal: getTotal,
+    getTotalMRP: getTotalMRP,
+    getTotalSavings: getTotalSavings,
+    getCurrency: getCurrency,
     hasCallForPrice: hasCallForPrice,
     onChange: onChange
   };

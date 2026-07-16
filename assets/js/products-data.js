@@ -239,20 +239,50 @@ window.EcoConnex = window.EcoConnex || {};
    * Returns true if a product has a genuine active offer
    * (numeric MRP strictly greater than the selling price).
    */
+  const CURRENCY_SYMBOLS = { INR: "₹", USD: "$", EUR: "€", GBP: "£" };
+
+  /**
+   * Returns the display symbol for a product's currency, defaulting
+   * to ₹ (INR) for backward compatibility with older product records
+   * that don't have a "currency" field yet.
+   */
+  function getCurrencySymbol(currency) {
+    return CURRENCY_SYMBOLS[currency || "INR"] || "₹";
+  }
+
+  /**
+   * True when a product's selling price should actually be displayed.
+   * Missing, zero, negative or non-numeric price = not visible, and the
+   * UI should fall back to "Price on Request" instead of showing ₹0.
+   */
+  function isPriceVisible(p) {
+    return typeof p.price === "number" && isFinite(p.price) && p.price > 0;
+  }
+
+  /**
+   * A genuine offer requires a visible selling price AND a numeric MRP
+   * strictly greater than it. Missing/zero/equal MRP simply means no
+   * offer — this stays safe even for older product records that were
+   * created before "mrp"/"discount"/"currency" existed.
+   */
   function hasOffer(p) {
-    return typeof p.mrp === "number" && typeof p.price === "number" && p.mrp > p.price;
+    return isPriceVisible(p) && typeof p.mrp === "number" && p.mrp > p.price;
   }
 
   /**
    * Returns { savings, percent } for a product with an active offer.
-   * Returns null if there is no genuine offer (mrp missing/equal/lower,
-   * or the product is Call for Price).
+   * Prefers the product's own stored "discount" field (so a future
+   * client Excel import can set an exact intended percentage), and
+   * falls back to computing it from mrp/price when that field is
+   * missing, zero, or inconsistent with the actual prices.
+   * Returns null if there is no genuine offer.
    */
   function getOffer(p) {
     if (!hasOffer(p)) return null;
     const savings = p.mrp - p.price;
-    const percent = Math.round((savings / p.mrp) * 100);
-    return { savings: savings, percent: percent };
+    const computedPercent = Math.round((savings / p.mrp) * 100);
+    const storedPercent = typeof p.discount === "number" && p.discount > 0 ? Math.round(p.discount) : null;
+    return { savings: savings, percent: storedPercent || computedPercent };
   }
 
   /**
@@ -264,19 +294,20 @@ window.EcoConnex = window.EcoConnex || {};
   function renderPriceHtml(p, opts) {
     opts = opts || {};
     const sizeClass = opts.sizeClass || "";
-    if (typeof p.price !== "number" || p.price <= 0) {
-      return '<div class="price-block ' + sizeClass + '"><span class="price-call">' + escapeHtml(p.priceDisplay || "Call for Price") + "</span></div>";
+    const sym = getCurrencySymbol(p.currency);
+    if (!isPriceVisible(p)) {
+      return '<div class="price-block ' + sizeClass + '"><span class="price-call">Price on Request</span></div>';
     }
     const offer = getOffer(p);
     let html = '<div class="price-block ' + sizeClass + '">';
-    html += '<span class="price-selling">₹' + p.price.toLocaleString("en-IN") + "</span>";
+    html += '<span class="price-selling">' + sym + p.price.toLocaleString("en-IN") + "</span>";
     if (offer) {
-      html += '<span class="price-mrp">₹' + p.mrp.toLocaleString("en-IN") + "</span>";
+      html += '<span class="price-mrp">' + sym + p.mrp.toLocaleString("en-IN") + "</span>";
       html += '<span class="price-off-badge">' + offer.percent + "% OFF</span>";
     }
     html += "</div>";
     if (offer && opts.hideSavingsLine !== true) {
-      html += '<div class="price-savings"><i class="ti ti-discount-2"></i> You save ₹' + offer.savings.toLocaleString("en-IN") + "</div>";
+      html += '<div class="price-savings"><i class="ti ti-discount-2"></i> You save ' + sym + offer.savings.toLocaleString("en-IN") + "</div>";
     }
     return html;
   }
@@ -313,4 +344,6 @@ window.EcoConnex = window.EcoConnex || {};
   ns.hasOffer = hasOffer;
   ns.getOffer = getOffer;
   ns.renderPriceHtml = renderPriceHtml;
+  ns.isPriceVisible = isPriceVisible;
+  ns.getCurrencySymbol = getCurrencySymbol;
 })(window.EcoConnex);
