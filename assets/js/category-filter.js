@@ -23,17 +23,11 @@
   let allProducts = [];
   const activeFilters = { categoryGroup: "all", search: "" };
 
-  function stockClass(stock) {
-    const s = (stock || "").toLowerCase();
-    if (s.indexOf("low") !== -1) return "low";
-    if (s.indexOf("enquire") !== -1) return "enquire";
-    return "in-stock";
-  }
-
   function cardHtml(p) {
     const hasPrice = typeof p.price === "number" && p.price > 0;
     const priceBlock = window.EcoConnex.renderPriceHtml(p, { hideSavingsLine: true });
-    const itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || "INR", icon: p.image }));
+    const outOfStock = window.EcoConnex.isOutOfStock(p);
+    const itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || "INR", icon: p.icon }));
     const qtyId = "tqty-home-" + p.id;
     const qtyStepper =
       '<div class="tile-qty" onclick="event.stopPropagation()">' +
@@ -41,18 +35,21 @@
         '<span class="tile-qty-num" id="' + qtyId + '">1</span>' +
         '<button type="button" aria-label="Increase quantity" onclick="var el=document.getElementById(\'' + qtyId + '\');el.textContent=parseInt(el.textContent,10)+1;">+</button>' +
       "</div>";
-    const actionBtn = '<button class="btn-add-cart" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
+    const actionBtn = outOfStock
+      ? '<button class="btn-add-cart" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
+      : '<button class="btn-add-cart" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
+    const badgeBg = outOfStock ? "#6b7280" : (window.EcoConnex.getStockClass(p.stock) === "in-stock" ? "var(--orange)" : "#6b7280");
 
     return (
       '<article class="product-card" id="home-product-' + p.id + '" onclick="if(!event.target.closest(\'button\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
-        '<div class="product-img">' + p.image + '<span class="product-badge" style="background:' + (stockClass(p.stock) === "in-stock" ? "var(--orange)" : "#6b7280") + '">' + window.EcoConnex.escapeHtml(p.stock) + "</span></div>" +
+        '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p) + '<span class="product-badge" style="background:' + badgeBg + '">' + window.EcoConnex.escapeHtml(p.stock) + "</span></div>" +
         '<div class="product-body">' +
           '<h3 class="product-name">' + window.EcoConnex.escapeHtml(p.name) + "</h3>" +
           '<p class="product-desc">' + window.EcoConnex.escapeHtml(p.description) + "</p>" +
           '<span class="product-compat">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + " · " + window.EcoConnex.escapeHtml(p.sku) + "</span>" +
           priceBlock +
+          (outOfStock ? "" : qtyStepper) +
           '<div class="product-actions">' +
-            qtyStepper +
             actionBtn +
             '<button class="btn-wa-product" onclick="waEnquiry(\'' + p.name.replace(/'/g, "\\'") + '\')"><i class="ti ti-brand-whatsapp"></i></button>' +
           "</div>" +

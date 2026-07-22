@@ -51,13 +51,6 @@ window.EcoConnex.initSearchWidget = function () {
     activeIndex = -1;
   }
 
-  function stockClass(stockLabel) {
-    const s = (stockLabel || "").toLowerCase();
-    if (s.indexOf("low") !== -1) return "low";
-    if (s.indexOf("enquire") !== -1) return "enquire";
-    return "in-stock";
-  }
-
   function priceLabel(p) {
     return p.priceDisplay || (p.price ? ("₹" + p.price) : "Price on Request");
   }
@@ -113,10 +106,10 @@ window.EcoConnex.initSearchWidget = function () {
 
     let html = "";
     results.forEach(function (p, i) {
-      const sClass = stockClass(p.stock);
+      const sClass = window.EcoConnex.getStockClass(p.stock);
       html +=
         '<div class="sd-result" data-id="' + p.id + '" id="sd-item-' + i + '" role="option">' +
-          '<div class="sd-result-img">' + (p.image || "🔧") + "</div>" +
+          '<div class="sd-result-img">' + window.EcoConnex.renderProductImageHtml(p) + "</div>" +
           '<div class="sd-result-info">' +
             '<div class="sd-result-name">' + window.EcoConnex.highlightMatch(p.name, query) + "</div>" +
             '<div class="sd-result-meta"><span>' + window.EcoConnex.escapeHtml(p.sku) + '</span><span class="dot"></span><span>' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + "</span></div>" +

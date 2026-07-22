@@ -149,9 +149,9 @@ window.EcoConnex = window.EcoConnex || {};
     { id: "batteries", label: "Batteries", icon: "ti-battery-4", categories: ["battery", "batteries"] },
     { id: "chargers", label: "Chargers", icon: "ti-plug", categories: ["charger"] },
     { id: "motors", label: "Motors", icon: "ti-engine", categories: ["motor"] },
-    { id: "controllers", label: "Controllers", icon: "ti-cpu", categories: ["controller", "dc-converter", "mcb"] },
-    { id: "brake-parts", label: "Brake Parts", icon: "ti-disc", categories: ["brakes", "disc"] },
-    { id: "accessories", label: "Accessories", icon: "ti-adjustments", categories: ["mirrors", "lights", "led", "switches", "sensor", "locks", "throttle"] },
+    { id: "controllers", label: "Controllers", icon: "ti-cpu", categories: ["controller", "converter", "dc-converter", "mcb"] },
+    { id: "brake-parts", label: "Brake Parts", icon: "ti-disc", categories: ["brakes", "brake", "disc", "brake-shoe", "drum-plate", "lever"] },
+    { id: "accessories", label: "Accessories", icon: "ti-adjustments", categories: ["mirrors", "mirror", "lights", "led", "switches", "switch", "sensor", "locks", "lock", "throttle", "fork-set", "accessories", "other"] },
     { id: "cables", label: "Cables", icon: "ti-cable", categories: ["wiring", "connector", "electrical"] },
     { id: "body-parts", label: "Body Parts", icon: "ti-car", categories: ["body", "bearing"] }
   ];
@@ -312,6 +312,47 @@ window.EcoConnex = window.EcoConnex || {};
     return html;
   }
 
+  /**
+   * Renders a product's image with a graceful fallback: tries the real
+   * photo (from the client's product Excel) at assets/images/products/,
+   * and falls back to a category emoji icon automatically via onerror
+   * if that file hasn't been uploaded yet. Older product records with
+   * no "image" filename (pre-photo catalog) just show the icon directly.
+   */
+  function renderProductImageHtml(p, opts) {
+    opts = opts || {};
+    const imgClass = opts.imgClass || "";
+    const icon = p.icon || p.image /* legacy: image used to BE the emoji */ || "🔧";
+    const looksLikeFile = typeof p.image === "string" && /\.(webp|jpg|jpeg|png|gif|avif)$/i.test(p.image);
+    if (!looksLikeFile) {
+      return '<span class="product-icon-fallback ' + imgClass + '">' + icon + "</span>";
+    }
+    const src = "assets/images/products/" + encodeURIComponent(p.image);
+    return (
+      '<img src="' + src + '" alt="' + escapeHtml(p.name) + '" class="product-photo ' + imgClass + '" loading="lazy" ' +
+      'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';"/>' +
+      '<span class="product-icon-fallback ' + imgClass + '" style="display:none;">' + icon + "</span>"
+    );
+  }
+
+  /**
+   * Single source of truth for stock-badge styling across every page.
+   * Replaces four near-identical copies that only recognised "low" and
+   * "enquire" — now also recognises "out of stock" from real inventory
+   * data so it renders as a distinct, non-purchasable state.
+   */
+  function getStockClass(stock) {
+    const s = (stock || "").toLowerCase();
+    if (s.indexOf("out") !== -1) return "out-of-stock";
+    if (s.indexOf("low") !== -1) return "low";
+    if (s.indexOf("enquire") !== -1) return "enquire";
+    return "in-stock";
+  }
+
+  function isOutOfStock(p) {
+    return getStockClass(p.stock) === "out-of-stock";
+  }
+
   function getRelatedProducts(products, product, limit) {
     limit = limit || 4;
     const groupId = getGroupIdForCategory(product.category);
@@ -346,4 +387,7 @@ window.EcoConnex = window.EcoConnex || {};
   ns.renderPriceHtml = renderPriceHtml;
   ns.isPriceVisible = isPriceVisible;
   ns.getCurrencySymbol = getCurrencySymbol;
+  ns.renderProductImageHtml = renderProductImageHtml;
+  ns.getStockClass = getStockClass;
+  ns.isOutOfStock = isOutOfStock;
 })(window.EcoConnex);

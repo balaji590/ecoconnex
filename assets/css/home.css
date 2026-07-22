@@ -327,3 +327,6 @@ img{max-width:100%;display:block;}
 .cart-mrp-row,.cart-savings-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;margin-bottom:4px;}
 .cart-mrp-row span,.cart-mrp-row strong{color:var(--gray-400);text-decoration:line-through;font-weight:500;}
 .cart-savings-row span,.cart-savings-row strong{color:#16a34a;font-weight:700;}
+
+/* ── PRODUCT PHOTO (client-provided images, with emoji fallback) ── */
+.product-img .product-photo{width:100%;height:100%;object-fit:contain;padding:14px;}

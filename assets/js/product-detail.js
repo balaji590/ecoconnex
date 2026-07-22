@@ -19,13 +19,6 @@
     return params.get("id");
   }
 
-  function stockClass(stock) {
-    const s = (stock || "").toLowerCase();
-    if (s.indexOf("low") !== -1) return "low";
-    if (s.indexOf("enquire") !== -1) return "enquire";
-    return "in-stock";
-  }
-
   function priceHtml(p, big) {
     if (big) return EC.renderPriceHtml(p, { sizeClass: "price-lg" });
     // Compact mini-card variant: selling price + small struck MRP, no savings line
@@ -42,7 +35,7 @@
   function miniCardHtml(p) {
     return (
       '<div class="mini-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
-        '<div class="mini-card-img">' + p.image + "</div>" +
+        '<div class="mini-card-img">' + EC.renderProductImageHtml(p) + "</div>" +
         '<div class="mini-card-body">' +
           '<div class="mini-card-name">' + EC.escapeHtml(p.name) + "</div>" +
           priceHtml(p, false) +
@@ -69,12 +62,14 @@
   }
 
   function buildSpecs(p) {
-    return [
+    const rows = [
       ["SKU", p.sku],
       ["Category", p.categoryLabel || p.category],
       ["Brand", p.brand],
       ["Availability", p.stock]
     ];
+    if (typeof p.weight === "number" && p.weight > 0) rows.push(["Weight", p.weight + " kg"]);
+    return rows;
   }
 
   /* ---------- Main render ---------- */
@@ -148,14 +143,15 @@
       '<a href="products.html?category=' + encodeURIComponent(product.category) + '">' + EC.escapeHtml(product.categoryLabel || product.category) + '</a><i class="ti ti-chevron-right"></i>' +
       '<span class="current">' + EC.escapeHtml(product.name) + "</span>";
 
-    const sClass = stockClass(product.stock);
+    const sClass = EC.getStockClass(product.stock);
+    const outOfStock = EC.isOutOfStock(product);
     const hasPrice = typeof product.price === "number" && product.price > 0;
 
     root.innerHTML =
       '<div class="pdp-grid">' +
         '<div class="pdp-gallery">' +
-          '<div class="pdp-image-frame" id="zoomFrame"><span class="emoji-fallback">' + product.image + "</span></div>" +
-          '<div class="pdp-thumbs"><div class="pdp-thumb active">' + product.image + "</div></div>" +
+          '<div class="pdp-image-frame" id="zoomFrame">' + EC.renderProductImageHtml(product) + "</div>" +
+          '<div class="pdp-thumbs"><div class="pdp-thumb active">' + EC.renderProductImageHtml(product) + "</div></div>" +
         "</div>" +
         '<div class="pdp-info">' +
           '<div class="pdp-info-badges">' +
@@ -177,7 +173,9 @@
             "</div>" +
           "</div>" +
           '<div class="pdp-actions">' +
-            '<button class="btn-pdp-cart" id="pdpAddToCart"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>' +
+            (outOfStock
+              ? '<button class="btn-pdp-cart" id="pdpAddToCart" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
+              : '<button class="btn-pdp-cart" id="pdpAddToCart"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>') +
             '<button class="btn-pdp-wa" id="pdpBuyWhatsApp"><i class="ti ti-brand-whatsapp"></i> Buy via WhatsApp</button>' +
           "</div>" +
           '<div class="pdp-trust-row">' +
@@ -207,11 +205,15 @@
         "</div>" +
         '<div class="pdp-section-card">' +
           '<h3><i class="ti ti-motorbike"></i> Compatible Vehicles</h3>' +
-          "<p>Fits most electric scooters and bikes including Ola Electric, Ather Energy, Hero Electric, Ampere, TVS iQube, Bajaj Chetak, Okinawa and Pure EV. Please WhatsApp us your vehicle model to confirm exact fitment.</p>" +
+          "<p>" + (product.compatibleVehicle
+            ? EC.escapeHtml(product.compatibleVehicle) + " Please WhatsApp us your exact vehicle model to confirm fitment."
+            : "Fits most electric scooters and bikes including Ola Electric, Ather Energy, Hero Electric, Ampere, TVS iQube, Bajaj Chetak, Okinawa and Pure EV. Please WhatsApp us your vehicle model to confirm exact fitment.") + "</p>" +
         "</div>" +
         '<div class="pdp-section-card">' +
           '<h3><i class="ti ti-certificate"></i> Warranty Information</h3>' +
-          "<p>Standard Eco Connex dealer warranty applies as per manufacturer terms. Contact us on WhatsApp for warranty claims or replacement support.</p>" +
+          "<p>" + (product.warranty
+            ? "Warranty: " + EC.escapeHtml(product.warranty) + ". Contact us on WhatsApp for warranty claims or replacement support."
+            : "Standard Eco Connex dealer warranty applies as per manufacturer terms. Contact us on WhatsApp for warranty claims or replacement support.") + "</p>" +
         "</div>" +
       "</div>" +
 
@@ -247,7 +249,7 @@
 
     const cartBtn = document.getElementById("pdpAddToCart");
     cartBtn.addEventListener("click", function () {
-      const item = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.image };
+      const item = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.icon };
       for (let i = 0; i < qty; i++) window.EcoConnex.cart.addToCart(item);
       window.EcoConnex.showToast("Added to Cart Successfully");
       const prevHtml = cartBtn.innerHTML;

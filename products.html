@@ -131,20 +131,14 @@
 var ALL_PRODUCTS = [];
 var currentFilter = 'all';
 
-function stockClass(stock) {
-  var s = (stock || '').toLowerCase();
-  if (s.indexOf('low') !== -1) return 'low';
-  if (s.indexOf('enquire') !== -1) return 'enquire';
-  return 'in-stock';
-}
-
 function priceHtml(p) {
   return window.EcoConnex.renderPriceHtml(p, { hideSavingsLine: true });
 }
 
 function cardHtml(p) {
   var hasPrice = typeof p.price === 'number' && p.price > 0;
-  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || 'INR', icon: p.image }));
+  var outOfStock = window.EcoConnex.isOutOfStock(p);
+  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || 'INR', icon: p.icon }));
   var qtyId = 'tqty-cat-' + p.id;
   var qtyStepper =
     '<div class="tile-qty" onclick="event.stopPropagation()">' +
@@ -152,18 +146,21 @@ function cardHtml(p) {
       '<span class="tile-qty-num" id="' + qtyId + '">1</span>' +
       '<button type="button" aria-label="Increase quantity" onclick="var el=document.getElementById(\'' + qtyId + '\');el.textContent=parseInt(el.textContent,10)+1;">+</button>' +
     '</div>';
+  var actionBtn = outOfStock
+    ? '<button class="btn-enquire" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
+    : '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
   return (
     '<div class="product-card" id="product-' + p.id + '" data-cat="' + p.category + '" data-name="' + window.EcoConnex.escapeHtml(p.name.toLowerCase()) + '" data-sku="' + p.sku + '" onclick="if(!event.target.closest(\'button\')&&!event.target.closest(\'a\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
-      '<div class="product-img">' + p.image +
-        '<span class="stock-badge ' + stockClass(p.stock) + '">' + window.EcoConnex.escapeHtml(p.stock) + '</span>' +
+      '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p) +
+        '<span class="stock-badge ' + window.EcoConnex.getStockClass(p.stock) + '">' + window.EcoConnex.escapeHtml(p.stock) + '</span>' +
         '<span class="cat-badge">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + '</span>' +
       '</div>' +
       '<div class="product-body">' +
         '<div class="product-name">' + window.EcoConnex.escapeHtml(p.name) + '</div>' +
         priceHtml(p) +
+        (outOfStock ? '' : qtyStepper) +
         '<div class="product-actions">' +
-          qtyStepper +
-          '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>' +
+          actionBtn +
           '<a href="tel:+918778657912" class="btn-call"><i class="ti ti-phone"></i></a>' +
         '</div>' +
       '</div>' +
