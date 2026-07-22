@@ -45,7 +45,7 @@
         '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p) + '<span class="product-badge" style="background:' + badgeBg + '">' + window.EcoConnex.escapeHtml(p.stock) + "</span></div>" +
         '<div class="product-body">' +
           '<h3 class="product-name">' + window.EcoConnex.escapeHtml(p.name) + "</h3>" +
-          '<p class="product-desc">' + window.EcoConnex.escapeHtml(p.description) + "</p>" +
+          '<p class="product-desc">' + window.EcoConnex.escapeHtml(p.shortDescription || window.EcoConnex.shortText(p.description, 90)) + "</p>" +
           '<span class="product-compat">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + " · " + window.EcoConnex.escapeHtml(p.sku) + "</span>" +
           priceBlock +
           (outOfStock ? "" : qtyStepper) +

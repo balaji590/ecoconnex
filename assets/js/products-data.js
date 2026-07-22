@@ -112,6 +112,18 @@ window.EcoConnex = window.EcoConnex || {};
       .replace(/"/g, "&quot;");
   }
 
+  /**
+   * Truncates long text to maxLen characters at a word boundary, for
+   * compact card display (product cards use the client's short
+   * description when available; this is the fallback for older
+   * records that only have the long description).
+   */
+  function shortText(str, maxLen) {
+    str = String(str || "");
+    if (str.length <= maxLen) return str;
+    return str.slice(0, maxLen).replace(/\s+\S*$/, "") + "…";
+  }
+
   /* ---- Recent searches (localStorage) ---- */
   const RECENT_KEY = "ecoconnex_recent_searches";
   const RECENT_MAX = 5;
@@ -372,6 +384,7 @@ window.EcoConnex = window.EcoConnex || {};
   ns.searchProducts = searchProducts;
   ns.highlightMatch = highlightMatch;
   ns.escapeHtml = escapeHtml;
+  ns.shortText = shortText;
   ns.getRecentSearches = getRecentSearches;
   ns.addRecentSearch = addRecentSearch;
   ns.POPULAR_SEARCHES = POPULAR_SEARCHES;
