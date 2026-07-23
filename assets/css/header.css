@@ -5,6 +5,13 @@
    Edit this file once — every page updates automatically.
    ============================================================ */
 
+/* ── GLOBAL ACCESSIBILITY: keyboard focus indicator ──
+   Site-wide, one rule (this file is linked on every page).
+   Only shows for keyboard navigation, never on mouse click,
+   so it doesn't change the visual design for mouse users. */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--orange,#f97316);outline-offset:2px;border-radius:4px;}
+button:disabled,button[disabled]{opacity:0.5;cursor:not-allowed;}
+
 /* ── NAV ── */
 :root{--header-h:70px;}
 /* Global mobile-safe top spacing: the ONE place every page compensates for

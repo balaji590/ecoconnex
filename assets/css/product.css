@@ -88,7 +88,7 @@ a{text-decoration:none;color:inherit;}
 .mini-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
 .mini-card-img{aspect-ratio:1/1;background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:42px;overflow:hidden;}
 .mini-card-body{padding:12px;}
-.mini-card-name{font-size:12.5px;font-weight:600;color:var(--gray-900);margin-bottom:6px;line-height:1.4;height:34px;overflow:hidden;}
+.mini-card-name{font-size:12.5px;font-weight:600;color:var(--gray-900);margin-bottom:6px;line-height:1.4;height:34px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .mini-card-price{font-size:14px;font-weight:800;color:var(--orange-dark);}
 .mini-card-actions{display:flex;gap:6px;margin-top:8px;}
 .mini-card-cart-btn{flex:1;display:flex;align-items:center;justify-content:center;background:var(--orange);color:#fff;padding:7px;border-radius:6px;font-size:14px;border:none;cursor:pointer;transition:background 0.2s;}
