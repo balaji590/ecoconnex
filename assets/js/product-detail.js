@@ -130,6 +130,9 @@ window.waEnquiry = window.waEnquiry || function (product) {
       "brand": { "@type": "Brand", "name": product.brand || "Eco Connex" },
       "url": pageUrl
     };
+    if (typeof product.image === "string" && /\.(webp|jpg|jpeg|png|gif|avif)$/i.test(product.image)) {
+      productLd.image = "https://ecoconnex.in/assets/images/products/" + encodeURIComponent(product.image);
+    }
     if (hasPrice) {
       productLd.offers = {
         "@type": "Offer",
