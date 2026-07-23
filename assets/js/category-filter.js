@@ -69,8 +69,27 @@
     grid.innerHTML = results.map(cardHtml).join("");
   }
 
+  /* ---------- Slider arrow navigation ---------- */
+
+  function wireSliderArrows() {
+    const prevBtn = document.getElementById("featuredPrev");
+    const nextBtn = document.getElementById("featuredNext");
+    if (!prevBtn || !nextBtn) return;
+    const scrollAmount = function () {
+      const card = grid.querySelector(".product-card");
+      return card ? card.getBoundingClientRect().width + 20 : 280;
+    };
+    prevBtn.addEventListener("click", function () {
+      grid.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+    });
+    nextBtn.addEventListener("click", function () {
+      grid.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+    });
+  }
+
   window.EcoConnex.loadProducts().then(function (products) {
     allProducts = products;
     renderFeatured();
+    wireSliderArrows();
   });
 })();

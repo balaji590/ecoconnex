@@ -101,14 +101,17 @@
 <!-- PRODUCTS -->
 <section class="products" id="products">
   <div class="container">
-    <div class="products-header fade-up">
-      <div class="eyebrow">Featured</div>
-      <h2 class="section-title">Popular EV Spare Parts</h2>
-      <p class="section-sub">A quick look at some of our genuine, quality-tested parts — add to cart and order via WhatsApp!</p>
+    <div class="featured-header-row fade-up">
+      <h2 class="featured-heading"><i class="ti ti-star-filled"></i> Featured Products</h2>
+      <div class="slider-nav">
+        <button class="slider-arrow" id="featuredPrev" aria-label="Scroll left"><i class="ti ti-chevron-left"></i></button>
+        <button class="slider-arrow" id="featuredNext" aria-label="Scroll right"><i class="ti ti-chevron-right"></i></button>
+      </div>
     </div>
+    <p class="section-sub featured-sub fade-up">A quick look at some of our genuine, quality-tested parts — add to cart and order via WhatsApp!</p>
 
     <div class="products-grid-wrap">
-      <div class="products-grid filtered-in" id="featuredProductsGrid"></div>
+      <div class="products-slider" id="featuredProductsGrid"></div>
       <div class="products-empty" id="featuredProductsEmpty">
         <i class="ti ti-package-off"></i>
         <p>No featured products available right now.</p>
