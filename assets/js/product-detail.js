@@ -35,7 +35,7 @@
   function miniCardHtml(p) {
     return (
       '<div class="mini-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
-        '<div class="mini-card-img">' + EC.renderProductImageHtml(p) + "</div>" +
+        '<div class="mini-card-img">' + EC.renderProductImageHtml(p, { width: 160, height: 110 }) + "</div>" +
         '<div class="mini-card-body">' +
           '<div class="mini-card-name">' + EC.escapeHtml(p.name) + "</div>" +
           priceHtml(p, false) +
@@ -150,8 +150,8 @@
     root.innerHTML =
       '<div class="pdp-grid">' +
         '<div class="pdp-gallery">' +
-          '<div class="pdp-image-frame" id="zoomFrame">' + EC.renderProductImageHtml(product) + "</div>" +
-          '<div class="pdp-thumbs"><div class="pdp-thumb active">' + EC.renderProductImageHtml(product) + "</div></div>" +
+          '<div class="pdp-image-frame" id="zoomFrame">' + EC.renderProductImageHtml(product, { width: 480, height: 480 }) + "</div>" +
+          '<div class="pdp-thumbs"><div class="pdp-thumb active">' + EC.renderProductImageHtml(product, { width: 64, height: 64 }) + "</div></div>" +
         "</div>" +
         '<div class="pdp-info">' +
           '<div class="pdp-info-badges">' +

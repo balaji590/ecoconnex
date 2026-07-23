@@ -334,6 +334,8 @@ window.EcoConnex = window.EcoConnex || {};
   function renderProductImageHtml(p, opts) {
     opts = opts || {};
     const imgClass = opts.imgClass || "";
+    const w = opts.width || 300;
+    const h = opts.height || 300;
     const icon = p.icon || p.image /* legacy: image used to BE the emoji */ || "🔧";
     const looksLikeFile = typeof p.image === "string" && /\.(webp|jpg|jpeg|png|gif|avif)$/i.test(p.image);
     if (!looksLikeFile) {
@@ -341,7 +343,8 @@ window.EcoConnex = window.EcoConnex || {};
     }
     const src = "assets/images/products/" + encodeURIComponent(p.image);
     return (
-      '<img src="' + src + '" alt="' + escapeHtml(p.name) + '" class="product-photo ' + imgClass + '" loading="lazy" ' +
+      '<img src="' + src + '" alt="' + escapeHtml(p.name) + '" class="product-photo ' + imgClass + '" ' +
+      'width="' + w + '" height="' + h + '" loading="lazy" decoding="async" ' +
       'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';"/>' +
       '<span class="product-icon-fallback ' + imgClass + '" style="display:none;">' + icon + "</span>"
     );

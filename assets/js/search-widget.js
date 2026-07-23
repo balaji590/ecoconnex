@@ -109,7 +109,7 @@ window.EcoConnex.initSearchWidget = function () {
       const sClass = window.EcoConnex.getStockClass(p.stock);
       html +=
         '<div class="sd-result" data-id="' + p.id + '" id="sd-item-' + i + '" role="option">' +
-          '<div class="sd-result-img">' + window.EcoConnex.renderProductImageHtml(p) + "</div>" +
+          '<div class="sd-result-img">' + window.EcoConnex.renderProductImageHtml(p, { width: 44, height: 44 }) + "</div>" +
           '<div class="sd-result-info">' +
             '<div class="sd-result-name">' + window.EcoConnex.highlightMatch(p.name, query) + "</div>" +
             '<div class="sd-result-meta"><span>' + window.EcoConnex.escapeHtml(p.sku) + '</span><span class="dot"></span><span>' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + "</span></div>" +

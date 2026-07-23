@@ -151,7 +151,7 @@ function cardHtml(p) {
     : '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
   return (
     '<div class="product-card" id="product-' + p.id + '" data-cat="' + p.category + '" data-name="' + window.EcoConnex.escapeHtml(p.name.toLowerCase()) + '" data-sku="' + p.sku + '" onclick="if(!event.target.closest(\'button\')&&!event.target.closest(\'a\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
-      '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p) +
+      '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p, { width: 220, height: 140 }) +
         '<span class="stock-badge ' + window.EcoConnex.getStockClass(p.stock) + '">' + window.EcoConnex.escapeHtml(p.stock) + '</span>' +
         '<span class="cat-badge">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + '</span>' +
       '</div>' +

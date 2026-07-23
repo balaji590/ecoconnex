@@ -42,7 +42,7 @@
 
     return (
       '<article class="product-card" id="home-product-' + p.id + '" onclick="if(!event.target.closest(\'button\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
-        '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p) + '<span class="product-badge" style="background:' + badgeBg + '">' + window.EcoConnex.escapeHtml(p.stock) + "</span></div>" +
+        '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p, { width: 280, height: 190 }) + '<span class="product-badge" style="background:' + badgeBg + '">' + window.EcoConnex.escapeHtml(p.stock) + "</span></div>" +
         '<div class="product-body">' +
           '<h3 class="product-name">' + window.EcoConnex.escapeHtml(p.name) + "</h3>" +
           '<p class="product-desc">' + window.EcoConnex.escapeHtml(p.shortDescription || window.EcoConnex.shortText(p.description, 90)) + "</p>" +
