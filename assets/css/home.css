@@ -28,7 +28,6 @@ img{max-width:100%;display:block;}
 .hero-inner{position:relative;z-index:2;display:flex;align-items:center;gap:48px;width:100%;padding-top:48px;padding-bottom:48px;}
 .hero-left{flex:0 0 45%;max-width:45%;animation:heroFadeIn 0.45s ease-out both;}
 .hero-right{flex:0 0 55%;max-width:55%;position:relative;display:flex;align-items:center;justify-content:center;min-height:400px;animation:heroFadeIn 0.45s ease-out 0.1s both;}
-.hero-right picture{display:contents;}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.35);color:var(--orange-light);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:26px;}
 .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite;flex-shrink:0;}
 .hero-title{font-size:51px;font-weight:800;color:#fff;line-height:1.14;margin-bottom:24px;}
