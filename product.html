@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
   <title id="pageTitle">Product Details – Eco Connex</title>
-  <meta name="description" id="pageDesc" content="Genuine EV spare parts at Eco Connex, Tiruvannamalai. Fast delivery across Tamil Nadu."/>
+  <meta name="description" id="pageDesc" content="Genuine EV spare parts at Eco Connex, Tiruvannamalai — batteries, motors, controllers and chargers with fast delivery across Tamil Nadu."/>
   <meta name="keywords" id="pageKeywords" content="EV spare parts, electric bike parts, Tiruvannamalai, Tamil Nadu"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/>
   <meta name="author" content="Eco Connex"/>
@@ -126,7 +126,7 @@ function updateCartUI() {
       }
       priceLine = unitLine + ' × ' + item.qty + ' = ₹' + (item.price * item.qty).toLocaleString('en-IN');
     }
-    return '<div class="cart-item"><div class="cart-item-icon">' + window.EcoConnex.renderProductImageHtml({image:item.image,icon:item.icon,name:item.name},{width:44,height:44}) + '</div><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">' + priceLine + '</div><div class="cart-item-qty"><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\'' + item.sku + '\')" title="Remove"><i class="ti ti-trash"></i></button></div>';
+    return '<div class="cart-item"><div class="cart-item-icon">' + window.EcoConnex.renderProductImageHtml({image:item.image,icon:item.icon,name:item.name},{width:44,height:44}) + '</div><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">' + priceLine + '</div><div class="cart-item-qty"><button class="qty-btn" aria-label="Decrease quantity" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" aria-label="Increase quantity" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\'' + item.sku + '\')" title="Remove" aria-label="Remove item"><i class="ti ti-trash"></i></button></div>';
   }).join('');
 }
 window.EcoConnex.cart.onChange(updateCartUI);

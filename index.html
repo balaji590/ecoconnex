@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
   <title>Eco Connex – EV Spare Parts Supplier | Tiruvannamalai, Tamil Nadu</title>
-  <meta name="description" content="Eco Connex is Tiruvannamalai's trusted EV spare parts supplier. Genuine batteries, motors, controllers, chargers for all electric bikes. Fast delivery across Tamil Nadu. GST Registered."/>
+  <meta name="description" content="Genuine EV spare parts in Tiruvannamalai — batteries, motors, controllers and chargers for all electric bikes. Fast delivery across Tamil Nadu."/>
   <meta name="keywords" content="EV spare parts, electric bike parts, Tiruvannamalai, Tamil Nadu, EV battery, BLDC motor, EV controller, EV charger, electric scooter parts, Eco Connex"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/>
   <meta name="author" content="Eco Connex"/>
@@ -296,7 +296,7 @@
 <div class="cart-sidebar" id="cartSidebar">
   <div class="cart-header">
     <h3><i class="ti ti-shopping-cart"></i> Your Cart</h3>
-    <button class="cart-close" onclick="closeCart()"><i class="ti ti-x"></i></button>
+    <button class="cart-close" onclick="closeCart()" aria-label="Close cart"><i class="ti ti-x"></i></button>
   </div>
   <div class="cart-items" id="cartItems">
     <div class="cart-empty"><i class="ti ti-shopping-cart-off"></i><p>Your cart is empty</p><p style="font-size:12px;margin-top:8px;">Add products to get started!</p></div>
@@ -316,7 +316,7 @@
   <div class="modal">
     <div class="modal-header">
       <h3>Complete Your Order</h3>
-      <button class="modal-close" onclick="closeCheckout()"><i class="ti ti-x"></i></button>
+      <button class="modal-close" onclick="closeCheckout()" aria-label="Close checkout"><i class="ti ti-x"></i></button>
     </div>
     <div class="modal-body">
       <div class="modal-order-summary">
@@ -393,7 +393,7 @@ function updateCartUI(){
       }
       priceLine=unitLine+' × '+item.qty+' = ₹'+(item.price*item.qty).toLocaleString('en-IN');
     }
-    return '<div class="cart-item"><div class="cart-item-icon">'+window.EcoConnex.renderProductImageHtml({image:item.image,icon:item.icon,name:item.name},{width:44,height:44})+'</div><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">'+priceLine+'</div><div class="cart-item-qty"><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\''+item.sku+'\',-1)">−</button><span class="qty-num">'+item.qty+'</span><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\''+item.sku+'\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\''+item.sku+'\')" title="Remove"><i class="ti ti-trash"></i></button></div>';
+    return '<div class="cart-item"><div class="cart-item-icon">'+window.EcoConnex.renderProductImageHtml({image:item.image,icon:item.icon,name:item.name},{width:44,height:44})+'</div><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">'+priceLine+'</div><div class="cart-item-qty"><button class="qty-btn" aria-label="Decrease quantity" onclick="EcoConnex.cart.updateQty(\''+item.sku+'\',-1)">−</button><span class="qty-num">'+item.qty+'</span><button class="qty-btn" aria-label="Increase quantity" onclick="EcoConnex.cart.updateQty(\''+item.sku+'\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\''+item.sku+'\')" title="Remove" aria-label="Remove item"><i class="ti ti-trash"></i></button></div>';
   }).join('');
 }
 window.EcoConnex.cart.onChange(updateCartUI);
