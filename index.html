@@ -32,6 +32,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Eco Connex","url":"https://ecoconnex.in","logo":"https://ecoconnex.in/assets/images/logo.png","contactPoint":{"@type":"ContactPoint","telephone":"+91-87786-57912","contactType":"customer service","areaServed":"IN","availableLanguage":["en","ta"]}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Eco Connex","url":"https://ecoconnex.in"}</script>
 
+  <link rel="preload" as="image" href="assets/images/scooter/scooter.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -65,7 +66,7 @@
       </div>
     </div>
     <div class="hero-right">
-      <img src="assets/images/scooter/scooter.png" alt="EV Scooter" class="hero-scooter-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <img src="assets/images/scooter/scooter.png" alt="EV Scooter" class="hero-scooter-img" width="520" height="520" loading="eager" fetchpriority="high" decoding="sync" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
       <div class="hero-scooter-fallback"><i class="ti ti-scooter-electric"></i></div>
       <div class="hero-float-grid">
         <a href="products.html" class="hero-float-card card-1"><span class="hero-float-icon">🔋</span><div><div class="hero-float-name">Battery</div><div class="hero-float-price">₹3,500</div></div></a>
