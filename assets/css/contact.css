@@ -1,0 +1,59 @@
+/* ============================================================
+   contact.html — page-specific rules only.
+   Reuses shared classes from home.css (.container, .section-title,
+   .section-sub, .eyebrow, .feature-card, .feature-icon, .btn-orange,
+   .btn-outline-light, .dealer-banner, .faq, .fade-up) and the same
+   dark hero-banner pattern used on about.html / products.html.
+   ============================================================ */
+
+/* Hero banner — identical pattern to about.html's hero */
+.hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:40px 24px;text-align:center;border-bottom:1px solid rgba(249,115,22,0.15);}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:var(--orange-light);font-size:12px;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
+.hero h1{font-size:32px;font-weight:800;color:#fff;margin-bottom:10px;}
+.hero h1 span{color:var(--orange);}
+.hero p{font-size:15px;color:#9ca3af;margin-bottom:0;max-width:640px;margin-left:auto;margin-right:auto;}
+
+/* Section 2 — Contact Information cards */
+.contact-info-section{padding:64px 0;}
+.contact-info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.contact-info-card{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:28px 22px;text-align:center;}
+.contact-info-card .feature-icon{margin:0 auto 16px;}
+.contact-info-card h3{font-size:15px;font-weight:700;color:var(--gray-900);margin-bottom:10px;}
+.contact-info-card p,.contact-info-card a{font-size:14px;line-height:1.6;color:var(--gray-500);}
+.contact-info-card a{color:var(--orange-dark);font-weight:600;}
+.contact-info-card a:hover{text-decoration:underline;}
+
+/* Section 3 — Need Assistance intro text */
+.contact-assist{padding:8px 0 56px;}
+.contact-assist .container{max-width:780px;text-align:center;}
+.contact-assist h2{font-size:26px;font-weight:800;color:var(--gray-900);margin-bottom:14px;}
+.contact-assist p{font-size:16px;line-height:1.8;color:var(--gray-500);}
+
+/* Section 4 — Contact Options (WhatsApp / Call) */
+.contact-options{padding:0 0 64px;}
+.contact-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.contact-option-card{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:32px;text-align:center;}
+.contact-option-card .feature-icon{margin:0 auto 16px;width:52px;height:52px;}
+.contact-option-card .feature-icon i{font-size:24px;}
+.contact-option-card h3{font-size:18px;font-weight:700;color:var(--gray-900);margin-bottom:8px;}
+.contact-option-card p{font-size:14px;color:var(--gray-500);margin-bottom:20px;line-height:1.6;}
+
+/* Section 5 — Location */
+.location-section{padding:0 0 64px;}
+.location-card{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;}
+.location-card .map-wrap{margin:0;}
+.location-card-text{padding:24px 28px;display:flex;align-items:center;gap:14px;}
+.location-card-text i{font-size:24px;color:var(--orange);flex-shrink:0;}
+.location-card-text span{font-size:14.5px;color:var(--gray-700);line-height:1.6;}
+
+@media(max-width:900px){
+  .contact-info-grid{grid-template-columns:1fr 1fr;}
+  .contact-options-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .hero h1{font-size:24px;}
+  .contact-info-grid{grid-template-columns:1fr;}
+  .contact-info-section{padding:40px 0;}
+  .contact-assist h2{font-size:21px;}
+  .contact-option-card{padding:24px;}
+}
