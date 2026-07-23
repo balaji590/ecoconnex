@@ -65,6 +65,10 @@
   </div>
   <div class="filters-panel" id="filtersPanel">
     <div class="filters-panel-col">
+      <div class="filters-panel-label">Category</div>
+      <div class="filters-checklist" id="categoryFilterList"></div>
+    </div>
+    <div class="filters-panel-col">
       <div class="filters-panel-label">Brand</div>
       <div class="filters-checklist" id="brandFilterList"></div>
     </div>
@@ -172,7 +176,7 @@ function renderProducts(products) {
 }
 
 // ── CATEGORY CHIPS (multi-select, dynamically built from real product data) ──
-function renderCategoryChips() {
+function getCategoryEntries() {
   var cats = {};
   ALL_PRODUCTS.forEach(function (p) {
     var key = p.category;
@@ -181,6 +185,11 @@ function renderCategoryChips() {
   });
   var entries = Object.keys(cats).map(function (k) { return { key: k, label: cats[k].label, count: cats[k].count }; });
   entries.sort(function (a, b) { return a.label.localeCompare(b.label); });
+  return entries;
+}
+
+function renderCategoryChips() {
+  var entries = getCategoryEntries();
 
   var html = '<button type="button" class="filter-btn' + (selectedCategories.size === 0 ? ' active' : '') + '" data-cat="all" onclick="toggleCategory(\'all\')"><i class="ti ti-layout-grid"></i> All <span class="filter-count">(' + ALL_PRODUCTS.length + ')</span></button>';
   entries.forEach(function (e) {
@@ -188,6 +197,12 @@ function renderCategoryChips() {
     html += '<button type="button" class="filter-btn' + (isActive ? ' active' : '') + '" data-cat="' + e.key + '" onclick="toggleCategory(\'' + e.key + '\')">' + window.EcoConnex.escapeHtml(e.label) + ' <span class="filter-count">(' + e.count + ')</span></button>';
   });
   document.getElementById('filterBtns').innerHTML = html;
+
+  document.getElementById('categoryFilterList').innerHTML = entries.map(function (e) {
+    var id = 'cat-' + e.key;
+    var checked = selectedCategories.has(e.key) ? ' checked' : '';
+    return '<label class="filters-check-item"><input type="checkbox" id="' + id + '"' + checked + ' onchange="toggleCategory(\'' + e.key + '\')"/> ' + window.EcoConnex.escapeHtml(e.label) + ' <span class="filter-count">(' + e.count + ')</span></label>';
+  }).join('');
 }
 
 function toggleCategory(cat) {
