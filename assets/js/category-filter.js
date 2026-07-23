@@ -87,9 +87,93 @@
     });
   }
 
+  /* ---------- Hero Category Cards (dynamic, never hardcoded) ----------
+     Reads real categories straight from the loaded product catalog.
+     Prefers a curated list of core EV component types (by business
+     relevance), but only ever shows a category that actually has
+     products right now — if one of the preferred types doesn't exist
+     in the catalog, it's skipped automatically and the next best real
+     category takes its place. Each card links to its real filtered
+     listing on products.html (uses the same ?category= raw-category
+     slug the Products page's own filter chips already use). */
+
+  const HERO_CATEGORY_PRIORITY = [
+    { match: ["motor"], label: "Hub Motors", subtitle: "High Efficiency", icon: "⚙️" },
+    { match: ["charger"], label: "Chargers", subtitle: "Fast Charging", icon: "🔌" },
+    { match: ["disc", "brake", "brake-shoe", "drum-plate"], label: "Brake Parts", subtitle: "Reliable Safety", icon: "🛑" },
+    { match: ["throttle"], label: "Throttle Controls", subtitle: "Smooth Control", icon: "🎮" },
+    { match: ["controller"], label: "Controllers", subtitle: "Smart Performance", icon: "🎛️" },
+    { match: ["connector"], label: "Connectors", subtitle: "Genuine Parts", icon: "🔗" },
+    { match: ["switch"], label: "Switches", subtitle: "OEM Quality", icon: "🎚️" },
+    { match: ["bearing"], label: "Bearings", subtitle: "Heavy Duty", icon: "⚪" }
+  ];
+
+  function heroCardHtml(entry, index) {
+    return (
+      '<a href="products.html?category=' + encodeURIComponent(entry.category) + '" class="hero-float-card card-' + (index + 1) + '" aria-label="Browse ' + window.EcoConnex.escapeHtml(entry.label) + '">' +
+        '<span class="hero-float-icon" aria-hidden="true">' + entry.icon + "</span>" +
+        "<div>" +
+          '<div class="hero-float-name">' + window.EcoConnex.escapeHtml(entry.label) + "</div>" +
+          '<div class="hero-float-sub">' + window.EcoConnex.escapeHtml(entry.subtitle) + "</div>" +
+          '<div class="hero-float-cta">Explore <i class="ti ti-arrow-right"></i></div>' +
+        "</div>" +
+      "</a>"
+    );
+  }
+
+  function renderHeroCategoryCards(products) {
+    const container = document.getElementById("heroCategoryCards");
+    if (!container) return;
+
+    // Real category counts from the actual catalog — never assumed.
+    const counts = {};
+    products.forEach(function (p) {
+      if (!p.category) return;
+      counts[p.category] = (counts[p.category] || 0) + 1;
+    });
+
+    const chosen = [];
+    const usedCategories = {};
+
+    // 1) Fill from the curated priority list, but only categories that truly exist.
+    HERO_CATEGORY_PRIORITY.forEach(function (entry) {
+      if (chosen.length >= 4) return;
+      // Pick the highest-count real category among this entry's acceptable matches.
+      let best = null;
+      entry.match.forEach(function (cat) {
+        if (counts[cat] && !usedCategories[cat] && (!best || counts[cat] > counts[best])) best = cat;
+      });
+      if (best) {
+        chosen.push({ category: best, label: entry.label, subtitle: entry.subtitle, icon: entry.icon });
+        usedCategories[best] = true;
+      }
+    });
+
+    // 2) If fewer than 4 preferred categories exist yet, fill remaining slots
+    //    from whatever real categories have the most products (still real data only).
+    if (chosen.length < 4) {
+      const bySize = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
+      for (let i = 0; i < bySize.length && chosen.length < 4; i++) {
+        const cat = bySize[i];
+        if (usedCategories[cat]) continue;
+        const sample = products.find(function (p) { return p.category === cat; });
+        chosen.push({
+          category: cat,
+          label: sample ? (sample.categoryLabel || cat) : cat,
+          subtitle: "Genuine Parts",
+          icon: "🔧"
+        });
+        usedCategories[cat] = true;
+      }
+    }
+
+    container.innerHTML = chosen.map(function (entry, i) { return heroCardHtml(entry, i); }).join("");
+  }
+
   window.EcoConnex.loadProducts().then(function (products) {
     allProducts = products;
     renderFeatured();
     wireSliderArrows();
+    renderHeroCategoryCards(products);
   });
 })();
