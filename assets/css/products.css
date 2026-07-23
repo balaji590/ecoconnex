@@ -13,7 +13,7 @@ a{text-decoration:none;color:inherit;}
 /* Header/nav/search/mobile-menu styles now live in header.css (shared across every page) */
 
 /* HERO */
-.hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:40px 24px;text-align:center;border-bottom:1px solid rgba(249,115,22,0.15);margin-top:70px;}
+.hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:40px 24px;text-align:center;border-bottom:1px solid rgba(249,115,22,0.15);}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:var(--orange-light);font-size:12px;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
 .hero h1{font-size:32px;font-weight:800;color:#fff;margin-bottom:10px;}
 .hero h1 span{color:var(--orange);}
@@ -115,7 +115,6 @@ a{text-decoration:none;color:inherit;}
   .products-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));}
 }
 @media(max-width:600px){
-  .hero{margin-top:56px;}
   .hero h1{font-size:24px;}
   .hero-stats{grid-template-columns:repeat(2,1fr);max-width:320px;}
   .products-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;}

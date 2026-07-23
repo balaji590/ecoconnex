@@ -61,6 +61,15 @@
     );
   }
 
+  function syncHeaderHeight() {
+    const navbar = document.getElementById("navbar");
+    if (!navbar) return;
+    const h = navbar.getBoundingClientRect().height;
+    if (h > 0) {
+      document.documentElement.style.setProperty("--header-h", h + "px");
+    }
+  }
+
   function fetchPartial(url) {
     return fetch(url, { cache: "no-cache" }).then(function (res) {
       if (!res.ok) throw new Error("Failed to load " + url);
@@ -77,6 +86,8 @@
           headerMount.innerHTML = html;
           wireHamburger();
           wireScrollShadow();
+          syncHeaderHeight();
+          window.addEventListener("resize", syncHeaderHeight);
           if (typeof window.EcoConnex !== "undefined" && typeof window.EcoConnex.initSearchWidget === "function") {
             window.EcoConnex.initSearchWidget();
           }

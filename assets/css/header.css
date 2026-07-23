@@ -6,8 +6,14 @@
    ============================================================ */
 
 /* ── NAV ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(249,115,22,0.15);transition:padding 0.3s ease;padding:11px 0;}
-.nav.scrolled{padding:10px 0;box-shadow:0 4px 24px rgba(0,0,0,0.4);}
+:root{--header-h:70px;}
+/* Global mobile-safe top spacing: the ONE place every page compensates for
+   the fixed header. shared-layout.js measures the header's real rendered
+   height (which already includes the safe-area padding below) and updates
+   --header-h precisely; this fallback just avoids a flash before that runs. */
+body{padding-top:var(--header-h);}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(249,115,22,0.15);transition:padding 0.3s ease;padding:calc(11px + env(safe-area-inset-top)) 0 11px;}
+.nav.scrolled{padding:calc(10px + env(safe-area-inset-top)) 0 10px;box-shadow:0 4px 24px rgba(0,0,0,0.4);}
 .nav .container{max-width:1600px;margin:0 auto;padding:0 40px;}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap;}
 .nav-logo{display:flex;align-items:center;gap:10px;}
@@ -91,7 +97,8 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
   .search-dropdown{min-width:250px;}
 }
 @media(max-width:600px){
-  .nav{padding:8px 0;}
+  :root{--header-h:56px;}
+  .nav{padding:calc(8px + env(safe-area-inset-top)) 0 8px;}
   .nav .container{padding:0 16px;}
   .nav-inner{flex-wrap:wrap;}
   .nav-logo img{height:34px;}
