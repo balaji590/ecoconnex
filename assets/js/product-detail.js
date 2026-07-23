@@ -35,7 +35,7 @@
   function miniCardHtml(p) {
     return (
       '<div class="mini-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
-        '<div class="mini-card-img">' + EC.renderProductImageHtml(p, { width: 160, height: 110 }) + "</div>" +
+        '<div class="mini-card-img">' + EC.renderProductImageHtml(p, { width: 140, height: 140 }) + "</div>" +
         '<div class="mini-card-body">' +
           '<div class="mini-card-name">' + EC.escapeHtml(p.name) + "</div>" +
           priceHtml(p, false) +

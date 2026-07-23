@@ -27,7 +27,7 @@ a{text-decoration:none;color:inherit;}
 .pdp-image-frame .emoji-fallback,.pdp-image-frame .product-photo,.pdp-image-frame .product-icon-fallback{transition:transform 0.35s ease;}
 .pdp-image-frame:hover .emoji-fallback,.pdp-image-frame:hover .product-photo,.pdp-image-frame:hover .product-icon-fallback{transform:scale(1.12);}
 .pdp-image-frame.zoomed .emoji-fallback,.pdp-image-frame.zoomed .product-photo,.pdp-image-frame.zoomed .product-icon-fallback{transform:scale(1.5);}
-.pdp-image-frame .product-photo{width:100%;height:100%;object-fit:contain;padding:8px;}
+.pdp-image-frame .product-photo{width:100%;height:100%;object-fit:contain;padding:4px;}
 .pdp-thumbs{display:flex;align-items:center;gap:10px;margin-top:12px;}
 .pdp-thumb{width:64px;height:64px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;transition:border-color 0.2s;overflow:hidden;}
 .pdp-thumb .product-photo{width:100%;height:100%;object-fit:contain;padding:6px;}
@@ -86,7 +86,7 @@ a{text-decoration:none;color:inherit;}
 .pdp-strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
 .mini-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:all 0.25s ease;display:flex;flex-direction:column;}
 .mini-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
-.mini-card-img{height:110px;background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:42px;}
+.mini-card-img{aspect-ratio:1/1;background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:42px;overflow:hidden;}
 .mini-card-body{padding:12px;}
 .mini-card-name{font-size:12.5px;font-weight:600;color:var(--gray-900);margin-bottom:6px;line-height:1.4;height:34px;overflow:hidden;}
 .mini-card-price{font-size:14px;font-weight:800;color:var(--orange-dark);}
@@ -160,4 +160,4 @@ a{text-decoration:none;color:inherit;}
 .cart-savings-row span,.cart-savings-row strong{color:#16a34a;font-weight:700;}
 
 /* ── PRODUCT PHOTO in mini/related cards ── */
-.mini-card-img .product-photo{width:100%;height:100%;object-fit:contain;padding:8px;}
+.mini-card-img .product-photo{width:100%;height:100%;object-fit:contain;padding:4px;}
