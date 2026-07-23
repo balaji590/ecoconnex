@@ -181,7 +181,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
             '<span>Brand: <strong>' + EC.escapeHtml(product.brand) + '</strong></span>' +
           "</div>" +
           '<div class="pdp-price-block">' + priceHtml(product, true) + "</div>" +
-          '<p class="pdp-desc">' + EC.escapeHtml(product.description) + "</p>" +
+          '<p class="pdp-desc">' + EC.escapeHtml(product.description || product.name || "") + "</p>" +
           '<div class="pdp-qty-row">' +
             '<div class="pdp-qty">' +
               '<button id="qtyMinus" aria-label="Decrease quantity">−</button>' +
@@ -206,7 +206,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
       '<div class="pdp-sections">' +
         '<div class="pdp-section-card">' +
           '<h3><i class="ti ti-file-text"></i> Product Description</h3>' +
-          "<p>" + EC.escapeHtml(product.description) + "</p>" +
+          "<p>" + EC.escapeHtml(product.description || product.name || "") + "</p>" +
         "</div>" +
         '<div class="pdp-section-card">' +
           '<h3><i class="ti ti-list-details"></i> Specifications</h3>' +

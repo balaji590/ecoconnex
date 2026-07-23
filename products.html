@@ -372,8 +372,12 @@ function applyCategoryFromUrl() {
   var params = new URLSearchParams(window.location.search);
   var cat = params.get('category');
   if (!cat) return;
-  if (document.querySelector('.filter-btn[data-cat="' + cat + '"]')) {
-    toggleCategory(cat);
+  var chips = document.querySelectorAll('.filter-btn');
+  for (var i = 0; i < chips.length; i++) {
+    if (chips[i].getAttribute('data-cat') === cat) {
+      toggleCategory(cat);
+      break;
+    }
   }
 }
 

@@ -38,6 +38,8 @@ window.EcoConnex = window.EcoConnex || {};
    */
   function addToCart(item, qty) {
     qty = (typeof qty === "number" && qty > 0) ? Math.floor(qty) : 1;
+    const safePrice = (typeof item.price === "number" && isFinite(item.price) && item.price > 0) ? item.price : null;
+    const safeMrp = (typeof item.mrp === "number" && isFinite(item.mrp) && item.mrp > 0) ? item.mrp : null;
     const existing = cart.find(function (i) { return i.sku === item.sku; });
     if (existing) {
       existing.qty += qty;
@@ -45,8 +47,8 @@ window.EcoConnex = window.EcoConnex || {};
       cart.push({
         name: item.name,
         sku: item.sku,
-        price: typeof item.price === "number" ? item.price : null,
-        mrp: typeof item.mrp === "number" ? item.mrp : null,
+        price: safePrice,
+        mrp: safeMrp,
         currency: item.currency || "INR",
         icon: item.icon || "🔧",
         image: item.image || null,
