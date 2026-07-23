@@ -1,27 +1,35 @@
 /* ============================================================
-   Eco Connex — Category Navigation + Smart Product Filtering
-   Renders the homepage category pill bar and product grid from
-   the shared products.json data source, and combines the active
-   category with the header search box (see search-widget.js →
-   window.EcoConnex.onHeaderSearchChange hook).
+   Eco Connex — Home Page: Category Quick-Links + Featured Products
+   The full product catalog (search, filter, all 135 products) now
+   lives entirely on products.html. This file only powers the
+   Home Page's lightweight landing-page sections:
 
-   Reusable / future-ready:
-   - Category grouping lives in products-data.js (CATEGORY_GROUPS)
-   - Filtering goes through window.EcoConnex.applyFilters(), a
-     generic pipeline. Adding a Brand/Price/Voltage/Vehicle filter
-     later only needs a new registerFilter() call + a UI control
-     that calls setActiveFilter() below — no rewrite required here.
+   1. Category pills — visual quick-links into products.html
+      (counts are computed from the already-loaded catalog data;
+      clicking a pill navigates to the dedicated Products page,
+      where the full, untouched set of granular category filters
+      is available — the Home Page no longer renders or filters
+      the full catalog itself).
+
+   2. Featured Products grid — up to 8 products, reusing the exact
+      same card markup/behaviour as the Products page (Add to
+      Cart, WhatsApp, qty stepper, pricing/discount, image
+      rendering). Prefers products marked featured:true and
+      gracefully falls back to the first 8 products when that
+      field isn't present yet (see getFeaturedProducts() in
+      products-data.js) — no product IDs are ever hardcoded here.
    ============================================================ */
 (function () {
   "use strict";
 
-  const grid = document.getElementById("homeProductsGrid");
-  const emptyState = document.getElementById("homeProductsEmpty");
+  const grid = document.getElementById("featuredProductsGrid");
+  const emptyState = document.getElementById("featuredProductsEmpty");
   const pillTrack = document.getElementById("categoryScroll");
   if (!grid || !pillTrack) return; // widget not present on this page
 
   let allProducts = [];
-  const activeFilters = { categoryGroup: "all", search: "" };
+
+  /* ---------- Product Card (reused as-is from the Products page) ---------- */
 
   function cardHtml(p) {
     const hasPrice = typeof p.price === "number" && p.price > 0;
@@ -58,7 +66,7 @@
     );
   }
 
-  /* ---------- Category pills ---------- */
+  /* ---------- Category pills → quick links into products.html ---------- */
 
   function renderPills() {
     const groups = window.EcoConnex.CATEGORY_GROUPS;
@@ -66,65 +74,32 @@
       const count = g.id === "all"
         ? allProducts.length
         : allProducts.filter(function (p) { return window.EcoConnex.getGroupIdForCategory(p.category) === g.id; }).length;
-      const active = activeFilters.categoryGroup === g.id ? " active" : "";
+      const href = "products.html";
       return (
-        '<button class="category-pill' + active + '" data-group="' + g.id + '" role="tab" aria-selected="' + (active ? "true" : "false") + '">' +
+        '<a class="category-pill' + (g.id === "all" ? " active" : "") + '" href="' + href + '" role="tab">' +
           '<i class="ti ' + g.icon + '"></i><span>' + g.label + "</span>" +
           '<span class="cat-count">(' + count + ")</span>" +
-        "</button>"
+        "</a>"
       );
     }).join("");
-
-    pillTrack.querySelectorAll(".category-pill").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        setActiveFilter("categoryGroup", btn.getAttribute("data-group"));
-      });
-    });
   }
 
-  /* ---------- Grid rendering with 200ms fade ---------- */
+  /* ---------- Featured Products grid (8 items, reused card) ---------- */
 
-  function renderGrid() {
-    const results = window.EcoConnex.applyFilters(allProducts, activeFilters);
-
-    grid.classList.remove("filtered-in");
-    grid.classList.add("filtering");
-
-    setTimeout(function () {
-      if (!results.length) {
-        grid.innerHTML = "";
-        emptyState.classList.add("show");
-      } else {
-        emptyState.classList.remove("show");
-        grid.innerHTML = results.map(cardHtml).join("");
-      }
-      grid.classList.remove("filtering");
-      grid.classList.add("filtered-in");
-    }, 200);
+  function renderFeatured() {
+    const results = window.EcoConnex.getFeaturedProducts(allProducts, 8);
+    if (!results.length) {
+      grid.innerHTML = "";
+      if (emptyState) emptyState.classList.add("show");
+      return;
+    }
+    if (emptyState) emptyState.classList.remove("show");
+    grid.innerHTML = results.map(cardHtml).join("");
   }
-
-  /* ---------- Public setter (future filters call this too) ---------- */
-
-  function setActiveFilter(key, value) {
-    activeFilters[key] = value;
-    // Reset to "all" semantics for categoryGroup
-    if (key === "categoryGroup" && value === "all") activeFilters.categoryGroup = "all";
-    renderPills();
-    renderGrid();
-  }
-
-  // Expose for future filter UIs (Brand / Price / Voltage / Vehicle Model, etc.)
-  window.EcoConnex.setActiveFilter = setActiveFilter;
-
-  // Hook: header search box (search-widget.js) calls this on every keystroke.
-  window.EcoConnex.onHeaderSearchChange = function (query) {
-    activeFilters.search = query || "";
-    renderGrid();
-  };
 
   window.EcoConnex.loadProducts().then(function (products) {
     allProducts = products;
     renderPills();
-    renderGrid();
+    renderFeatured();
   });
 })();

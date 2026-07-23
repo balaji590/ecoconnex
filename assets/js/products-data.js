@@ -368,6 +368,20 @@ window.EcoConnex = window.EcoConnex || {};
     return getStockClass(p.stock) === "out-of-stock";
   }
 
+  /**
+   * Returns up to `limit` products to feature on the Home Page.
+   * Prefers products explicitly marked featured:true (future-ready
+   * for the client's product data); if none are marked yet, falls
+   * back gracefully to the first `limit` products in catalog order.
+   * No product IDs are ever hardcoded.
+   */
+  function getFeaturedProducts(products, limit) {
+    limit = limit || 8;
+    const marked = products.filter(function (p) { return p.featured === true; });
+    if (marked.length > 0) return marked.slice(0, limit);
+    return products.slice(0, limit);
+  }
+
   function getRelatedProducts(products, product, limit) {
     limit = limit || 4;
     const groupId = getGroupIdForCategory(product.category);
@@ -398,6 +412,7 @@ window.EcoConnex = window.EcoConnex || {};
   ns.getRecentlyViewed = getRecentlyViewed;
   ns.addRecentlyViewed = addRecentlyViewed;
   ns.getRelatedProducts = getRelatedProducts;
+  ns.getFeaturedProducts = getFeaturedProducts;
   ns.hasOffer = hasOffer;
   ns.getOffer = getOffer;
   ns.renderPriceHtml = renderPriceHtml;

@@ -209,6 +209,9 @@ img{max-width:100%;display:block;}
 
 /* ── DEALER BANNER ── */
 .dealer-banner{background:linear-gradient(135deg,var(--black) 0%,var(--black-3) 100%);padding:72px 0;text-align:center;border-top:1px solid rgba(249,115,22,0.2);border-bottom:1px solid rgba(249,115,22,0.2);}
+.view-all-cta{background:var(--gray-50);padding:72px 0;text-align:center;border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);}
+.view-all-cta-inner{max-width:640px;margin:0 auto;}
+.view-all-cta .btn-orange{margin-top:8px;}
 .dealer-banner h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px;}
 .dealer-banner p{font-size:16px;color:#9ca3af;margin-bottom:32px;}
 .dealer-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
