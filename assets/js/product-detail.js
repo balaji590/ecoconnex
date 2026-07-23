@@ -4,6 +4,10 @@
    related-products, recently-viewed) and cart.js (Add to Cart).
    No product data or cart logic is duplicated here.
    ============================================================ */
+window.waEnquiry = window.waEnquiry || function (product) {
+  window.open('https://wa.me/918778657912?text=' + encodeURIComponent('Hi Eco Connex! I am interested in: ' + product + '. Please share details and pricing.'), '_blank');
+};
+
 (function () {
   "use strict";
 
@@ -33,12 +37,22 @@
 
   /* ---------- Related / recently-viewed mini cards ---------- */
   function miniCardHtml(p) {
+    var hasPrice = typeof p.price === "number" && p.price > 0;
+    var outOfStock = EC.isOutOfStock(p);
+    var itemJson = EC.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || "INR", icon: p.icon, image: p.image }));
+    var actionBtn = outOfStock
+      ? '<button class="mini-card-cart-btn" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()"><i class="ti ti-ban"></i></button>'
+      : '<button class="mini-card-cart-btn" onclick="event.stopPropagation();EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), 1);" data-item="' + itemJson + '" aria-label="Add to Cart"><i class="ti ti-shopping-cart-plus"></i></button>';
     return (
       '<div class="mini-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
         '<div class="mini-card-img">' + EC.renderProductImageHtml(p, { width: 140, height: 140 }) + "</div>" +
         '<div class="mini-card-body">' +
           '<div class="mini-card-name">' + EC.escapeHtml(p.name) + "</div>" +
           priceHtml(p, false) +
+          '<div class="mini-card-actions">' +
+            actionBtn +
+            '<button class="mini-card-wa-btn" onclick="event.stopPropagation();window.waEnquiry(\'' + p.name.replace(/'/g, "\\'") + '\')" aria-label="Enquire on WhatsApp"><i class="ti ti-brand-whatsapp"></i></button>' +
+          "</div>" +
         "</div>" +
       "</div>"
     );

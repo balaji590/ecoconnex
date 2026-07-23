@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>All EV Spare Parts – Genuine Battery, Motor, Charger & More | Eco Connex</title>
-  <meta name="description" content="Browse 93+ genuine EV spare parts at Eco Connex: throttles, brakes, connectors, bearings, controllers, motors and chargers. COD available, fast delivery across Tamil Nadu."/>
+  <meta name="description" content="Browse 130+ genuine EV spare parts at Eco Connex: throttles, brakes, connectors, bearings, controllers, motors and chargers. COD available, fast delivery across Tamil Nadu."/>
   <meta name="keywords" content="EV spare parts catalog, electric bike parts online, EV battery price, BLDC motor, EV controller, EV charger, throttle, brake parts, Tiruvannamalai"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/>
   <meta name="author" content="Eco Connex"/>
@@ -19,13 +19,13 @@
   <meta property="og:site_name" content="Eco Connex"/>
   <meta property="og:locale" content="en_IN"/>
   <meta property="og:title" content="All EV Spare Parts – Eco Connex"/>
-  <meta property="og:description" content="Browse 93+ genuine EV spare parts: batteries, motors, controllers, chargers and more. Fast delivery across Tamil Nadu."/>
+  <meta property="og:description" content="Browse 130+ genuine EV spare parts: batteries, motors, controllers, chargers and more. Fast delivery across Tamil Nadu."/>
   <meta property="og:url" content="https://ecoconnex.in/products.html"/>
   <meta property="og:image" content="https://ecoconnex.in/assets/images/logo.png"/>
 
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="All EV Spare Parts – Eco Connex"/>
-  <meta name="twitter:description" content="Browse 93+ genuine EV spare parts: batteries, motors, controllers, chargers and more."/>
+  <meta name="twitter:description" content="Browse 130+ genuine EV spare parts: batteries, motors, controllers, chargers and more."/>
   <meta name="twitter:image" content="https://ecoconnex.in/assets/images/logo.png"/>
 
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ecoconnex.in/"},{"@type":"ListItem","position":2,"name":"Products","item":"https://ecoconnex.in/products.html"}]}</script>
@@ -48,9 +48,9 @@
 <div class="hero">
   <div class="hero-badge"><i class="ti ti-packages"></i> Complete Product Catalog</div>
   <h1>All EV <span>Spare Parts</span></h1>
-  <p>138+ genuine parts · COD available · All India delivery · GST billing</p>
+  <p>130+ genuine parts · COD available · All India delivery · GST billing</p>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-num">138+</div><div class="hero-stat-label">Products</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">130+</div><div class="hero-stat-label">Products</div></div>
     <div class="hero-stat"><div class="hero-stat-num">COD</div><div class="hero-stat-label">Available</div></div>
     <div class="hero-stat"><div class="hero-stat-num">All India</div><div class="hero-stat-label">Delivery</div></div>
     <div class="hero-stat"><div class="hero-stat-num">GST</div><div class="hero-stat-label">Registered</div></div>
@@ -59,35 +59,33 @@
 
 <!-- CONTROLS -->
 <div class="controls">
-  <div class="search-wrap">
-    <i class="ti ti-search search-icon"></i>
-    <input type="text" class="search-input" id="catalogSearchInput" placeholder="Search parts... throttle, bearing, motor, disc, charger..." oninput="filterProducts()"/>
-    <i class="ti ti-x search-clear" id="catalogSearchClear" onclick="clearSearch()"></i>
+  <div class="filter-toprow">
+    <div class="filter-scroll" id="filterBtns"></div>
+    <button class="btn-filters-toggle" id="filtersToggle" onclick="toggleFiltersPanel()"><i class="ti ti-adjustments-horizontal"></i> Filters</button>
   </div>
-  <div class="filter-scroll" id="filterBtns">
-    <button class="filter-btn active" onclick="setFilter('all',this)"><i class="ti ti-layout-grid"></i> All</button>
-    <button class="filter-btn" onclick="setFilter('throttle',this)"><i class="ti ti-adjustments"></i> Throttle</button>
-    <button class="filter-btn" onclick="setFilter('dc-converter',this)"><i class="ti ti-cpu"></i> DC Converter</button>
-    <button class="filter-btn" onclick="setFilter('mcb',this)"><i class="ti ti-switch"></i> MCB</button>
-    <button class="filter-btn" onclick="setFilter('connector',this)"><i class="ti ti-plug"></i> Connector</button>
-    <button class="filter-btn" onclick="setFilter('bearing',this)"><i class="ti ti-circle"></i> Bearing</button>
-    <button class="filter-btn" onclick="setFilter('brakes',this)"><i class="ti ti-brake"></i> Brakes</button>
-    <button class="filter-btn" onclick="setFilter('disc',this)"><i class="ti ti-circle-dot"></i> Disc</button>
-    <button class="filter-btn" onclick="setFilter('locks',this)"><i class="ti ti-lock"></i> Locks</button>
-    <button class="filter-btn" onclick="setFilter('switches',this)"><i class="ti ti-toggle-right"></i> Switches</button>
-    <button class="filter-btn" onclick="setFilter('led',this)"><i class="ti ti-bulb"></i> LED</button>
-    <button class="filter-btn" onclick="setFilter('body',this)"><i class="ti ti-car"></i> Body</button>
-    <button class="filter-btn" onclick="setFilter('electrical',this)"><i class="ti ti-bolt"></i> Electrical</button>
-    <button class="filter-btn" onclick="setFilter('controller',this)"><i class="ti ti-settings"></i> Controller</button>
-    <button class="filter-btn" onclick="setFilter('motor',this)"><i class="ti ti-engine"></i> Motor</button>
-    <button class="filter-btn" onclick="setFilter('charger',this)"><i class="ti ti-battery-charging"></i> Charger</button>
-    <button class="filter-btn" onclick="setFilter('wiring',this)"><i class="ti ti-wave-sine"></i> Wiring</button>
-    <button class="filter-btn" onclick="setFilter('mirrors',this)"><i class="ti ti-mirror"></i> Mirrors</button>
-    <button class="filter-btn" onclick="setFilter('lights',this)"><i class="ti ti-bulb"></i> Lights</button>
-    <button class="filter-btn" onclick="setFilter('sensor',this)"><i class="ti ti-radar"></i> Sensor</button>
+  <div class="filters-panel" id="filtersPanel">
+    <div class="filters-panel-col">
+      <div class="filters-panel-label">Brand</div>
+      <div class="filters-checklist" id="brandFilterList"></div>
+    </div>
+    <div class="filters-panel-col">
+      <div class="filters-panel-label">Availability</div>
+      <label class="filters-check-item"><input type="checkbox" id="inStockOnly" onchange="filterProducts()"/> In Stock Only</label>
+    </div>
+    <div class="filters-panel-col">
+      <div class="filters-panel-label">Price (₹)</div>
+      <div class="filters-price-row">
+        <input type="number" id="priceMin" class="filters-price-input" placeholder="Min" min="0" oninput="filterProducts()"/>
+        <span>–</span>
+        <input type="number" id="priceMax" class="filters-price-input" placeholder="Max" min="0" oninput="filterProducts()"/>
+      </div>
+    </div>
+    <div class="filters-panel-col filters-panel-clear">
+      <button class="btn-clear-filters" onclick="clearAllFilters()"><i class="ti ti-x"></i> Clear All Filters</button>
+    </div>
   </div>
 </div>
-<div class="results-count"><span id="resultCount">138</span> products found</div>
+<div class="results-count"><span id="resultCount">130</span> products found</div>
 
 <!-- PRODUCTS -->
 <div class="products-wrap">
@@ -129,7 +127,8 @@
 <script src="assets/js/shared-layout.js"></script>
 <script>
 var ALL_PRODUCTS = [];
-var currentFilter = 'all';
+var selectedCategories = new Set();
+var selectedBrands = new Set();
 
 function priceHtml(p) {
   return window.EcoConnex.renderPriceHtml(p, { hideSavingsLine: true });
@@ -161,7 +160,7 @@ function cardHtml(p) {
         (outOfStock ? '' : qtyStepper) +
         '<div class="product-actions">' +
           actionBtn +
-          '<a href="tel:+918778657912" class="btn-call"><i class="ti ti-phone"></i></a>' +
+          '<button class="btn-call" onclick="event.stopPropagation();wa(\'' + p.name.replace(/'/g, "\\'") + '\',\'' + (hasPrice ? '₹' + p.price : 'Price on Request') + '\')" aria-label="Enquire on WhatsApp"><i class="ti ti-brand-whatsapp"></i></button>' +
         '</div>' +
       '</div>' +
     '</div>'
@@ -172,34 +171,87 @@ function renderProducts(products) {
   document.getElementById('productsGrid').innerHTML = products.map(cardHtml).join('');
 }
 
-function setFilter(cat, btn) {
-  currentFilter = cat;
-  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
+// ── CATEGORY CHIPS (multi-select, dynamically built from real product data) ──
+function renderCategoryChips() {
+  var cats = {};
+  ALL_PRODUCTS.forEach(function (p) {
+    var key = p.category;
+    if (!cats[key]) cats[key] = { label: p.categoryLabel || p.category, count: 0 };
+    cats[key].count++;
+  });
+  var entries = Object.keys(cats).map(function (k) { return { key: k, label: cats[k].label, count: cats[k].count }; });
+  entries.sort(function (a, b) { return a.label.localeCompare(b.label); });
+
+  var html = '<button type="button" class="filter-btn' + (selectedCategories.size === 0 ? ' active' : '') + '" data-cat="all" onclick="toggleCategory(\'all\')"><i class="ti ti-layout-grid"></i> All <span class="filter-count">(' + ALL_PRODUCTS.length + ')</span></button>';
+  entries.forEach(function (e) {
+    var isActive = selectedCategories.has(e.key);
+    html += '<button type="button" class="filter-btn' + (isActive ? ' active' : '') + '" data-cat="' + e.key + '" onclick="toggleCategory(\'' + e.key + '\')">' + window.EcoConnex.escapeHtml(e.label) + ' <span class="filter-count">(' + e.count + ')</span></button>';
+  });
+  document.getElementById('filterBtns').innerHTML = html;
+}
+
+function toggleCategory(cat) {
+  if (cat === 'all') {
+    selectedCategories.clear();
+  } else {
+    if (selectedCategories.has(cat)) selectedCategories.delete(cat);
+    else selectedCategories.add(cat);
+  }
+  renderCategoryChips();
   filterProducts();
 }
 
-function filterProducts() {
-  var search = document.getElementById('catalogSearchInput').value.toLowerCase().trim();
-  var clear = document.getElementById('catalogSearchClear');
-  clear.style.display = search ? 'block' : 'none';
+// ── BRAND FILTER (multi-select, dynamically built) ──
+function renderBrandFilters() {
+  var brands = Array.from(new Set(ALL_PRODUCTS.map(function (p) { return p.brand; }).filter(Boolean))).sort();
+  document.getElementById('brandFilterList').innerHTML = brands.map(function (b) {
+    var id = 'brand-' + b.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+    return '<label class="filters-check-item"><input type="checkbox" id="' + id + '" data-brand="' + window.EcoConnex.escapeHtml(b) + '" onchange="toggleBrand(\'' + b.replace(/'/g, "\\'") + '\')"/> ' + window.EcoConnex.escapeHtml(b) + '</label>';
+  }).join('');
+}
 
-  var filtered = window.EcoConnex.getByCategory(ALL_PRODUCTS, currentFilter);
-  if (search) {
-    filtered = filtered.filter(function(p){
-      return p.name.toLowerCase().indexOf(search) !== -1 ||
-             p.sku.toLowerCase().indexOf(search) !== -1 ||
-             (p.keywords || []).some(function(k){ return k.indexOf(search) !== -1; });
-    });
-  }
+function toggleBrand(brand) {
+  if (selectedBrands.has(brand)) selectedBrands.delete(brand);
+  else selectedBrands.add(brand);
+  filterProducts();
+}
+
+function toggleFiltersPanel() {
+  var panel = document.getElementById('filtersPanel');
+  var btn = document.getElementById('filtersToggle');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+
+function clearAllFilters() {
+  selectedCategories.clear();
+  selectedBrands.clear();
+  document.querySelectorAll('#brandFilterList input[type=checkbox]').forEach(function (cb) { cb.checked = false; });
+  document.getElementById('inStockOnly').checked = false;
+  document.getElementById('priceMin').value = '';
+  document.getElementById('priceMax').value = '';
+  renderCategoryChips();
+  filterProducts();
+}
+
+// ── COMBINED FILTER LOGIC (all filter types work together) ──
+function filterProducts() {
+  var inStockOnly = document.getElementById('inStockOnly').checked;
+  var priceMin = parseFloat(document.getElementById('priceMin').value);
+  var priceMax = parseFloat(document.getElementById('priceMax').value);
+
+  var filtered = ALL_PRODUCTS.filter(function (p) {
+    if (selectedCategories.size > 0 && !selectedCategories.has(p.category)) return false;
+    if (selectedBrands.size > 0 && !selectedBrands.has(p.brand)) return false;
+    if (inStockOnly && window.EcoConnex.isOutOfStock(p)) return false;
+    if (!isNaN(priceMin) && (typeof p.price !== 'number' || p.price < priceMin)) return false;
+    if (!isNaN(priceMax) && (typeof p.price !== 'number' || p.price > priceMax)) return false;
+    return true;
+  });
+
   renderProducts(filtered);
   document.getElementById('resultCount').textContent = filtered.length;
   document.getElementById('noResults').style.display = filtered.length === 0 ? 'block' : 'none';
-}
-
-function clearSearch() {
-  document.getElementById('catalogSearchInput').value = '';
-  filterProducts();
 }
 
 function wa(product, price) {
@@ -298,17 +350,15 @@ function applyCategoryFromUrl() {
   var params = new URLSearchParams(window.location.search);
   var cat = params.get('category');
   if (!cat) return;
-  var btns = document.querySelectorAll('.filter-btn');
-  for (var i = 0; i < btns.length; i++) {
-    if (btns[i].getAttribute('onclick').indexOf("'" + cat + "'") !== -1) {
-      setFilter(cat, btns[i]);
-      return;
-    }
+  if (document.querySelector('.filter-btn[data-cat="' + cat + '"]')) {
+    toggleCategory(cat);
   }
 }
 
 window.EcoConnex.loadProducts().then(function (products) {
   ALL_PRODUCTS = products;
+  renderCategoryChips();
+  renderBrandFilters();
   renderProducts(products);
   document.getElementById('resultCount').textContent = products.length;
   applyCategoryFromUrl();
