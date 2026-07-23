@@ -138,7 +138,7 @@ function priceHtml(p) {
 function cardHtml(p) {
   var hasPrice = typeof p.price === 'number' && p.price > 0;
   var outOfStock = window.EcoConnex.isOutOfStock(p);
-  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || 'INR', icon: p.icon }));
+  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || 'INR', icon: p.icon, image: p.image }));
   var qtyId = 'tqty-cat-' + p.id;
   var qtyStepper =
     '<div class="tile-qty" onclick="event.stopPropagation()">' +
@@ -261,7 +261,7 @@ function updateCartUI() {
       }
       priceLine = unitLine + ' × ' + item.qty + ' = ₹' + (item.price * item.qty).toLocaleString('en-IN');
     }
-    return '<div class="cart-item"><div class="cart-item-icon">' + item.icon + '</div><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">' + priceLine + '</div><div class="cart-item-qty"><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\'' + item.sku + '\')" title="Remove"><i class="ti ti-trash"></i></button></div>';
+    return '<div class="cart-item"><div class="cart-item-icon">' + window.EcoConnex.renderProductImageHtml({image:item.image,icon:item.icon,name:item.name},{width:44,height:44}) + '</div><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">' + priceLine + '</div><div class="cart-item-qty"><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\'' + item.sku + '\')" title="Remove"><i class="ti ti-trash"></i></button></div>';
   }).join('');
 }
 window.EcoConnex.cart.onChange(updateCartUI);

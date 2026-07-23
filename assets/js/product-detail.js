@@ -249,7 +249,7 @@
 
     const cartBtn = document.getElementById("pdpAddToCart");
     cartBtn.addEventListener("click", function () {
-      const item = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.icon };
+      const item = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.icon, image: product.image };
       for (let i = 0; i < qty; i++) window.EcoConnex.cart.addToCart(item);
       window.EcoConnex.showToast("Added to Cart Successfully");
       const prevHtml = cartBtn.innerHTML;

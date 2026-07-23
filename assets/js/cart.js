@@ -49,6 +49,7 @@ window.EcoConnex = window.EcoConnex || {};
         mrp: typeof item.mrp === "number" ? item.mrp : null,
         currency: item.currency || "INR",
         icon: item.icon || "🔧",
+        image: item.image || null,
         qty: qty
       });
     }

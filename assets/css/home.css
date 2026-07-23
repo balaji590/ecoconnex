@@ -117,7 +117,8 @@ img{max-width:100%;display:block;}
 .cart-empty{text-align:center;padding:40px 20px;color:var(--gray-400);}
 .cart-empty i{font-size:48px;margin-bottom:12px;display:block;}
 .cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--gray-100);}
-.cart-item-icon{width:56px;height:56px;background:linear-gradient(135deg,#fff7ed,#fed7aa);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.cart-item-icon{width:56px;height:56px;background:linear-gradient(135deg,#fff7ed,#fed7aa);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;overflow:hidden;}
+.cart-item-icon .product-photo{width:100%;height:100%;object-fit:contain;padding:4px;}
 .cart-item-info{flex:1;}
 .cart-item-name{font-size:14px;font-weight:600;margin-bottom:4px;}
 .cart-item-price{font-size:13px;color:var(--orange-dark);font-weight:700;}
@@ -320,7 +321,8 @@ img{max-width:100%;display:block;}
 .price-savings i{font-size:13px;}
 
 /* ── TILE QTY STEPPER ── */
-.tile-qty{display:flex;align-items:stretch;gap:0;flex-shrink:0;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;}
+.tile-qty{display:flex;align-items:stretch;gap:0;flex-shrink:0;width:fit-content;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;box-sizing:border-box;}
+.tile-qty button{-webkit-appearance:none;appearance:none;box-sizing:border-box;padding:0;margin:0;}
 .tile-qty button{width:26px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--gray-50);border:none;font-size:14px;font-weight:700;color:var(--gray-700);cursor:pointer;transition:background 0.2s;line-height:1;}
 .tile-qty button:hover{background:var(--gray-100);color:var(--orange-dark);}
 .tile-qty-num{min-width:22px;height:36px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;font-weight:700;color:var(--gray-900);}
