@@ -1,31 +1,21 @@
 /* ============================================================
-   Eco Connex — Home Page: Category Quick-Links + Featured Products
-   The full product catalog (search, filter, all 135 products) now
-   lives entirely on products.html. This file only powers the
-   Home Page's lightweight landing-page sections:
-
-   1. Category pills — visual quick-links into products.html
-      (counts are computed from the already-loaded catalog data;
-      clicking a pill navigates to the dedicated Products page,
-      where the full, untouched set of granular category filters
-      is available — the Home Page no longer renders or filters
-      the full catalog itself).
-
-   2. Featured Products grid — up to 8 products, reusing the exact
-      same card markup/behaviour as the Products page (Add to
-      Cart, WhatsApp, qty stepper, pricing/discount, image
-      rendering). Prefers products marked featured:true and
-      gracefully falls back to the first 8 products when that
-      field isn't present yet (see getFeaturedProducts() in
-      products-data.js) — no product IDs are ever hardcoded here.
+   Eco Connex — Home Page: Featured Products
+   The full product catalog (search, filter, all 135 products,
+   and the granular category chips) lives entirely on products.html.
+   This file only powers the Home Page's Featured Products grid —
+   up to 8 products, reusing the exact same card markup/behaviour
+   as the Products page (Add to Cart, WhatsApp, qty stepper,
+   pricing/discount, image rendering). Prefers products marked
+   featured:true and gracefully falls back to the first 8 products
+   when that field isn't present yet (see getFeaturedProducts() in
+   products-data.js) — no product IDs are ever hardcoded here.
    ============================================================ */
 (function () {
   "use strict";
 
   const grid = document.getElementById("featuredProductsGrid");
   const emptyState = document.getElementById("featuredProductsEmpty");
-  const pillTrack = document.getElementById("categoryScroll");
-  if (!grid || !pillTrack) return; // widget not present on this page
+  if (!grid) return; // widget not present on this page
 
   let allProducts = [];
 
@@ -66,24 +56,6 @@
     );
   }
 
-  /* ---------- Category pills → quick links into products.html ---------- */
-
-  function renderPills() {
-    const groups = window.EcoConnex.CATEGORY_GROUPS;
-    pillTrack.innerHTML = groups.map(function (g) {
-      const count = g.id === "all"
-        ? allProducts.length
-        : allProducts.filter(function (p) { return window.EcoConnex.getGroupIdForCategory(p.category) === g.id; }).length;
-      const href = "products.html";
-      return (
-        '<a class="category-pill' + (g.id === "all" ? " active" : "") + '" href="' + href + '" role="tab">' +
-          '<i class="ti ' + g.icon + '"></i><span>' + g.label + "</span>" +
-          '<span class="cat-count">(' + count + ")</span>" +
-        "</a>"
-      );
-    }).join("");
-  }
-
   /* ---------- Featured Products grid (8 items, reused card) ---------- */
 
   function renderFeatured() {
@@ -99,7 +71,6 @@
 
   window.EcoConnex.loadProducts().then(function (products) {
     allProducts = products;
-    renderPills();
     renderFeatured();
   });
 })();
