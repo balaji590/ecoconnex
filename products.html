@@ -59,15 +59,11 @@
 
 <!-- CONTROLS -->
 <div class="controls">
-  <div class="filter-toprow">
+  <div class="filter-toprow" id="filterToprow">
     <div class="filter-scroll" id="filterBtns"></div>
-    <button class="btn-filters-toggle" id="filtersToggle" onclick="toggleFiltersPanel()"><i class="ti ti-adjustments-horizontal"></i> Filters</button>
+    <button class="btn-filters-toggle" id="filtersToggle" onclick="toggleFiltersPanel()"><i class="ti ti-adjustments-horizontal"></i> Filters<span class="filter-active-badge" id="filterActiveBadge" style="display:none;"></span></button>
   </div>
   <div class="filters-panel" id="filtersPanel">
-    <div class="filters-panel-col">
-      <div class="filters-panel-label">Category</div>
-      <div class="filters-checklist" id="categoryFilterList"></div>
-    </div>
     <div class="filters-panel-col">
       <div class="filters-panel-label">Brand</div>
       <div class="filters-checklist" id="brandFilterList"></div>
@@ -197,12 +193,6 @@ function renderCategoryChips() {
     html += '<button type="button" class="filter-btn' + (isActive ? ' active' : '') + '" data-cat="' + e.key + '" onclick="toggleCategory(\'' + e.key + '\')">' + window.EcoConnex.escapeHtml(e.label) + ' <span class="filter-count">(' + e.count + ')</span></button>';
   });
   document.getElementById('filterBtns').innerHTML = html;
-
-  document.getElementById('categoryFilterList').innerHTML = entries.map(function (e) {
-    var id = 'cat-' + e.key;
-    var checked = selectedCategories.has(e.key) ? ' checked' : '';
-    return '<label class="filters-check-item"><input type="checkbox" id="' + id + '"' + checked + ' onchange="toggleCategory(\'' + e.key + '\')"/> ' + window.EcoConnex.escapeHtml(e.label) + ' <span class="filter-count">(' + e.count + ')</span></label>';
-  }).join('');
 }
 
 function toggleCategory(cat) {
@@ -249,6 +239,21 @@ function clearAllFilters() {
   filterProducts();
 }
 
+// ── Task 5: FILTER ACTIVE INDICATOR (Brand + Availability + Price, shown on the Filters button) ──
+function updateFilterActiveBadge() {
+  var inStockOnly = document.getElementById('inStockOnly').checked;
+  var priceMin = document.getElementById('priceMin').value;
+  var priceMax = document.getElementById('priceMax').value;
+  var count = selectedBrands.size + (inStockOnly ? 1 : 0) + ((priceMin || priceMax) ? 1 : 0);
+  var badge = document.getElementById('filterActiveBadge');
+  if (count > 0) {
+    badge.textContent = '(' + count + ')';
+    badge.style.display = 'inline';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
 // ── COMBINED FILTER LOGIC (all filter types work together) ──
 function filterProducts() {
   var inStockOnly = document.getElementById('inStockOnly').checked;
@@ -267,6 +272,7 @@ function filterProducts() {
   renderProducts(filtered);
   document.getElementById('resultCount').textContent = filtered.length;
   document.getElementById('noResults').style.display = filtered.length === 0 ? 'block' : 'none';
+  updateFilterActiveBadge();
 }
 
 function wa(product, price) {
