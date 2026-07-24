@@ -175,12 +175,13 @@
       <div class="cart-savings-row"><span>You Save</span><strong id="cartSavingsTotal">₹0</strong></div>
     </div>
     <div class="cart-total-row"><span>Total</span><strong id="cartTotal">₹0</strong></div>
-    <button class="btn-cart-checkout" onclick="checkoutViaWhatsApp()"><i class="ti ti-brand-whatsapp"></i> Checkout via WhatsApp</button>
+    <button class="btn-cart-checkout" onclick="EcoConnex.openCheckoutModal()"><i class="ti ti-brand-whatsapp"></i> Checkout via WhatsApp</button>
   </div>
 </div>
 
 <script src="assets/js/products-data.js"></script>
 <script src="assets/js/cart.js"></script>
+<script src="assets/js/checkout.js"></script>
 <script src="assets/js/search-widget.js"></script>
 <script src="assets/js/shared-layout.js"></script>
 <script>
@@ -233,30 +234,7 @@ window.EcoConnex.cart.onChange(updateCartUI);
 function openCart() { document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartSidebar').classList.add('open'); }
 function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartSidebar').classList.remove('open'); }
 
-function checkoutViaWhatsApp() {
-  var cart = window.EcoConnex.cart.getCart();
-  if (cart.length === 0) return;
-  var total = window.EcoConnex.cart.getTotal();
-  var totalMrp = window.EcoConnex.cart.getTotalMRP();
-  var totalSavings = window.EcoConnex.cart.getTotalSavings();
-  var itemLines = cart.map(function (item, i) {
-    var priceLine;
-    if (item.price === null) {
-      priceLine = 'Price on Request';
-    } else if (item.mrp && item.mrp > item.price) {
-      var pct = Math.round((item.mrp - item.price) / item.mrp * 100);
-      priceLine = 'MRP: ₹' + item.mrp.toLocaleString('en-IN') + ' (strikethrough)\n   Price: ₹' + (item.price * item.qty).toLocaleString('en-IN') + ' (' + pct + '% OFF)';
-    } else {
-      priceLine = 'Price: ₹' + (item.price * item.qty).toLocaleString('en-IN');
-    }
-    return (i + 1) + '. ' + item.name + '\n   SKU: ' + item.sku + '\n   Qty: ' + item.qty + '\n   ' + priceLine;
-  }).join('\n\n');
-  var msg = '🛒 *Order from Eco Connex*\n\n*Products:*\n' + itemLines +
-    '\n\n' + (totalSavings > 0 ? 'Subtotal (MRP): ₹' + totalMrp.toLocaleString('en-IN') + '\nYou Save: ₹' + totalSavings.toLocaleString('en-IN') + '\n' : '') +
-    '*Total: ₹' + total.toLocaleString('en-IN') + (window.EcoConnex.cart.hasCallForPrice() ? ' + items to confirm' : '') + '*\n\n' +
-    'Please confirm my order and share delivery details. Thank you!';
-  window.open('https://wa.me/918778657912?text=' + encodeURIComponent(msg), '_blank');
-}
+
 
 function toggleFaq(btn){var a=btn.nextElementSibling;a.classList.toggle('open');btn.classList.toggle('open');}
 
