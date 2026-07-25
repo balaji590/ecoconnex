@@ -14,7 +14,7 @@ a{text-decoration:none;color:inherit;}
 img{max-width:100%;display:block;}
 .container{max-width:1600px;margin:0 auto;padding:0 40px;}
 .eyebrow{font-size:11px;font-weight:600;color:var(--orange);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;}
-.section-title{font-size:32px;font-weight:700;line-height:1.2;margin-bottom:12px;}
+.section-title{font-size:34px;font-weight:700;line-height:1.2;margin-bottom:12px;}
 .section-sub{font-size:16px;color:var(--gray-500);line-height:1.7;}
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
 .fade-up.visible{opacity:1;transform:translateY(0);}
@@ -68,7 +68,7 @@ img{max-width:100%;display:block;}
 .products{padding:96px 0;background:#fff;}
 .products-header{text-align:center;margin-bottom:56px;}
 .featured-header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:10px;}
-.featured-heading{display:flex;align-items:center;gap:12px;font-size:30px;font-weight:800;color:var(--gray-900);}
+.featured-heading{display:flex;align-items:center;gap:12px;font-size:34px;font-weight:800;color:var(--gray-900);}
 .featured-heading i{color:var(--orange);font-size:28px;}
 .featured-sub{text-align:left;margin-bottom:32px;max-width:640px;}
 .products-grid-wrap{position:relative;min-height:120px;}
@@ -304,7 +304,7 @@ img{max-width:100%;display:block;}
   .google-business-btns{flex-direction:column;align-items:stretch;}
   .btn-gbiz{justify-content:center;}
   .confidence-row{gap:10px 16px;margin-top:32px;padding-top:28px;}
-  .section-title{font-size:22px;}
+  .section-title{font-size:24px;}
   .dealer-banner h2{font-size:22px;}
   .cart-sidebar{width:100vw;}
   .container{padding:0 16px;}
@@ -314,7 +314,7 @@ img{max-width:100%;display:block;}
   .trusted-brand{font-size:12px;}
   .products-grid{gap:14px;}
   .product-img{font-size:52px;}
-  .featured-heading{font-size:20px;gap:8px;}
+  .featured-heading{font-size:24px;gap:8px;}
   .featured-heading i{font-size:20px;}
   .slider-arrow{width:36px;height:36px;font-size:15px;top:35%;}
   .slider-arrow-left{left:2px;}
