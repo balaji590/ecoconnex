@@ -1,0 +1,88 @@
+[
+  {
+    "id": 1,
+    "slug": "how-to-choose-the-right-charger-for-your-electric-scooter",
+    "title": "How to Choose the Right Charger for Your Electric Scooter",
+    "excerpt": "Voltage, amperage, and connector type all matter when picking a replacement charger. Here's what to check before you buy.",
+    "category": "Chargers",
+    "readTime": "4 min read",
+    "publishDate": "2026-06-15",
+    "content": [
+      {"type": "p", "text": "A mismatched charger is one of the most common reasons EV batteries wear out faster than expected. Getting the right charger isn't just about plugging something in — it's about matching three key specs to your scooter's battery."},
+      {"type": "h2", "text": "1. Match the Voltage First"},
+      {"type": "p", "text": "Your charger's output voltage must match your battery's rated voltage — common values are 48V and 60V. Using a charger rated for the wrong voltage can undercharge your battery (leaving you with poor range) or overcharge it (which shortens battery life significantly). Check the label on your existing charger or your battery pack before ordering a replacement."},
+      {"type": "h2", "text": "2. Amperage Affects Charging Speed, Not Just Capacity"},
+      {"type": "p", "text": "A higher-amperage charger (for example, 6A instead of 3A) charges faster, but it must still be compatible with what your battery's internal circuitry can safely accept. If in doubt, matching your original charger's amperage is the safest choice."},
+      {"type": "h2", "text": "3. Check the Connector Type"},
+      {"type": "p", "text": "Chargers commonly use a 3-pin or 5-pin connector, and the pin arrangement varies between manufacturers. A charger with the right voltage and amperage still won't work if the connector doesn't physically match your scooter's charging port."},
+      {"type": "h2", "text": "When to Replace Your Charger"},
+      {"type": "p", "text": "Common warning signs include the charger getting unusually hot during use, the indicator light not changing from red to green after a full charge cycle, or noticeably longer charging times than before."},
+      {"type": "p", "text": "If you're unsure which charger fits your scooter, share your bike model and existing charger's label details with us on WhatsApp — we'll help you find the right match before you order."}
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "common-brake-problems-in-electric-scooters",
+    "title": "Common Brake Problems in Electric Scooters (and How to Spot Them Early)",
+    "excerpt": "Squeaking, reduced stopping power, or a spongy brake lever — here's what each symptom usually means.",
+    "category": "Brake Parts",
+    "readTime": "3 min read",
+    "publishDate": "2026-06-22",
+    "content": [
+      {"type": "p", "text": "Brakes are a safety-critical part, so catching wear early matters more here than almost anywhere else on your electric scooter. Most issues fall into a few recognizable patterns."},
+      {"type": "h2", "text": "Squeaking or Grinding Noise"},
+      {"type": "p", "text": "A high-pitched squeak usually means the brake pads have worn down to their wear indicator. A grinding sound is more serious — it often means the pad material is gone and metal is contacting the brake disc directly, which can damage the disc itself."},
+      {"type": "h2", "text": "Reduced Stopping Power"},
+      {"type": "p", "text": "If you need to squeeze the lever harder than before to get the same stopping distance, check the brake pads for wear and make sure the disc surface is clean and free of oil or grease contamination."},
+      {"type": "h2", "text": "Spongy or Soft Brake Lever"},
+      {"type": "p", "text": "A lever that feels soft or sinks further than usual before engaging often points to worn pads or a disc that has warped slightly from heat. Warped discs are usually not repairable and need replacement."},
+      {"type": "h2", "text": "How Often to Check"},
+      {"type": "p", "text": "A quick visual check of pad thickness every couple of months is enough to catch most issues before they become a safety concern. If your scooter sees heavy daily use, check a little more often."},
+      {"type": "p", "text": "Not sure if your brake pads or disc need replacing? Send us a photo on WhatsApp and we'll help you figure out what's needed."}
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "throttle-not-working-common-causes-and-solutions",
+    "title": "Throttle Not Working? Common Causes and Solutions",
+    "excerpt": "Before assuming the worst, check these three things — most throttle issues have a simple fix.",
+    "category": "Throttle",
+    "readTime": "3 min read",
+    "publishDate": "2026-06-29",
+    "content": [
+      {"type": "p", "text": "A throttle that's unresponsive, jerky, or inconsistent doesn't always mean it needs replacing. A few common issues are worth ruling out first."},
+      {"type": "h2", "text": "1. Loose or Corroded Connector"},
+      {"type": "p", "text": "The throttle connects to the controller through a small connector plug. Vibration over time can loosen this connection, and moisture exposure can cause corrosion on the pins. Disconnecting and firmly reseating the connector resolves a surprising number of throttle complaints."},
+      {"type": "h2", "text": "2. Worn Hall Effect Sensor"},
+      {"type": "p", "text": "Most modern throttles use a Hall effect sensor to detect how far you've twisted the grip. Over years of use, this sensor can wear unevenly, causing inconsistent power delivery — smooth at first, then suddenly surging. This isn't repairable and typically means the throttle unit needs replacement."},
+      {"type": "h2", "text": "3. Controller-Side Fault"},
+      {"type": "p", "text": "If a replacement throttle doesn't fix the issue, the problem may actually be on the controller side rather than the throttle itself. A qualified technician can test this with a multimeter before you spend money on parts that won't fix the real issue."},
+      {"type": "h2", "text": "Choosing a Replacement Throttle"},
+      {"type": "p", "text": "Throttles vary by switch configuration — some include a horn/light switch, F/R (forward/reverse) switch, or none at all. Match your replacement to your scooter's existing wiring to avoid extra rewiring work."},
+      {"type": "p", "text": "Share your scooter model on WhatsApp and we'll help confirm which throttle variant fits your handlebar setup."}
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "signs-your-ev-controller-needs-replacement",
+    "title": "Signs Your EV Motor Controller Needs Replacement",
+    "excerpt": "The controller manages your motor's power delivery. Here's how to recognize when it's failing.",
+    "category": "Controller",
+    "readTime": "4 min read",
+    "publishDate": "2026-07-06",
+    "content": [
+      {"type": "p", "text": "The controller sits between your battery, throttle, and motor — translating throttle input into the right amount of power. Because it's a central component, controller issues can sometimes look like problems elsewhere, which makes diagnosis tricky."},
+      {"type": "h2", "text": "Reduced Power or Speed"},
+      {"type": "p", "text": "If your scooter feels noticeably weaker than before — struggling on inclines it used to handle fine — and the battery is healthy and fully charged, the controller is a common cause. Internal components can degrade gradually rather than failing all at once."},
+      {"type": "h2", "text": "Motor Cutting Out Intermittently"},
+      {"type": "p", "text": "A motor that cuts power briefly while riding, especially under load or at certain speeds, often points to a controller fault rather than a motor problem. This can also be caused by loose connector wiring, so check connections first."},
+      {"type": "h2", "text": "Unusual Heat"},
+      {"type": "p", "text": "Controllers naturally run warm during use, but if yours becomes hot to the touch quickly or the scooter shuts down under load (a thermal protection response), the controller may be nearing failure."},
+      {"type": "h2", "text": "Error Codes or Warning Lights"},
+      {"type": "p", "text": "If your scooter's display shows recurring error codes, check your manual for what the code indicates — many point directly to controller faults."},
+      {"type": "h2", "text": "Before You Replace It"},
+      {"type": "p", "text": "Because the controller connects to so many other parts, always rule out simpler causes first: loose connectors, a weak battery, or a faulty throttle. If those check out fine, a controller replacement is usually the next step."},
+      {"type": "p", "text": "Unsure if it's your controller or something else? Describe the symptoms to us on WhatsApp and we'll help narrow it down."}
+    ]
+  }
+]

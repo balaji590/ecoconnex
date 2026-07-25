@@ -1,0 +1,60 @@
+/* ============================================================
+   blog.html / blog-post.html — page-specific rules.
+   Reuses shared classes from home.css (.container, .dealer-banner,
+   .btn-orange, .btn-outline-light, .fade-up) and the dark
+   hero-banner pattern used on about.html / contact.html / dealer.html.
+   ============================================================ */
+
+.hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:40px 24px;text-align:center;border-bottom:1px solid rgba(249,115,22,0.15);}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:var(--orange-light);font-size:12px;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
+.hero h1{font-size:32px;font-weight:800;color:#fff;margin-bottom:10px;}
+.hero h1 span{color:var(--orange);}
+.hero p{font-size:15px;color:#9ca3af;margin-bottom:0;max-width:640px;margin-left:auto;margin-right:auto;}
+
+/* Blog listing grid */
+.blog-list-section{padding:64px 0;background:#fff;}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+.blog-card{display:flex;flex-direction:column;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:28px;transition:all 0.25s ease;}
+.blog-card:hover{border-color:var(--orange);transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.blog-card-cat{display:inline-block;background:rgba(249,115,22,0.1);color:var(--orange-dark);font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:4px 12px;border-radius:20px;margin-bottom:14px;align-self:flex-start;}
+.blog-card-title{font-size:18px;font-weight:700;color:var(--gray-900);line-height:1.4;margin-bottom:10px;}
+.blog-card-excerpt{font-size:14px;color:var(--gray-500);line-height:1.6;margin-bottom:16px;flex:1;}
+.blog-card-meta{font-size:12.5px;color:var(--gray-400);font-weight:600;display:flex;align-items:center;gap:6px;}
+.blog-empty{text-align:center;padding:60px 20px;color:var(--gray-400);}
+.blog-empty i{font-size:40px;margin-bottom:12px;display:block;}
+
+/* Breadcrumb (PDP-matching pattern) */
+.blog-post-breadcrumb{max-width:760px;margin:0 auto;padding:16px 24px 0;font-size:12.5px;color:var(--gray-500);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.blog-post-breadcrumb a{color:var(--gray-500);}
+.blog-post-breadcrumb a:hover{color:var(--orange-dark);}
+.blog-post-breadcrumb .current{color:var(--gray-900);font-weight:600;}
+
+/* Single post */
+.blog-post-loading{text-align:center;padding:80px 20px;color:var(--gray-400);font-size:15px;}
+.blog-post-loading i{font-size:32px;display:block;margin-bottom:12px;animation:ecSpinBlog 0.8s linear infinite;}
+@keyframes ecSpinBlog{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.blog-post-content{max-width:760px;margin:0 auto;padding:24px 24px 64px;}
+.blog-post-header{margin-bottom:28px;}
+.blog-post-header h1{font-size:28px;font-weight:800;color:var(--gray-900);line-height:1.3;margin:12px 0;}
+.blog-post-meta{font-size:13px;color:var(--gray-500);display:flex;align-items:center;flex-wrap:wrap;gap:4px;}
+.blog-post-body{font-size:16px;line-height:1.8;color:var(--gray-700);}
+.blog-post-body h2{font-size:21px;font-weight:700;color:var(--gray-900);margin:32px 0 14px;}
+.blog-post-body p{margin-bottom:16px;}
+
+/* Related posts */
+.blog-related{margin-top:48px;padding-top:36px;border-top:1px solid var(--gray-200);}
+.blog-related h3{font-size:18px;font-weight:700;color:var(--gray-900);margin-bottom:18px;}
+.blog-related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
+.blog-related-card{display:block;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:18px;transition:all 0.2s ease;}
+.blog-related-card:hover{border-color:var(--orange);}
+.blog-related-title{font-size:14px;font-weight:600;color:var(--gray-900);line-height:1.5;margin-top:8px;}
+
+@media(max-width:600px){
+  .hero h1{font-size:24px;}
+  .blog-list-section{padding:36px 0;}
+  .blog-grid{grid-template-columns:1fr;}
+  .blog-post-content{padding:16px 16px 40px;}
+  .blog-post-header h1{font-size:22px;}
+  .blog-post-body{font-size:15px;}
+  .blog-post-body h2{font-size:18px;}
+}

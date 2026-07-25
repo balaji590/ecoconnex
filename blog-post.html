@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECH2NE3GTT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ECH2NE3GTT');
+  </script>
+  <title id="pageTitle">Loading Article… | Eco Connex Blog</title>
+  <meta name="description" id="pageDesc" content="Practical guides on choosing and maintaining EV spare parts, from Eco Connex."/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <meta name="author" content="Eco Connex"/>
+  <meta name="theme-color" content="#f97316"/>
+  <link rel="canonical" id="pageCanonical" href="https://ecoconnex.in/blog-post.html"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" sizes="any"/>
+  <link rel="icon" type="image/png" href="assets/images/logo.png"/>
+  <link rel="apple-touch-icon" href="assets/images/logo.png"/>
+
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="Eco Connex"/>
+  <meta property="og:locale" content="en_IN"/>
+  <meta property="og:title" id="ogTitle" content="Eco Connex Blog"/>
+  <meta property="og:description" id="ogDesc" content="Practical guides on choosing and maintaining EV spare parts."/>
+  <meta property="og:url" id="ogUrl" content="https://ecoconnex.in/blog-post.html"/>
+  <meta property="og:image" content="https://ecoconnex.in/assets/images/logo.png"/>
+
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" id="twTitle" content="Eco Connex Blog"/>
+  <meta name="twitter:description" id="twDesc" content="Practical guides on choosing and maintaining EV spare parts."/>
+  <meta name="twitter:image" content="https://ecoconnex.in/assets/images/logo.png"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <link rel="stylesheet" href="assets/css/header.css"/>
+  <link rel="stylesheet" href="assets/css/footer.css"/>
+  <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/blog.css"/>
+</head>
+<body>
+
+<!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
+<div id="site-header"></div>
+
+<main>
+<div class="blog-post-breadcrumb" id="breadcrumb">
+  <a href="index.html">Home</a> <i class="ti ti-chevron-right"></i>
+  <a href="blog.html">Blog</a> <i class="ti ti-chevron-right"></i>
+  <span class="current" id="breadcrumbCurrent">Loading…</span>
+</div>
+
+<div id="postRoot" class="blog-post-loading"><i class="ti ti-loader-2"></i> Loading article…</div>
+
+<section class="dealer-banner">
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="eyebrow" style="text-align:center;">Need Help?</div>
+    <h2>Not Sure Which Part You Need?</h2>
+    <p>Tell us your scooter model and the issue — we'll help you find the right part.</p>
+    <div class="dealer-btns">
+      <a href="https://wa.me/918778657912?text=Hi%20Eco%20Connex!%20I%20need%20help%20identifying%20a%20part." class="btn-orange" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> Ask on WhatsApp</a>
+      <a href="products.html" class="btn-outline-light"><i class="ti ti-packages"></i> Browse Products</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- SHARED FOOTER (loaded from footer.html by shared-layout.js) -->
+<div id="site-footer"></div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3><i class="ti ti-shopping-cart"></i> Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()" aria-label="Close cart"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-summary-extra" id="cartSummaryExtra" style="display:none;">
+      <div class="cart-mrp-row"><span>Total MRP</span><strong id="cartMrpTotal">₹0</strong></div>
+      <div class="cart-savings-row"><span>You Save</span><strong id="cartSavingsTotal">₹0</strong></div>
+    </div>
+    <div class="cart-total-row"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+    <button class="btn-cart-checkout" onclick="EcoConnex.openCheckoutModal()"><i class="ti ti-brand-whatsapp"></i> Checkout via WhatsApp</button>
+  </div>
+</div>
+
+<script src="assets/js/products-data.js"></script>
+<script src="assets/js/blog-data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/checkout.js"></script>
+<script src="assets/js/search-widget.js"></script>
+<script src="assets/js/shared-layout.js"></script>
+<script>
+// ── CART UI (identical behaviour to every other page) ──
+function updateCartUI() {
+  var cart = window.EcoConnex.cart.getCart();
+  var total = window.EcoConnex.cart.getTotal();
+  var count = window.EcoConnex.cart.getCount();
+  var totalSavings = window.EcoConnex.cart.getTotalSavings();
+  var badge = document.getElementById('cartBadge');
+  badge.textContent = count;
+  badge.style.display = count > 0 ? 'flex' : 'none';
+  var container = document.getElementById('cartItems');
+  var footer = document.getElementById('cartFooter');
+  document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+  var summaryExtra = document.getElementById('cartSummaryExtra');
+  if (totalSavings > 0) {
+    document.getElementById('cartMrpTotal').textContent = '₹' + window.EcoConnex.cart.getTotalMRP().toLocaleString('en-IN');
+    document.getElementById('cartSavingsTotal').textContent = '₹' + totalSavings.toLocaleString('en-IN');
+    summaryExtra.style.display = 'block';
+  } else {
+    summaryExtra.style.display = 'none';
+  }
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty"><i class="ti ti-shopping-cart-off"></i><p>Your cart is empty</p></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  var priceNote = window.EcoConnex.cart.hasCallForPrice()
+    ? '<div class="cart-price-note"><i class="ti ti-info-circle"></i> Price will be confirmed by Eco Connex</div>'
+    : '';
+  container.innerHTML = priceNote + cart.map(function (item) {
+    var priceLine;
+    if (item.price === null) {
+      priceLine = 'Price on Request × ' + item.qty;
+    } else {
+      var unitLine = '₹' + item.price.toLocaleString('en-IN');
+      if (item.mrp && item.mrp > item.price) {
+        var pct = Math.round((item.mrp - item.price) / item.mrp * 100);
+        unitLine += ' <span class="price-mrp">₹' + item.mrp.toLocaleString('en-IN') + '</span> <span class="price-off-badge">' + pct + '% OFF</span>';
+      }
+      priceLine = unitLine + ' × ' + item.qty + ' = ₹' + (item.price * item.qty).toLocaleString('en-IN');
+    }
+    return '<div class="cart-item"><div class="cart-item-icon">' + window.EcoConnex.renderProductImageHtml({image:item.image,icon:item.icon,name:item.name},{width:44,height:44}) + '</div><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">' + priceLine + '</div><div class="cart-item-qty"><button class="qty-btn" aria-label="Decrease quantity" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" aria-label="Increase quantity" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\'' + item.sku + '\')" title="Remove" aria-label="Remove item"><i class="ti ti-trash"></i></button></div>';
+  }).join('');
+}
+window.EcoConnex.cart.onChange(updateCartUI);
+
+function openCart() { document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartSidebar').classList.add('open'); }
+function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartSidebar').classList.remove('open'); }
+
+// ── BLOG POST RENDER ──
+function getSlugFromUrl() {
+  return new URLSearchParams(window.location.search).get('slug');
+}
+
+function renderNotFound() {
+  document.getElementById('postRoot').innerHTML =
+    '<div class="blog-post-loading"><i class="ti ti-mood-sad" style="animation:none;"></i>Article not found.<br/><a href="blog.html" style="color:var(--orange-dark);font-weight:600;">Browse all articles →</a></div>';
+  document.getElementById('breadcrumbCurrent').textContent = 'Not found';
+}
+
+function renderRelated(posts, current) {
+  var related = window.EcoConnex.getRelatedPosts(posts, current, 3);
+  if (!related.length) return '';
+  return (
+    '<div class="blog-related">' +
+      '<h3>More Guides</h3>' +
+      '<div class="blog-related-grid">' +
+        related.map(function (p) {
+          return '<a href="blog-post.html?slug=' + encodeURIComponent(p.slug) + '" class="blog-related-card">' +
+            '<div class="blog-card-cat">' + window.EcoConnex.escapeHtml(p.category) + '</div>' +
+            '<div class="blog-related-title">' + window.EcoConnex.escapeHtml(p.title) + '</div>' +
+          '</a>';
+        }).join('') +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function renderPost(post, allPosts) {
+  const EC = window.EcoConnex;
+  const pageUrl = 'https://ecoconnex.in/blog-post.html?slug=' + post.slug;
+
+  document.title = post.title + ' | Eco Connex Blog';
+  document.getElementById('pageTitle').textContent = post.title + ' | Eco Connex Blog';
+  document.getElementById('pageDesc').setAttribute('content', post.excerpt);
+  document.getElementById('pageCanonical').setAttribute('href', pageUrl);
+  document.getElementById('ogTitle').setAttribute('content', post.title);
+  document.getElementById('ogDesc').setAttribute('content', post.excerpt);
+  document.getElementById('ogUrl').setAttribute('content', pageUrl);
+  document.getElementById('twTitle').setAttribute('content', post.title);
+  document.getElementById('twDesc').setAttribute('content', post.excerpt);
+  document.getElementById('breadcrumbCurrent').textContent = post.title;
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ecoconnex.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://ecoconnex.in/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": post.title, "item": pageUrl}
+    ]
+  };
+  const articleLd = {
+    "@context": "https://schema.org", "@type": "Article",
+    "headline": post.title, "description": post.excerpt, "url": pageUrl,
+    "datePublished": post.publishDate,
+    "author": {"@type": "Organization", "name": "Eco Connex"},
+    "publisher": {"@id": "https://ecoconnex.in/#organization"}
+  };
+  [breadcrumbLd, articleLd].forEach(function (ld) {
+    const s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify(ld);
+    document.head.appendChild(s);
+  });
+
+  document.getElementById('postRoot').className = 'blog-post-content';
+  document.getElementById('postRoot').innerHTML =
+    '<div class="blog-post-header">' +
+      '<div class="blog-card-cat">' + EC.escapeHtml(post.category) + '</div>' +
+      '<h1>' + EC.escapeHtml(post.title) + '</h1>' +
+      '<div class="blog-post-meta"><i class="ti ti-calendar"></i> ' + EC.escapeHtml(EC.formatBlogDate(post.publishDate)) + ' &nbsp;·&nbsp; <i class="ti ti-clock"></i> ' + EC.escapeHtml(post.readTime) + '</div>' +
+    '</div>' +
+    '<div class="blog-post-body">' + EC.renderBlogContentHtml(post.content, EC.escapeHtml) + '</div>' +
+    renderRelated(allPosts, post);
+}
+
+const slug = getSlugFromUrl();
+Promise.all([window.EcoConnex.loadBlogPosts()]).then(function (results) {
+  const posts = results[0];
+  if (!slug) { renderNotFound(); return; }
+  const post = window.EcoConnex.getPostBySlug(posts, slug);
+  if (!post) { renderNotFound(); return; }
+  renderPost(post, posts);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var fadeEls=document.querySelectorAll('.fade-up');
+  var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.12});
+  fadeEls.forEach(function(el){observer.observe(el);});
+});
+</script>
+</body>
+</html>
