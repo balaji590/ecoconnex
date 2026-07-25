@@ -1,0 +1,45 @@
+/* ============================================================
+   dealer.html — page-specific rules only.
+   Reuses shared classes from home.css (.container, .features,
+   .features-grid, .feature-card, .dealer-banner, .btn-orange,
+   .btn-outline-light, .form-group, .btn-wa-order, .fade-up) and
+   the dark hero-banner pattern used on about.html / contact.html.
+   ============================================================ */
+
+.hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:40px 24px;text-align:center;border-bottom:1px solid rgba(249,115,22,0.15);}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:var(--orange-light);font-size:12px;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
+.hero h1{font-size:32px;font-weight:800;color:#fff;margin-bottom:10px;}
+.hero h1 span{color:var(--orange);}
+.hero p{font-size:15px;color:#9ca3af;margin-bottom:0;max-width:640px;margin-left:auto;margin-right:auto;}
+
+/* Who Can Apply */
+.dealer-who{background:#fff;padding:64px 0;}
+.dealer-who-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.dealer-who-card{display:flex;flex-direction:column;align-items:center;gap:12px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:28px 16px;text-align:center;transition:all 0.25s ease;}
+.dealer-who-card:hover{border-color:var(--orange);transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.dealer-who-card i{font-size:30px;color:var(--orange);}
+.dealer-who-card span{font-size:14px;font-weight:600;color:var(--gray-900);}
+
+/* How It Works */
+.dealer-steps{background:var(--gray-50);padding:64px 0;}
+.dealer-steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.dealer-step{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:32px 24px;text-align:center;}
+.dealer-step-num{width:40px;height:40px;background:var(--orange);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;margin:0 auto 16px;}
+.dealer-step h3{font-size:17px;font-weight:700;color:var(--gray-900);margin-bottom:8px;}
+.dealer-step p{font-size:13.5px;color:var(--gray-500);line-height:1.6;}
+
+/* Application Form */
+.dealer-form-section{background:#fff;padding:64px 0;}
+.dealer-form-card{max-width:600px;margin:0 auto;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:36px;box-shadow:var(--shadow-sm);}
+
+@media(max-width:900px){
+  .dealer-who-grid{grid-template-columns:1fr 1fr;}
+  .dealer-steps-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .hero h1{font-size:24px;}
+  .dealer-who{padding:40px 0;}
+  .dealer-steps{padding:40px 0;}
+  .dealer-form-section{padding:40px 0;}
+  .dealer-form-card{padding:22px;}
+}
