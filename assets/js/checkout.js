@@ -80,29 +80,28 @@ window.EcoConnex = window.EcoConnex || {};
   /* ---------- WhatsApp message (never misses a cart item) ---------- */
 
   function buildMessage(details, cart, totals) {
-    const divider = "━━━━━━━━━━━━━━━━━━";
-    let msg = "🛒 *Eco Connex Order*\n" + divider + "\n\n";
-    msg += "👤 *Customer Details*\n\n";
-    msg += "Name: " + details.name + "\n";
-    msg += "Mobile: " + details.mobile + "\n";
-    msg += "Address: " + details.address + "\n";
-    msg += "GST: " + (details.gst || "Not Provided") + "\n\n";
-    msg += divider + "\n\n📦 *Order Items*\n\n";
+    const divider = "――――――――――――――――";
+    let msg = "*NEW ORDER — ECO CONNEX*\n" + divider + "\n\n";
+    msg += "*CUSTOMER DETAILS*\n";
+    msg += "• Name: " + details.name + "\n";
+    msg += "• Mobile: " + details.mobile + "\n";
+    msg += "• Address: " + details.address + "\n";
+    msg += "• GST: " + (details.gst || "Not Provided") + "\n\n";
+    msg += divider + "\n\n*ORDER ITEMS*\n\n";
 
     cart.forEach(function (item, i) {
       const unit = item.price === null ? "Price on Request" : "₹" + item.price.toLocaleString("en-IN");
       const lineTotal = item.price === null ? "To be confirmed" : "₹" + (item.price * item.qty).toLocaleString("en-IN");
-      msg += (i + 1) + ". " + item.name + "\n";
-      msg += "   SKU: " + item.sku + "\n";
-      msg += "   Quantity: " + item.qty + "\n";
-      msg += "   Unit Price: " + unit + "\n";
-      msg += "   Line Total: " + lineTotal + "\n\n";
+      msg += "*" + (i + 1) + ". " + item.name + "*\n";
+      msg += "    SKU: " + item.sku + "\n";
+      msg += "    Qty: " + item.qty + "  ·  Unit: " + unit + "\n";
+      msg += "    Line Total: *" + lineTotal + "*\n\n";
     });
 
     msg += divider + "\n\n";
     msg += "Total Items: " + totals.count + "\n";
-    msg += "Grand Total: ₹" + totals.total.toLocaleString("en-IN") + (totals.hasCallForPrice ? " + items to confirm" : "") + "\n\n";
-    msg += divider + "\n\nPlease confirm this order. Thank you!";
+    msg += "*GRAND TOTAL: ₹" + totals.total.toLocaleString("en-IN") + (totals.hasCallForPrice ? " + items to confirm" : "") + "*\n\n";
+    msg += divider + "\n\nPlease confirm this order. Thank you for shopping with Eco Connex!";
     return msg;
   }
 

@@ -194,6 +194,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
               ? '<button class="btn-pdp-cart" id="pdpAddToCart" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
               : '<button class="btn-pdp-cart" id="pdpAddToCart"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>') +
             '<button class="btn-pdp-wa" id="pdpBuyWhatsApp"><i class="ti ti-brand-whatsapp"></i> Buy via WhatsApp</button>' +
+            '<button class="btn-pdp-share" id="pdpShareProduct" aria-label="Share this product" title="Share"><i class="ti ti-share-3"></i></button>' +
           "</div>" +
           '<div class="pdp-trust-row">' +
             '<span><i class="ti ti-truck-delivery"></i> Fast delivery across Tamil Nadu</span>' +
@@ -256,6 +257,26 @@ window.waEnquiry = window.waEnquiry || function (product) {
   }
 
   function wireInteractions(product, hasPrice) {
+    const shareBtn = document.getElementById("pdpShareProduct");
+    if (shareBtn) {
+      shareBtn.addEventListener("click", function () {
+        const shareUrl = window.location.href;
+        const shareData = { title: product.name + " – Eco Connex", text: "Check out " + product.name + " on Eco Connex", url: shareUrl };
+        if (navigator.share) {
+          navigator.share(shareData).catch(function () { /* user cancelled — no error needed */ });
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(shareUrl).then(function () {
+            if (typeof EC.showToast === "function") EC.showToast("Product link copied!");
+            else window.alert("Product link copied to clipboard!");
+          }).catch(function () {
+            window.prompt("Copy this link:", shareUrl);
+          });
+        } else {
+          window.prompt("Copy this link:", shareUrl);
+        }
+      });
+    }
+
     const qtyNum = document.getElementById("qtyNum");
     document.getElementById("qtyMinus").addEventListener("click", function () {
       if (qty > 1) { qty--; qtyNum.textContent = qty; }
@@ -290,7 +311,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
       } else {
         priceLine = "Price: ₹" + product.price.toLocaleString("en-IN");
       }
-      const msg = "🛒 *Buy Request from Eco Connex Website*\n\n" +
+      const msg = "*Buy Request — Eco Connex Website*\n\n" +
         "Product: " + product.name + "\n" +
         "SKU: " + product.sku + "\n" +
         "Qty: " + qty + "\n" +
