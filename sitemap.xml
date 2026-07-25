@@ -37,6 +37,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://ecoconnex.in/faq.html</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://ecoconnex.in/privacy.html</loc>
     <lastmod>2026-07-25</lastmod>
     <changefreq>yearly</changefreq>
