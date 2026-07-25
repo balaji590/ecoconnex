@@ -100,7 +100,8 @@ window.EcoConnex = window.EcoConnex || {};
 
     msg += divider + "\n\n";
     msg += "Total Items: " + totals.count + "\n";
-    msg += "*GRAND TOTAL: ₹" + totals.total.toLocaleString("en-IN") + (totals.hasCallForPrice ? " + items to confirm" : "") + "*\n\n";
+    msg += "*GRAND TOTAL: ₹" + totals.total.toLocaleString("en-IN") + (totals.hasCallForPrice ? " + items to confirm" : "") + "*\n";
+    msg += "_(+ GST & Shipping charges extra, as applicable)_\n\n";
     msg += divider + "\n\nPlease confirm this order. Thank you for shopping with Eco Connex!";
     return msg;
   }
