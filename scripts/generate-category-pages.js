@@ -135,7 +135,7 @@ function pageTemplate(cat) {
 '  <link rel="stylesheet" href="/assets/css/products.css"/>\n' +
 '  <link rel="stylesheet" href="/assets/css/quick-view.css"/>\n' +
 "</head>\n" +
-"<body>\n" +
+"<body class=\"category-page\">\n" +
 "\n" +
 "<!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->\n" +
 '<div id="site-header"></div>\n' +
@@ -159,7 +159,6 @@ function pageTemplate(cat) {
 "  </div>\n" +
 "</div>\n" +
 "\n" +
-'<div class="category-related-chips" id="categoryRelatedChips" style="display:none;"></div>\n' +
 "\n" +
 '<div class="controls">\n' +
 '  <div class="filter-toprow" id="filterToprow">\n' +
