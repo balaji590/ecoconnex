@@ -12,7 +12,7 @@ window.EcoConnex = window.EcoConnex || {};
 
   function loadBlogPosts() {
     if (cachedPromise) return cachedPromise;
-    cachedPromise = fetch("data/blog-posts.json")
+    cachedPromise = fetch("/data/blog-posts.json")
       .then(function (res) {
         if (!res.ok) throw new Error("Failed to load blog posts");
         return res.json();

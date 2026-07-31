@@ -23,7 +23,7 @@ window.EcoConnex = window.EcoConnex || {};
   function loadProducts() {
     if (_cache) return Promise.resolve(_cache);
     if (_loadingPromise) return _loadingPromise;
-    _loadingPromise = fetch("data/products.json", { cache: "no-cache" })
+    _loadingPromise = fetch("/data/products.json", { cache: "no-cache" })
       .then(function (res) {
         if (!res.ok) throw new Error("Failed to load products.json");
         return res.json();
@@ -344,7 +344,7 @@ window.EcoConnex = window.EcoConnex || {};
     if (!looksLikeFile) {
       return '<span class="product-icon-fallback ' + imgClass + '">' + icon + "</span>";
     }
-    const src = "assets/images/products/" + encodeURIComponent(p.image);
+    const src = "/assets/images/products/" + encodeURIComponent(p.image);
     return (
       '<img src="' + src + '" alt="' + escapeHtml(p.name) + '" class="product-photo ' + imgClass + '" ' +
       'width="' + w + '" height="' + h + '" loading="lazy" decoding="async" ' +
