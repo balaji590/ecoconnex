@@ -86,6 +86,52 @@ window.waEnquiry = window.waEnquiry || function (product) {
     return rows;
   }
 
+  function starsHtml(rating) {
+    const r = Math.max(1, Math.min(5, parseInt(rating, 10) || 5));
+    let html = "";
+    for (let i = 1; i <= 5; i++) {
+      html += '<i class="ti ti-star' + (i <= r ? "-filled" : "") + '"></i>';
+    }
+    return html;
+  }
+
+  function formatReviewDate(dateStr) {
+    if (!dateStr) return "";
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return "";
+      return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+    } catch (e) { return ""; }
+  }
+
+  function buildReviewsHtml(p) {
+    const reviews = Array.isArray(p.reviews) ? p.reviews.filter(function (r) { return r && r.reviewerName && r.reviewText; }) : [];
+    if (!reviews.length) {
+      return (
+        '<div class="pdp-reviews-empty">' +
+          "<p>No reviews yet for this product. Bought this part? Share your feedback with us on WhatsApp and we'll feature it here.</p>" +
+          '<a href="https://wa.me/918778657912?text=' + encodeURIComponent("Hi Eco Connex! I'd like to share a review for: " + p.name) + '" target="_blank" rel="noopener" class="btn-outline-orange"><i class="ti ti-brand-whatsapp"></i> Share Your Review</a>' +
+        "</div>"
+      );
+    }
+    return (
+      '<div class="pdp-reviews-list">' +
+        reviews.map(function (r) {
+          return (
+            '<div class="pdp-review-card">' +
+              '<div class="pdp-review-head">' +
+                '<span class="pdp-review-name">' + EC.escapeHtml(r.reviewerName) + "</span>" +
+                '<span class="pdp-review-stars">' + starsHtml(r.rating) + "</span>" +
+              "</div>" +
+              '<p class="pdp-review-text">' + EC.escapeHtml(r.reviewText) + "</p>" +
+              (r.reviewDate ? '<span class="pdp-review-date">' + formatReviewDate(r.reviewDate) + "</span>" : "") +
+            "</div>"
+          );
+        }).join("") +
+      "</div>"
+    );
+  }
+
   /* ---------- Main render ---------- */
   function setEl(id, attr, value) {
     const el = document.getElementById(id);
@@ -233,6 +279,10 @@ window.waEnquiry = window.waEnquiry || function (product) {
             ? "Warranty: " + EC.escapeHtml(product.warranty) + ". Contact us on WhatsApp for warranty claims or replacement support."
             : "Standard Eco Connex dealer warranty applies as per manufacturer terms. Contact us on WhatsApp for warranty claims or replacement support.") + "</p>" +
         "</div>" +
+        '<div class="pdp-section-card">' +
+          '<h3><i class="ti ti-star"></i> Customer Reviews</h3>' +
+          buildReviewsHtml(product) +
+        "</div>" +
       "</div>" +
 
       '<div class="pdp-strip">' +
@@ -319,6 +369,11 @@ window.waEnquiry = window.waEnquiry || function (product) {
         "Website: https://ecoconnex.in\n\n" +
         "Please confirm availability and pricing.";
       window.open("https://wa.me/918778657912?text=" + encodeURIComponent(msg), "_blank");
+
+      if (window.EcoConnex.orders && typeof window.EcoConnex.orders.saveOrder === "function") {
+        const orderItem = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.icon, image: product.image, qty: qty };
+        window.EcoConnex.orders.saveOrder([orderItem], { count: qty, total: hasPrice ? product.price * qty : 0, hasCallForPrice: !hasPrice }, {});
+      }
     });
 
     // Zoom: desktop hover handled by CSS; mobile tap toggles zoom class.

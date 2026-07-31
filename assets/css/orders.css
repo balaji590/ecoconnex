@@ -1,0 +1,47 @@
+/* ============================================================
+   orders.html — page-specific rules only.
+   Reuses shared classes from home.css (.container, .hero,
+   .btn-orange) and the dark hero-banner pattern used across
+   about.html / contact.html / faq.html.
+   ============================================================ */
+
+.orders-page-section{padding:48px 0 64px;background:#fff;}
+.orders-page-container{max-width:760px;}
+
+.orders-loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:60px 0;color:var(--gray-500);font-size:14px;}
+.orders-loading i{font-size:20px;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.orders-empty{text-align:center;padding:60px 20px;}
+.orders-empty i{font-size:56px;color:var(--gray-400);margin-bottom:16px;display:block;}
+.orders-empty h3{font-size:19px;font-weight:700;color:var(--gray-900);margin-bottom:8px;}
+.orders-empty p{font-size:14px;color:var(--gray-500);margin-bottom:24px;}
+
+.orders-list{display:flex;flex-direction:column;gap:20px;}
+
+.order-card{border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:20px;background:#fff;}
+.order-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--gray-100);}
+.order-id{display:block;font-size:13px;font-weight:700;color:var(--gray-900);}
+.order-date{display:block;font-size:12.5px;color:var(--gray-500);margin-top:2px;}
+.order-total{font-size:17px;font-weight:800;color:var(--orange-dark);white-space:nowrap;}
+
+.order-items{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.order-item-row{display:flex;align-items:center;gap:12px;}
+.order-item-icon{flex:0 0 auto;width:40px;height:40px;border-radius:8px;overflow:hidden;background:var(--gray-50);display:flex;align-items:center;justify-content:center;}
+.order-item-info{flex:1;min-width:0;}
+.order-item-name{font-size:13.5px;font-weight:600;color:var(--gray-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.order-item-qty{font-size:12px;color:var(--gray-500);}
+.order-item-price{flex:0 0 auto;font-size:13px;font-weight:700;color:var(--gray-700);white-space:nowrap;}
+
+.order-card-actions{display:flex;justify-content:flex-end;}
+.order-reorder-btn{padding:9px 18px;font-size:13.5px;}
+
+.orders-clear-row{text-align:center;margin-top:28px;}
+.orders-clear-row a{font-size:13px;color:var(--gray-500);text-decoration:underline;cursor:pointer;}
+.orders-clear-row a:hover{color:var(--gray-700);}
+
+@media(max-width:600px){
+  .orders-page-section{padding:32px 0 48px;}
+  .order-card{padding:16px;}
+  .order-total{font-size:15px;}
+}

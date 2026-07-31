@@ -283,8 +283,12 @@ window.EcoConnex = window.EcoConnex || {};
       return;
     }
 
-    // Success: save details for next time, clear cart, close modal.
+    // Success: save details for next time, record this order in local
+    // history (for the "My Orders" page), clear cart, close modal.
     saveDetails(details);
+    if (ns.orders && typeof ns.orders.saveOrder === "function") {
+      ns.orders.saveOrder(cart, totals, details);
+    }
     ns.cart.clearCart();
     closeModal();
   }

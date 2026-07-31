@@ -115,3 +115,17 @@ collections:
                 - { label: "Weight (kg)", name: "weight", widget: "number", value_type: "float", required: false }
                 - { label: "Featured Product?", name: "featured", widget: "boolean", default: false }
                 - { label: "Best Seller?", name: "bestSeller", widget: "boolean", default: false }
+                - label: "Customer Reviews"
+                  name: "reviews"
+                  widget: "list"
+                  required: false
+                  summary: "{{fields.reviewerName}} — {{fields.rating}}★"
+                  fields:
+                    - { label: "Customer Name", name: "reviewerName", widget: "string" }
+                    - label: "Rating"
+                      name: "rating"
+                      widget: "select"
+                      options: [ "1", "2", "3", "4", "5" ]
+                      default: "5"
+                    - { label: "Review Text", name: "reviewText", widget: "text" }
+                    - { label: "Date", name: "reviewDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
