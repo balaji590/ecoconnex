@@ -70,6 +70,48 @@
     }
   }
 
+  function wireBackToTop() {
+    const btn = document.getElementById("backToTopBtn");
+    if (!btn) return;
+
+    function getScrollY() {
+      return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    }
+
+    function toggleVisibility() {
+      const docHeight = Math.max(
+        document.documentElement.scrollHeight,
+        document.body ? document.body.scrollHeight : 0
+      );
+      const halfwayPoint = (docHeight - window.innerHeight) / 2;
+      if (halfwayPoint > 0 && getScrollY() > halfwayPoint) {
+        btn.classList.add("show");
+      } else {
+        btn.classList.remove("show");
+      }
+    }
+
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
+    window.addEventListener("resize", toggleVisibility, { passive: true });
+    toggleVisibility();
+
+    btn.addEventListener("click", function () {
+      if ("scrollBehavior" in document.documentElement.style) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        // Fallback for older browsers without smooth-scroll support
+        const scrollStep = -getScrollY() / (500 / 15);
+        const scrollInterval = setInterval(function () {
+          if (getScrollY() !== 0) {
+            window.scrollBy(0, scrollStep);
+          } else {
+            clearInterval(scrollInterval);
+          }
+        }, 15);
+      }
+    });
+  }
+
   function fetchPartial(url) {
     return fetch(url, { cache: "no-cache" }).then(function (res) {
       if (!res.ok) throw new Error("Failed to load " + url);
@@ -106,6 +148,7 @@
       fetchPartial("components/footer.html")
         .then(function (html) {
           footerMount.innerHTML = html;
+          wireBackToTop();
         })
         .catch(function (err) {
           console.error("EcoConnex shared footer failed to load:", err);
