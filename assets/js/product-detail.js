@@ -361,7 +361,9 @@ window.waEnquiry = window.waEnquiry || function (product) {
       } else {
         priceLine = "Price: ₹" + product.price.toLocaleString("en-IN");
       }
+      const orderId = "ORD" + Date.now();
       const msg = "*Buy Request — Eco Connex Website*\n\n" +
+        "Order ID: *" + orderId + "*\n\n" +
         "Product: " + product.name + "\n" +
         "SKU: " + product.sku + "\n" +
         "Qty: " + qty + "\n" +
@@ -372,7 +374,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
 
       if (window.EcoConnex.orders && typeof window.EcoConnex.orders.saveOrder === "function") {
         const orderItem = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.icon, image: product.image, qty: qty };
-        window.EcoConnex.orders.saveOrder([orderItem], { count: qty, total: hasPrice ? product.price * qty : 0, hasCallForPrice: !hasPrice }, {});
+        window.EcoConnex.orders.saveOrder([orderItem], { count: qty, total: hasPrice ? product.price * qty : 0, hasCallForPrice: !hasPrice }, {}, orderId);
       }
     });
 

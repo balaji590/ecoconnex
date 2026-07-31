@@ -34,11 +34,11 @@ window.EcoConnex = window.EcoConnex || {};
    * @param {Object} totals - { count, total, hasCallForPrice }
    * @param {Object} details - { name, mobile, address, gst } — used only to show "Delivered to" on the order card
    */
-  function saveOrder(items, totals, details) {
+  function saveOrder(items, totals, details, orderId) {
     if (!items || !items.length) return;
     const orders = loadOrders();
     const order = {
-      id: "ORD" + Date.now(),
+      id: orderId || ("ORD" + Date.now()),
       date: new Date().toISOString(),
       items: items.map(function (i) {
         return { name: i.name, sku: i.sku, price: i.price, mrp: i.mrp, currency: i.currency || "INR", icon: i.icon, image: i.image, qty: i.qty };

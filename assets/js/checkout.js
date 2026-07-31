@@ -79,9 +79,10 @@ window.EcoConnex = window.EcoConnex || {};
 
   /* ---------- WhatsApp message (never misses a cart item) ---------- */
 
-  function buildMessage(details, cart, totals) {
+  function buildMessage(details, cart, totals, orderId) {
     const divider = "――――――――――――――――";
     let msg = "*NEW ORDER — ECO CONNEX*\n" + divider + "\n\n";
+    msg += "Order ID: *" + orderId + "*\n\n";
     msg += "*CUSTOMER DETAILS*\n";
     msg += "• Name: " + details.name + "\n";
     msg += "• Mobile: " + details.mobile + "\n";
@@ -268,7 +269,8 @@ window.EcoConnex = window.EcoConnex || {};
       total: ns.cart.getTotal(),
       hasCallForPrice: ns.cart.hasCallForPrice()
     };
-    const message = buildMessage(details, cart, totals);
+    const orderId = "ORD" + Date.now();
+    const message = buildMessage(details, cart, totals, orderId);
     const waWindow = window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank");
 
     submitting = false;
@@ -287,7 +289,7 @@ window.EcoConnex = window.EcoConnex || {};
     // history (for the "My Orders" page), clear cart, close modal.
     saveDetails(details);
     if (ns.orders && typeof ns.orders.saveOrder === "function") {
-      ns.orders.saveOrder(cart, totals, details);
+      ns.orders.saveOrder(cart, totals, details, orderId);
     }
     ns.cart.clearCart();
     closeModal();
