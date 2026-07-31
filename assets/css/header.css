@@ -50,6 +50,11 @@ body{padding-top:var(--header-h);}
 .sd-tags{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 14px;}
 .sd-tag{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.75);font-size:12px;font-weight:500;padding:7px 13px;border-radius:20px;cursor:pointer;transition:all 0.15s ease;}
 .sd-tag:hover{background:rgba(34,197,94,0.15);border-color:rgba(34,197,94,0.4);color:#fff;}
+.sd-cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:0 16px 16px;}
+.sd-cat-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.8);font-size:12.5px;font-weight:500;padding:9px 12px;border-radius:10px;transition:all 0.15s ease;}
+.sd-cat-chip:hover{background:rgba(249,115,22,0.15);border-color:rgba(249,115,22,0.4);color:#fff;}
+.sd-cat-chip i{font-size:16px;color:var(--orange,#f97316);flex:0 0 auto;}
+.sd-cat-chip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .sd-recent-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:rgba(255,255,255,0.7);font-size:13px;transition:background 0.15s ease;}
 .sd-recent-item:hover,.sd-recent-item.active{background:rgba(255,255,255,0.06);}
 .sd-recent-item i{font-size:15px;color:rgba(255,255,255,0.35);flex-shrink:0;}

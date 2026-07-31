@@ -30,6 +30,7 @@ window.EcoConnex.initSearchWidget = function () {
   // Kick off product loading in the background immediately.
   window.EcoConnex.loadProducts().then(function (products) {
     allProducts = products;
+    if (dropdown.classList.contains("open") && !input.value.trim()) renderIdlePanel();
   });
 
   function debounce(fn, ms) {
@@ -55,6 +56,37 @@ window.EcoConnex.initSearchWidget = function () {
     return p.priceDisplay || (p.price ? ("₹" + p.price) : "Price on Request");
   }
 
+  function categoryIcon(cat) {
+    const map = {
+      motor: "ti-engine", charger: "ti-plug", brake: "ti-disc", "brake-shoe": "ti-disc",
+      throttle: "ti-gauge", controller: "ti-cpu", converter: "ti-bolt", disc: "ti-disc",
+      "drum-plate": "ti-circle", "fork-set": "ti-adjustments", led: "ti-bulb", lever: "ti-hand-stop",
+      lock: "ti-lock", mcb: "ti-alert-triangle", mirror: "ti-mirror", sensor: "ti-radar-2",
+      switch: "ti-toggle-left", connector: "ti-plug-connected", bearing: "ti-circle-dot",
+      body: "ti-motorbike", accessories: "ti-tools"
+    };
+    return map[cat] || "ti-package";
+  }
+
+  function buildCategorySuggestions() {
+    if (!allProducts.length) return "";
+    const counts = {};
+    allProducts.forEach(function (p) {
+      if (!counts[p.category]) counts[p.category] = { label: p.categoryLabel || p.category, count: 0 };
+      counts[p.category].count++;
+    });
+    const entries = Object.keys(counts).map(function (k) { return { key: k, label: counts[k].label, count: counts[k].count }; });
+    entries.sort(function (a, b) { return b.count - a.count; });
+    const top = entries.slice(0, 6);
+    if (!top.length) return "";
+    let html = '<div class="sd-section-label">Browse Categories</div><div class="sd-cat-grid">';
+    top.forEach(function (e) {
+      html += '<a class="sd-cat-chip" href="products.html?category=' + encodeURIComponent(e.key) + '"><i class="ti ' + categoryIcon(e.key) + '"></i><span>' + window.EcoConnex.escapeHtml(e.label) + '</span></a>';
+    });
+    html += "</div>";
+    return html;
+  }
+
   /* ---------- Rendering ---------- */
 
   function renderIdlePanel() {
@@ -77,6 +109,8 @@ window.EcoConnex.initSearchWidget = function () {
       html += '<div class="sd-tag" data-term="' + window.EcoConnex.escapeHtml(term) + '">' + window.EcoConnex.escapeHtml(term) + "</div>";
     });
     html += "</div>";
+
+    html += buildCategorySuggestions();
 
     dropdown.innerHTML = html;
     currentItems = Array.prototype.slice.call(dropdown.querySelectorAll(".sd-recent-item"));
