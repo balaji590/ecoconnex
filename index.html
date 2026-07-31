@@ -418,8 +418,22 @@
 (function () {
   var slides = document.querySelectorAll('.hero-slide');
   var dots = document.querySelectorAll('.hero-dot');
+  var heroLeft = document.querySelector('.hero-left');
   var current = 0;
   var timer = null;
+
+  function lockHeroHeight() {
+    if (!heroLeft || !slides.length) return;
+    var maxH = 0;
+    slides.forEach(function (s) {
+      var wasActive = s.classList.contains('active');
+      s.classList.add('active'); // temporarily show to measure
+      var h = s.getBoundingClientRect().height;
+      if (h > maxH) maxH = h;
+      if (!wasActive) s.classList.remove('active');
+    });
+    if (maxH > 0) heroLeft.style.minHeight = Math.ceil(maxH) + 'px';
+  }
 
   function showSlide(i) {
     slides.forEach(function (s, idx) { s.classList.toggle('active', idx === i); });
@@ -440,6 +454,9 @@
     if (timer) clearInterval(timer);
     timer = setInterval(nextSlide, 5000);
   }
+
+  lockHeroHeight();
+  window.addEventListener('resize', lockHeroHeight);
 
   if (slides.length > 1) resetTimer();
 })();
