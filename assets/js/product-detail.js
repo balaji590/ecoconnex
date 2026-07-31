@@ -188,13 +188,13 @@ window.waEnquiry = window.waEnquiry || function (product) {
               '<div class="pdp-qty-num" id="qtyNum">1</div>' +
               '<button id="qtyPlus" aria-label="Increase quantity">+</button>' +
             "</div>" +
+            '<button class="btn-pdp-share" id="pdpShareProduct" aria-label="Share this product" title="Share"><i class="ti ti-share-3"></i></button>' +
           "</div>" +
           '<div class="pdp-actions">' +
             (outOfStock
               ? '<button class="btn-pdp-cart" id="pdpAddToCart" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
               : '<button class="btn-pdp-cart" id="pdpAddToCart"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>') +
             '<button class="btn-pdp-wa" id="pdpBuyWhatsApp"><i class="ti ti-brand-whatsapp"></i> Buy via WhatsApp</button>' +
-            '<button class="btn-pdp-share" id="pdpShareProduct" aria-label="Share this product" title="Share"><i class="ti ti-share-3"></i></button>' +
           "</div>" +
           '<div class="pdp-trust-row">' +
             '<span><i class="ti ti-truck-delivery"></i> Fast delivery across Tamil Nadu</span>' +
