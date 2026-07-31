@@ -1,0 +1,114 @@
+# ============================================================
+# Eco Connex — Decap CMS config
+# Lets the client add/edit/delete products and update stock
+# through a login-protected web form at /admin — no code
+# editing, no database. Saves changes straight back into
+# data/products.json via a Git commit, then the site rebuilds
+# automatically the same way it already does on every push.
+# ============================================================
+
+backend:
+  name: git-gateway
+  repo: balaji590/ecoconnex
+  branch: main
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/c37093b6-788c-417f-8743-5f802a4c8c50/pkce
+  auth_token_endpoint: /sites/c37093b6-788c-417f-8743-5f802a4c8c50/token
+  gateway_url: https://gateway.decapbridge.com
+
+  # See who did what (optional)
+  commit_messages:
+    create: Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+# Enable PKCE fields (optional, recommended)
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+# Better Decap + Bridge logo (optional)
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+
+# Add site links in Decap CMS (optional)
+site_url: https://ecoconnex.in
+
+# Where media uploaded through the CMS gets stored
+media_folder: "assets/images/products"
+public_folder: "/assets/images/products"
+
+collections:
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    description: "Add, edit, delete products and update stock. Changes go live after the site rebuilds (usually a minute or two)."
+    files:
+      - file: "data/products.json"
+        label: "Product Catalog"
+        name: "products"
+        description: "All 135+ products live in this one file as a list."
+        fields:
+          - label: "Products"
+            name: "products"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.sku}} ({{fields.stock}})"
+            fields:
+                - { label: "ID", name: "id", widget: "number", value_type: "int", hint: "Must be unique. Check the highest existing ID before adding a new product." }
+                - { label: "Product Name", name: "name", widget: "string" }
+                - { label: "SKU", name: "sku", widget: "string" }
+                - label: "Category"
+                  name: "category"
+                  widget: "select"
+                  options:
+                    - { label: "Accessories", value: "accessories" }
+                    - { label: "Bearing", value: "bearing" }
+                    - { label: "Body", value: "body" }
+                    - { label: "Brake", value: "brake" }
+                    - { label: "Brake Shoe", value: "brake-shoe" }
+                    - { label: "Charger", value: "charger" }
+                    - { label: "Connector", value: "connector" }
+                    - { label: "Controller", value: "controller" }
+                    - { label: "Converter", value: "converter" }
+                    - { label: "Disc", value: "disc" }
+                    - { label: "Drum Plate", value: "drum-plate" }
+                    - { label: "Fork Set", value: "fork-set" }
+                    - { label: "LED", value: "led" }
+                    - { label: "Lever", value: "lever" }
+                    - { label: "Lock", value: "lock" }
+                    - { label: "MCB", value: "mcb" }
+                    - { label: "Mirror", value: "mirror" }
+                    - { label: "Motor", value: "motor" }
+                    - { label: "Other", value: "other" }
+                    - { label: "Sensor", value: "sensor" }
+                    - { label: "Switch", value: "switch" }
+                    - { label: "Throttle", value: "throttle" }
+                - { label: "Category Label (shown to customers)", name: "categoryLabel", widget: "string" }
+                - { label: "Brand", name: "brand", widget: "string", default: "Eco Connex" }
+                - { label: "Description", name: "description", widget: "text" }
+                - { label: "Short Description", name: "shortDescription", widget: "string" }
+                - { label: "Price (₹)", name: "price", widget: "number", value_type: "int" }
+                - { label: "Price Display", name: "priceDisplay", widget: "string", hint: "e.g. ₹100 — shown as-is on the site" }
+                - { label: "MRP (₹)", name: "mrp", widget: "number", value_type: "int" }
+                - { label: "Discount %", name: "discount", widget: "number", value_type: "int", required: false }
+                - { label: "Currency", name: "currency", widget: "string", default: "INR" }
+                - { label: "Product Image", name: "image", widget: "image", hint: "Upload the product photo here." }
+                - { label: "Icon (emoji, optional)", name: "icon", widget: "string", required: false }
+                - label: "Stock Status"
+                  name: "stock"
+                  widget: "select"
+                  options: ["In Stock", "Out of Stock", "Limited Stock"]
+                - { label: "Stock Quantity", name: "stockQty", widget: "number", value_type: "int" }
+                - { label: "Search Keywords", name: "keywords", widget: "list" }
+                - { label: "Warranty", name: "warranty", widget: "string", default: "As Per Manufacturer" }
+                - { label: "Compatible Vehicle", name: "compatibleVehicle", widget: "string", required: false }
+                - { label: "HSN Code", name: "hsn", widget: "string", required: false }
+                - { label: "GST %", name: "gstPercent", widget: "number", value_type: "float", required: false }
+                - { label: "Weight (kg)", name: "weight", widget: "number", value_type: "float", required: false }
+                - { label: "Featured Product?", name: "featured", widget: "boolean", default: false }
+                - { label: "Best Seller?", name: "bestSeller", widget: "boolean", default: false }
