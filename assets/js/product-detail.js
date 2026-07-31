@@ -279,12 +279,6 @@ window.waEnquiry = window.waEnquiry || function (product) {
             : "Fits most electric scooters and bikes including Ola Electric, Ather Energy, Hero Electric, Ampere, TVS iQube, Bajaj Chetak, Okinawa and Pure EV. Please WhatsApp us your vehicle model to confirm exact fitment.") + "</p>" +
         "</div>" +
         '<div class="pdp-section-card">' +
-          '<h3><i class="ti ti-certificate"></i> Warranty Information</h3>' +
-          "<p>" + (product.warranty
-            ? "Warranty: " + EC.escapeHtml(product.warranty) + ". Contact us on WhatsApp for warranty claims or replacement support."
-            : "Standard Eco Connex dealer warranty applies as per manufacturer terms. Contact us on WhatsApp for warranty claims or replacement support.") + "</p>" +
-        "</div>" +
-        '<div class="pdp-section-card">' +
           '<h3><i class="ti ti-truck-delivery"></i> Delivery &amp; Returns</h3>' +
           '<div class="pdp-delivery-row"><i class="ti ti-clock-hour-4"></i><div><strong>Dispatch</strong><span>Orders dispatched within 24 hours</span></div></div>' +
           '<div class="pdp-delivery-row"><i class="ti ti-map-pin"></i><div><strong>Delivery Area</strong><span>Across Tamil Nadu via courier, 1\u20133 business days</span></div></div>' +

@@ -58,7 +58,6 @@ window.EcoConnex = window.EcoConnex || {};
 
     html += '<div class="qv-trust-badges">';
     if (typeof p.gstPercent === "number" && p.gstPercent > 0) html += '<span class="qv-mini-badge"><i class="ti ti-receipt-tax"></i> GST Applicable</span>';
-    if (p.warranty) html += '<span class="qv-mini-badge"><i class="ti ti-certificate"></i> ' + ns.escapeHtml(p.warranty) + " Warranty</span>";
     html += "</div>";
 
     if (!outOfStock) {

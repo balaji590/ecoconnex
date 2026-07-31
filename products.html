@@ -183,7 +183,6 @@ function cardHtml(p) {
     : '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
   var trustBadges = '<div class="product-trust-badges">';
   if (typeof p.gstPercent === 'number' && p.gstPercent > 0) trustBadges += '<span class="product-mini-badge"><i class="ti ti-receipt-tax"></i> GST Applicable</span>';
-  if (p.warranty) trustBadges += '<span class="product-mini-badge"><i class="ti ti-certificate"></i> Warranty</span>';
   trustBadges += '</div>';
   return (
     '<div class="product-card" id="product-' + p.id + '" data-cat="' + p.category + '" data-name="' + window.EcoConnex.escapeHtml(p.name.toLowerCase()) + '" data-sku="' + p.sku + '" onclick="if(!event.target.closest(\'button\')&&!event.target.closest(\'a\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
