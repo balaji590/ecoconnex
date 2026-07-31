@@ -139,6 +139,7 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
 .modal-item span{color:#374151;}
 .modal-item strong{font-weight:600;white-space:nowrap;}
 .modal-total{display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid #e5e7eb;margin-top:8px;}
+.modal-gst-note{font-size:11px;color:#9ca3af;margin-top:6px;line-height:1.5;}
 .modal-total span{font-size:15px;font-weight:700;}
 .modal-total strong{font-size:18px;font-weight:800;color:#ea580c;}
 .form-group{margin-bottom:16px;}

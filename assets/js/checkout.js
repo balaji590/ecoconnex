@@ -103,6 +103,8 @@ window.EcoConnex = window.EcoConnex || {};
     msg += "Total Items: " + totals.count + "\n";
     msg += "*GRAND TOTAL: ₹" + totals.total.toLocaleString("en-IN") + (totals.hasCallForPrice ? " + items to confirm" : "") + "*\n";
     msg += "_(+ GST & Shipping charges extra, as applicable)_\n\n";
+    msg += divider + "\n\n";
+    msg += "Note:\nProduct prices are exclusive of GST.\nApplicable GST will be added during billing.\n\n";
     msg += divider + "\n\nPlease confirm this order. Thank you for shopping with Eco Connex!";
     return msg;
   }
@@ -122,6 +124,7 @@ window.EcoConnex = window.EcoConnex || {};
             "<h4>Order Summary</h4>" +
             '<div id="ecModalItems"></div>' +
             '<div class="modal-total"><span>Total (<span id="ecModalCount">0</span> items)</span><strong id="ecModalTotal">₹0</strong></div>' +
+            '<div class="modal-gst-note">Note: Product prices displayed are exclusive of GST. Applicable GST will be added to the final invoice during billing.</div>' +
           "</div>" +
           '<form id="ecCheckoutForm" novalidate>' +
             '<div class="form-group">' +

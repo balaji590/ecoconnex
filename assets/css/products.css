@@ -192,3 +192,5 @@ a{text-decoration:none;color:inherit;}
 .wishlist-heart-btn:hover{transform:scale(1.1);}
 .wishlist-heart-btn i{font-size:15px;color:#6b7280;transition:color 0.15s ease;}
 .wishlist-heart-btn.active i{color:#ef4444;}
+
+.cart-gst-note{font-size:11px;color:var(--gray-400);margin:-8px 0 12px;line-height:1.5;}

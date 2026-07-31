@@ -237,3 +237,9 @@ a{text-decoration:none;color:inherit;}
   .pdp-mobile-sticky{display:flex;}
   .pdp-wrap{padding-bottom:76px;}
 }
+
+/* ── GST INFORMATIONAL BADGE (PDP price area) — informational only, not a discount/promo badge ── */
+.pdp-gst-note{margin:-2px 0 14px;}
+.pdp-gst-badge{display:inline-flex;align-items:center;font-size:11.5px;font-weight:600;color:var(--gray-600);background:var(--gray-100);padding:4px 12px;border-radius:20px;}
+
+.cart-gst-note{font-size:11px;color:var(--gray-400);margin:-8px 0 12px;line-height:1.5;}

@@ -144,6 +144,7 @@
       <div class="cart-savings-row"><span>You Save</span><strong id="cartSavingsTotal">₹0</strong></div>
     </div>
     <div class="cart-total-row"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+    <div class="cart-gst-note">Prices exclude GST. Applicable GST added at billing.</div>
     <button class="btn-cart-checkout" onclick="EcoConnex.openCheckoutModal()"><i class="ti ti-brand-whatsapp"></i> Checkout via WhatsApp</button>
   </div>
 </div>
@@ -181,7 +182,7 @@ function cardHtml(p) {
     ? '<button class="btn-enquire" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
     : '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
   var trustBadges = '<div class="product-trust-badges">';
-  if (typeof p.gstPercent === 'number' && p.gstPercent > 0) trustBadges += '<span class="product-mini-badge"><i class="ti ti-receipt-tax"></i> GST Incl.</span>';
+  if (typeof p.gstPercent === 'number' && p.gstPercent > 0) trustBadges += '<span class="product-mini-badge"><i class="ti ti-receipt-tax"></i> GST Applicable</span>';
   if (p.warranty) trustBadges += '<span class="product-mini-badge"><i class="ti ti-certificate"></i> Warranty</span>';
   trustBadges += '</div>';
   return (

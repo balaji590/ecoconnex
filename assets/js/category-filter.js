@@ -40,7 +40,7 @@
     const stockCls = window.EcoConnex.getStockClass(p.stock);
     const badgeBg = stockCls === "in-stock" ? "#15803d" : (stockCls === "out-of-stock" ? "#dc2626" : "#b45309");
     const trustBadges = '<div class="product-trust-badges">' +
-      (typeof p.gstPercent === "number" && p.gstPercent > 0 ? '<span class="product-mini-badge"><i class="ti ti-receipt-tax"></i> GST Incl.</span>' : "") +
+      (typeof p.gstPercent === "number" && p.gstPercent > 0 ? '<span class="product-mini-badge"><i class="ti ti-receipt-tax"></i> GST Applicable</span>' : "") +
       (p.warranty ? '<span class="product-mini-badge"><i class="ti ti-certificate"></i> Warranty</span>' : "") +
       "</div>";
 

@@ -230,6 +230,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
             '<span>Brand: <strong>' + EC.escapeHtml(product.brand) + '</strong></span>' +
           "</div>" +
           '<div class="pdp-price-block">' + priceHtml(product, true) + "</div>" +
+          (typeof product.gstPercent === "number" && product.gstPercent > 0 ? '<div class="pdp-gst-note"><span class="pdp-gst-badge">GST Applicable</span></div>' : "") +
           '<p class="pdp-desc">' + EC.escapeHtml(product.description || product.name || "") + "</p>" +
           '<div class="pdp-qty-row">' +
             '<div class="pdp-qty">' +
