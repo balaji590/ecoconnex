@@ -29,7 +29,10 @@ window.EcoConnex = window.EcoConnex || {};
         return res.json();
       })
       .then(function (data) {
-        _cache = data;
+        // products.json root is now { "products": [...] } (required so the
+        // Decap CMS admin panel at /admin can read/write this file — Decap
+        // needs an object at the file root, not a bare array).
+        _cache = (data && Array.isArray(data.products)) ? data.products : (Array.isArray(data) ? data : []);
         return _cache;
       })
       .catch(function (err) {
