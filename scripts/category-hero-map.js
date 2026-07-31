@@ -36,3 +36,5 @@ const DEFAULT_HERO_IMAGE = "default.webp";
 module.exports = function getHeroImage(categoryKey) {
   return HERO_IMAGE_MAP[categoryKey] || DEFAULT_HERO_IMAGE;
 };
+module.exports.MAP = HERO_IMAGE_MAP;
+module.exports.DEFAULT = DEFAULT_HERO_IMAGE;

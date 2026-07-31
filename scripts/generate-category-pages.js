@@ -44,6 +44,12 @@ function escapeHtml(str) {
   return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+// Shown instantly while products-listing.js fetches + renders the real
+// cards — never a blank white grid while data loads.
+const SKELETON_CARDS_HTML = Array.from({ length: 10 }).map(function () {
+  return '<div class="product-skeleton-card"><div class="product-skeleton-img"></div><div class="product-skeleton-lines"><div class="product-skeleton-line"></div><div class="product-skeleton-line short"></div></div></div>';
+}).join("");
+
 function categoryDescription(label) {
   return "Explore quality-tested " + label.toLowerCase() + " components for dependable EV repairs and maintenance.";
 }
@@ -125,6 +131,7 @@ function pageTemplate(cat) {
 '  <meta name="author" content="Eco Connex"/>\n' +
 '  <meta name="theme-color" content="#f97316"/>\n' +
 '  <link rel="canonical" href="' + url + '"/>\n' +
+'  <link rel="preload" as="image" href="/assets/images/hero/' + getHeroImage(cat.key) + '" fetchpriority="high"/>\n' +
 '  <link rel="manifest" href="/manifest.json"/>\n' +
 '  <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any"/>\n' +
 '  <link rel="icon" type="image/png" href="/assets/images/logo.png"/>\n' +
@@ -216,7 +223,7 @@ function pageTemplate(cat) {
 '<div class="results-count"><span id="resultCount">' + cat.count + '</span> products found</div>\n' +
 "\n" +
 '<div class="products-wrap">\n' +
-'  <div class="products-grid" id="productsGrid"></div>\n' +
+'  <div class="products-grid" id="productsGrid">' + SKELETON_CARDS_HTML + "</div>\n" +
 '  <div class="no-results" id="noResults">\n' +
 '    <i class="ti ti-search-off"></i>\n' +
 "    <p>No products found</p>\n" +
@@ -247,7 +254,7 @@ function pageTemplate(cat) {
 "  </div>\n" +
 "</div>\n" +
 "\n" +
-'<script>window.EC_CATEGORY_LOCK = "' + slug.replace(/"/g, '\\"') + '";</script>\n' +
+'<script>window.EC_CATEGORY_LOCK = "' + slug.replace(/"/g, '\\"') + '";window.EC_HERO_IMAGE_MAP = ' + JSON.stringify(getHeroImage.MAP) + ';window.EC_HERO_DEFAULT = "' + getHeroImage.DEFAULT + '";</script>\n' +
 '<script src="/assets/js/products-data.js"></script>\n' +
 '<script src="/assets/js/cart.js"></script>\n' +
 '<script src="/assets/js/wishlist.js"></script>\n' +

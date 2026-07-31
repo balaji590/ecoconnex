@@ -1,3 +1,10 @@
+/* Smooth native cross-page transition when navigating between
+   products.html <-> category pages (Chrome/Edge only — silently
+   ignored elsewhere, so this is pure progressive enhancement). */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
 :root{
   --orange:#f97316;--orange-dark:#ea580c;--orange-light:#fed7aa;
   --black:#0a0a0a;--black-2:#111111;
@@ -247,6 +254,37 @@ a{text-decoration:none;color:inherit;}
 
 /* ── PREMIUM HERO BANNER (right side) ── */
 .category-hero-banner-wrap{position:relative;width:100%;aspect-ratio:16/7.5;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(22,53,29,.08);background:rgba(255,255,255,.5);cursor:zoom-in;}
+
+/* ── PHASE 2: premium entrance + micro-interactions (all gated behind
+   prefers-reduced-motion — users who opt out of motion get an instant,
+   fully-usable page with zero animation). ── */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes ecFadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes ecSlideInRight{from{opacity:0;transform:translateX(28px);}to{opacity:1;transform:translateX(0);}}
+  @keyframes ecCardIn{from{opacity:0;transform:translateY(14px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+
+  .category-page .category-hero-banner-wrap{animation:ecSlideInRight .38s ease-out both;}
+  .category-page .hero h1{animation:ecFadeUp .32s ease-out .06s both;}
+  .category-page .hero-stats{animation:ecFadeUp .32s ease-out .14s both;}
+
+  .category-hero-banner-wrap:hover .category-hero-banner-img.is-loaded{filter:brightness(1.04);}
+
+  .product-card.ec-pre-reveal{opacity:0;transform:translateY(14px) scale(.98);}
+  .product-card.ec-reveal{animation:ecCardIn .42s cubic-bezier(.16,.84,.44,1) both;}
+}
+@media (prefers-reduced-motion: reduce) {
+  .category-page .category-hero{animation:none;}
+}
+
+/* ── PRODUCT GRID SKELETON (shown until the real cards render) ── */
+.product-skeleton-card{border:1px solid var(--gray-200);border-radius:18px;overflow:hidden;background:#fff;}
+.product-skeleton-img{aspect-ratio:1/1;background:linear-gradient(100deg,#f1f5f9 30%,#f8fafc 50%,#f1f5f9 70%);background-size:200% 100%;}
+.product-skeleton-lines{padding:14px;display:flex;flex-direction:column;gap:8px;}
+.product-skeleton-line{height:11px;border-radius:6px;background:linear-gradient(100deg,#f1f5f9 30%,#f8fafc 50%,#f1f5f9 70%);background-size:200% 100%;}
+.product-skeleton-line.short{width:60%;}
+@media (prefers-reduced-motion: no-preference) {
+  .product-skeleton-img,.product-skeleton-line{animation:heroSkeletonShimmer 1.4s ease-in-out infinite;}
+}
 .category-hero-skeleton{position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,.4) 30%,rgba(255,255,255,.75) 50%,rgba(255,255,255,.4) 70%);background-size:200% 100%;animation:heroSkeletonShimmer 1.4s ease-in-out infinite;}
 @keyframes heroSkeletonShimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 .category-hero-banner-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .28s ease,transform .3s ease;will-change:transform;}

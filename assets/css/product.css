@@ -1,3 +1,9 @@
+/* Smooth native cross-page transition to/from products.html and
+   category pages (Chrome/Edge only — progressive enhancement). */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
 :root{
   --orange:#f97316;--orange-dark:#ea580c;--orange-light:#fed7aa;
   --black:#0a0a0a;--black-2:#111111;

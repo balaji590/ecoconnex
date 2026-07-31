@@ -97,6 +97,42 @@ function shareProductCard(id, name) {
 
 function renderProducts(products) {
   document.getElementById('productsGrid').innerHTML = products.map(cardHtml).join('');
+  wireCardRevealAnimations();
+}
+
+var _cardRevealObserver = null;
+
+/**
+ * Fade-up + scale reveal for product cards as they scroll into view.
+ * Plays once per card, then stops observing it. Cards are fully visible
+ * by default (see .product-card CSS) — this only ADDS the pre-hidden
+ * state via JS, so if IntersectionObserver isn't supported or
+ * prefers-reduced-motion is set, cards simply render normally with
+ * zero animation (safe, no dependency on this function running).
+ */
+function wireCardRevealAnimations() {
+  if (!("IntersectionObserver" in window)) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  if (_cardRevealObserver) _cardRevealObserver.disconnect();
+
+  var cards = document.querySelectorAll("#productsGrid .product-card");
+  cards.forEach(function (card, i) {
+    card.classList.add("ec-pre-reveal");
+    card.style.animationDelay = (Math.min(i % 10, 9) * 0.04) + "s";
+  });
+
+  _cardRevealObserver = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove("ec-pre-reveal");
+        entry.target.classList.add("ec-reveal");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+  cards.forEach(function (card) { _cardRevealObserver.observe(card); });
 }
 
 // ── CATEGORY CHIPS (only on products.html — hidden entirely when locked) ──
@@ -387,18 +423,40 @@ function wireCategoryHeroBanner() {
   img.addEventListener("click", openLightbox);
   img.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(); } });
 
-  // ── Subtle parallax (desktop, fine-pointer only — skipped on touch) ──
-  if (wrap && window.matchMedia && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+  // ── Subtle parallax + zoom (desktop, fine-pointer only — skipped on touch) ──
+  var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (wrap && !prefersReducedMotion && window.matchMedia && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+    wrap.addEventListener("mouseenter", function () {
+      img.style.transition = "transform 0.2s ease";
+    });
     wrap.addEventListener("mousemove", function (e) {
       var rect = wrap.getBoundingClientRect();
       var relX = (e.clientX - rect.left) / rect.width - 0.5;
       var relY = (e.clientY - rect.top) / rect.height - 0.5;
-      img.style.transform = "translate(" + (relX * 8) + "px," + (relY * 8) + "px)";
+      img.style.transform = "translate(" + (relX * 8) + "px," + (relY * 8) + "px) scale(1.02)";
     });
     wrap.addEventListener("mouseleave", function () {
       img.style.transform = "";
     });
   }
+}
+
+/**
+ * Prefetches ONLY the next adjacent category's hero banner (by the same
+ * count-desc order used everywhere else) so a click on "next category"
+ * feels instant — never preloads every banner, just the one likely-next.
+ */
+function prefetchAdjacentCategoryHero(products) {
+  if (!CATEGORY_LOCK) return;
+  var categories = window.EcoConnex.getCategoriesWithCounts(products);
+  var idx = categories.findIndex(function (c) { return c.key === CATEGORY_LOCK; });
+  if (idx === -1) return;
+  var next = categories[(idx + 1) % categories.length];
+  if (!next) return;
+  var img = new Image();
+  var map = window.EC_HERO_IMAGE_MAP || {};
+  var defaultFile = window.EC_HERO_DEFAULT || "default.webp";
+  img.src = "/assets/images/hero/" + (map[next.key] || defaultFile);
 }
 
 function init() {
@@ -409,6 +467,7 @@ function init() {
       var categoryEntry = window.EcoConnex.getCategoriesWithCounts(products).find(function (c) { return c.key === CATEGORY_LOCK; });
       renderCategoryPageHeader(categoryEntry);
       selectedCategories = new Set([CATEGORY_LOCK]);
+      prefetchAdjacentCategoryHero(products);
     }
 
     renderCategoryChips();
