@@ -39,13 +39,16 @@ window.waEnquiry = window.waEnquiry || function (product) {
   function miniCardHtml(p) {
     var hasPrice = typeof p.price === "number" && p.price > 0;
     var outOfStock = EC.isOutOfStock(p);
-    var itemJson = EC.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || "INR", icon: p.icon, image: p.image }));
+    var itemJson = EC.escapeHtml(JSON.stringify({ id: p.id, name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || "INR", icon: p.icon, image: p.image }));
+    var isWished = EC.wishlist && EC.wishlist.isInWishlist(p.sku);
     var actionBtn = outOfStock
       ? '<button class="mini-card-cart-btn" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()"><i class="ti ti-ban"></i></button>'
       : '<button class="mini-card-cart-btn" onclick="event.stopPropagation();EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), 1);" data-item="' + itemJson + '" aria-label="Add to Cart"><i class="ti ti-shopping-cart-plus"></i></button>';
     return (
       '<div class="mini-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
-        '<div class="mini-card-img">' + EC.renderProductImageHtml(p, { width: 140, height: 140 }) + "</div>" +
+        '<div class="mini-card-img">' + EC.renderProductImageHtml(p, { width: 140, height: 140 }) +
+          '<button class="wishlist-heart-btn' + (isWished ? " active" : "") + '" onclick="event.stopPropagation();EcoConnex.wishlist.toggleWishlist(JSON.parse(this.getAttribute(\'data-item\')));this.classList.toggle(\'active\');this.querySelector(\'i\').className=\'ti ti-heart\'+(this.classList.contains(\'active\')?\'-filled\':\'\');" data-item="' + itemJson + '" aria-label="Save to wishlist"><i class="ti ti-heart' + (isWished ? "-filled" : "") + '"></i></button>' +
+        "</div>" +
         '<div class="mini-card-body">' +
           '<div class="mini-card-name">' + EC.escapeHtml(p.name) + "</div>" +
           priceHtml(p, false) +
@@ -235,6 +238,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
               '<button id="qtyPlus" aria-label="Increase quantity">+</button>' +
             "</div>" +
             '<button class="btn-pdp-share" id="pdpShareProduct" aria-label="Share this product" title="Share"><i class="ti ti-share-3"></i></button>' +
+            '<button class="btn-pdp-share' + (EC.wishlist && EC.wishlist.isInWishlist(product.sku) ? " active-wish" : "") + '" id="pdpWishlistBtn" aria-label="Save to wishlist" title="Save to wishlist"><i class="ti ti-heart' + (EC.wishlist && EC.wishlist.isInWishlist(product.sku) ? "-filled" : "") + '"></i></button>' +
           "</div>" +
           '<div class="pdp-actions">' +
             (outOfStock
@@ -334,6 +338,17 @@ window.waEnquiry = window.waEnquiry || function (product) {
     document.getElementById("qtyPlus").addEventListener("click", function () {
       qty++; qtyNum.textContent = qty;
     });
+
+    const wishBtn = document.getElementById("pdpWishlistBtn");
+    if (wishBtn && EC.wishlist) {
+      wishBtn.addEventListener("click", function () {
+        const item = { id: product.id, name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.icon, image: product.image };
+        const nowActive = EC.wishlist.toggleWishlist(item);
+        wishBtn.classList.toggle("active-wish", nowActive);
+        wishBtn.querySelector("i").className = "ti ti-heart" + (nowActive ? "-filled" : "");
+        if (EC.showToast) EC.showToast(nowActive ? "Added to Wishlist" : "Removed from Wishlist");
+      });
+    }
 
     const cartBtn = document.getElementById("pdpAddToCart");
     cartBtn.addEventListener("click", function () {

@@ -64,6 +64,10 @@ a{text-decoration:none;color:inherit;}
 .btn-pdp-share:hover{background:var(--orange);border-color:var(--orange);}
 .btn-pdp-share:hover i{color:#fff;}
 .btn-pdp-share:active{transform:scale(0.95);}
+.btn-pdp-share.active-wish{border-color:#ef4444;}
+.btn-pdp-share.active-wish i{color:#ef4444;}
+.btn-pdp-share.active-wish:hover{background:#ef4444;border-color:#ef4444;}
+.btn-pdp-share.active-wish:hover i{color:#fff;}
 .pdp-trust-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:18px;padding-top:18px;border-top:1px solid var(--gray-200);font-size:12px;color:var(--gray-500);}
 .pdp-trust-row span{display:flex;align-items:center;gap:6px;}
 .pdp-trust-row i{color:var(--orange);font-size:15px;}
@@ -91,7 +95,7 @@ a{text-decoration:none;color:inherit;}
 .pdp-strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
 .mini-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:all 0.25s ease;display:flex;flex-direction:column;}
 .mini-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
-.mini-card-img{aspect-ratio:1/1;background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:42px;overflow:hidden;}
+.mini-card-img{aspect-ratio:1/1;background:linear-gradient(135deg,#fff7ed,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:42px;overflow:hidden;position:relative;}
 .mini-card-body{padding:12px;}
 .mini-card-name{font-size:12.5px;font-weight:600;color:var(--gray-900);margin-bottom:6px;line-height:1.4;height:34px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .mini-card-price{font-size:14px;font-weight:800;color:var(--orange-dark);}
@@ -187,3 +191,9 @@ a{text-decoration:none;color:inherit;}
 .pdp-review-stars i{margin-left:1px;}
 .pdp-review-text{font-size:13.5px;color:var(--gray-700);line-height:1.6;margin-bottom:6px;}
 .pdp-review-date{font-size:11.5px;color:var(--gray-400);}
+
+/* ── WISHLIST HEART BUTTON (mini-cards: Related / Recently Viewed) ── */
+.mini-card-img .wishlist-heart-btn{position:absolute;bottom:6px;right:6px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.92);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.15);transition:transform 0.15s ease;z-index:2;}
+.mini-card-img .wishlist-heart-btn:hover{transform:scale(1.1);}
+.mini-card-img .wishlist-heart-btn i{font-size:13px;color:#6b7280;transition:color 0.15s ease;}
+.mini-card-img .wishlist-heart-btn.active i{color:#ef4444;}

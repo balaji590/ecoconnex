@@ -136,6 +136,17 @@
           if (typeof window.updateCartUI === "function") {
             window.updateCartUI();
           }
+          if (window.EcoConnex && window.EcoConnex.wishlist) {
+            const badge = document.getElementById("wishlistBadge");
+            function syncWishlistBadge(list) {
+              if (!badge) return;
+              const count = list ? list.length : window.EcoConnex.wishlist.getWishlistCount();
+              badge.textContent = count;
+              badge.style.display = count > 0 ? "flex" : "none";
+            }
+            syncWishlistBadge();
+            window.EcoConnex.wishlist.onChange(syncWishlistBadge);
+          }
         })
         .catch(function (err) {
           console.error("EcoConnex shared header failed to load:", err);

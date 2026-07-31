@@ -1,0 +1,39 @@
+/* ============================================================
+   wishlist.html — page-specific rules only.
+   Reuses shared classes from home.css (.container, .hero,
+   .btn-orange) and the dark hero-banner pattern used across
+   about.html / contact.html / faq.html / orders.html.
+   ============================================================ */
+
+.wishlist-page-section{padding:48px 0 64px;background:#fff;}
+.wishlist-page-container{max-width:760px;}
+
+.wishlist-loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:60px 0;color:var(--gray-500);font-size:14px;}
+.wishlist-loading i{font-size:20px;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.wishlist-empty{text-align:center;padding:60px 20px;}
+.wishlist-empty i{font-size:56px;color:var(--gray-400);margin-bottom:16px;display:block;}
+.wishlist-empty h3{font-size:19px;font-weight:700;color:var(--gray-900);margin-bottom:8px;}
+.wishlist-empty p{font-size:14px;color:var(--gray-500);margin-bottom:24px;}
+
+.wishlist-list{display:flex;flex-direction:column;gap:14px;}
+
+.wishlist-card{display:flex;align-items:center;gap:14px;border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:14px;background:#fff;}
+.wishlist-card-img{flex:0 0 auto;width:70px;height:70px;border-radius:var(--radius-sm);overflow:hidden;background:var(--gray-50);display:flex;align-items:center;justify-content:center;}
+.wishlist-card-body{flex:1;min-width:0;}
+.wishlist-card-name{display:block;font-size:14px;font-weight:600;color:var(--gray-900);margin-bottom:4px;}
+.wishlist-card-name:hover{color:var(--orange-dark);}
+.wishlist-item-call{font-size:13px;color:var(--gray-500);}
+
+.wishlist-card-actions{flex:0 0 auto;display:flex;align-items:center;gap:10px;}
+.wishlist-add-cart-btn{padding:9px 16px;font-size:13px;white-space:nowrap;}
+.wishlist-remove-btn{width:36px;height:36px;border-radius:50%;background:var(--gray-50);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--gray-500);transition:background 0.2s,color 0.2s;}
+.wishlist-remove-btn:hover{background:#fee2e2;color:#dc2626;}
+
+@media(max-width:600px){
+  .wishlist-page-section{padding:32px 0 48px;}
+  .wishlist-card{flex-wrap:wrap;}
+  .wishlist-card-actions{width:100%;justify-content:space-between;margin-top:8px;}
+  .wishlist-add-cart-btn{flex:1;}
+}

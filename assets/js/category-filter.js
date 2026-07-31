@@ -25,7 +25,8 @@
     const hasPrice = typeof p.price === "number" && p.price > 0;
     const priceBlock = window.EcoConnex.renderPriceHtml(p, { hideSavingsLine: true });
     const outOfStock = window.EcoConnex.isOutOfStock(p);
-    const itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || "INR", icon: p.icon, image: p.image }));
+    const itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ id: p.id, name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || "INR", icon: p.icon, image: p.image }));
+    const isWished = window.EcoConnex.wishlist && window.EcoConnex.wishlist.isInWishlist(p.sku);
     const qtyId = "tqty-home-" + p.id;
     const qtyStepper =
       '<div class="tile-qty" onclick="event.stopPropagation()">' +
@@ -40,7 +41,9 @@
 
     return (
       '<article class="product-card" id="home-product-' + p.id + '" onclick="if(!event.target.closest(\'button\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
-        '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p, { width: 280, height: 280 }) + '<span class="product-badge" style="background:' + badgeBg + '">' + window.EcoConnex.escapeHtml(p.stock) + "</span></div>" +
+        '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p, { width: 280, height: 280 }) + '<span class="product-badge" style="background:' + badgeBg + '">' + window.EcoConnex.escapeHtml(p.stock) + "</span>" +
+          '<button class="wishlist-heart-btn' + (isWished ? " active" : "") + '" onclick="event.stopPropagation();toggleWishlistBtnHome(this,\'' + p.sku + '\')" data-item="' + itemJson + '" aria-label="Save to wishlist"><i class="ti ti-heart' + (isWished ? "-filled" : "") + '"></i></button>' +
+        "</div>" +
         '<div class="product-body">' +
           '<h3 class="product-name">' + window.EcoConnex.escapeHtml(p.name) + "</h3>" +
           '<p class="product-desc">' + window.EcoConnex.escapeHtml(p.shortDescription || window.EcoConnex.shortText(p.description, 90)) + "</p>" +
@@ -54,6 +57,14 @@
         "</div>" +
       "</article>"
     );
+  }
+
+  function toggleWishlistBtnHome(btn, sku) {
+    const itemData = JSON.parse(btn.getAttribute("data-item"));
+    const nowActive = window.EcoConnex.wishlist.toggleWishlist(itemData);
+    btn.classList.toggle("active", nowActive);
+    btn.querySelector("i").className = "ti ti-heart" + (nowActive ? "-filled" : "");
+    if (window.EcoConnex.showToast) window.EcoConnex.showToast(nowActive ? "Added to Wishlist" : "Removed from Wishlist");
   }
 
   /* ---------- Featured Products grid (8 items, reused card) ---------- */

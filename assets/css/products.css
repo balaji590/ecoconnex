@@ -162,3 +162,9 @@ a{text-decoration:none;color:inherit;}
 
 /* ── PLP image-fit consistency (Task 1) ── */
 .product-icon-fallback{display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+
+/* ── WISHLIST HEART BUTTON (product cards) ── */
+.wishlist-heart-btn{position:absolute;bottom:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.92);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:transform 0.15s ease;z-index:2;}
+.wishlist-heart-btn:hover{transform:scale(1.1);}
+.wishlist-heart-btn i{font-size:15px;color:#6b7280;transition:color 0.15s ease;}
+.wishlist-heart-btn.active i{color:#ef4444;}

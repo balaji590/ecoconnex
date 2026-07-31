@@ -24,6 +24,10 @@
         <div class="search-dropdown" id="searchDropdown" role="listbox" aria-label="Search results"></div>
       </div>
       <div class="nav-actions">
+        <a href="wishlist.html" class="btn-wishlist-nav" aria-label="Wishlist">
+          <i class="ti ti-heart"></i>
+          <span class="wishlist-badge" id="wishlistBadge">0</span>
+        </a>
         <button class="btn-cart-nav" onclick="openCart()" aria-label="Shopping Cart">
           <i class="ti ti-shopping-cart"></i> Cart
           <span class="cart-badge" id="cartBadge">0</span>
@@ -44,5 +48,6 @@
   <a href="dealer.html" onclick="closeMobileMenu()">Dealer</a>
   <a href="contact.html" onclick="closeMobileMenu()">Contact</a>
   <a href="javascript:void(0)" onclick="closeMobileMenu();openCart();" style="color:var(--orange,#f97316)"><i class="ti ti-shopping-cart"></i> Cart</a>
+  <a href="wishlist.html" onclick="closeMobileMenu()" style="color:#ef4444;"><i class="ti ti-heart"></i> Wishlist</a>
   <a href="https://wa.me/918778657912" target="_blank" style="color:#25D366;" onclick="closeMobileMenu()"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
 </div>

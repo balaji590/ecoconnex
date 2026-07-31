@@ -149,6 +149,7 @@
 
 <script src="assets/js/products-data.js"></script>
 <script src="assets/js/cart.js"></script>
+<script src="assets/js/wishlist.js"></script>
 <script src="assets/js/orders.js"></script>
 <script src="assets/js/checkout.js"></script>
 <script src="assets/js/search-widget.js"></script>
@@ -165,7 +166,8 @@ function priceHtml(p) {
 function cardHtml(p) {
   var hasPrice = typeof p.price === 'number' && p.price > 0;
   var outOfStock = window.EcoConnex.isOutOfStock(p);
-  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || 'INR', icon: p.icon, image: p.image }));
+  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ id: p.id, name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || 'INR', icon: p.icon, image: p.image }));
+  var isWished = window.EcoConnex.wishlist && window.EcoConnex.wishlist.isInWishlist(p.sku);
   var qtyId = 'tqty-cat-' + p.id;
   var qtyStepper =
     '<div class="tile-qty" onclick="event.stopPropagation()">' +
@@ -181,6 +183,7 @@ function cardHtml(p) {
       '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p, { width: 220, height: 220 }) +
         '<span class="stock-badge ' + window.EcoConnex.getStockClass(p.stock) + '">' + window.EcoConnex.escapeHtml(p.stock) + '</span>' +
         '<span class="cat-badge">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + '</span>' +
+        '<button class="wishlist-heart-btn' + (isWished ? ' active' : '') + '" onclick="event.stopPropagation();toggleWishlistBtn(this,' + JSON.stringify(p.id) + ',\'' + p.sku + '\')" data-item="' + itemJson + '" aria-label="Save to wishlist"><i class="ti ti-heart' + (isWished ? '-filled' : '') + '"></i></button>' +
       '</div>' +
       '<div class="product-body">' +
         '<div class="product-name">' + window.EcoConnex.escapeHtml(p.name) + '</div>' +
@@ -193,6 +196,14 @@ function cardHtml(p) {
       '</div>' +
     '</div>'
   );
+}
+
+function toggleWishlistBtn(btn, id, sku) {
+  var itemData = JSON.parse(btn.getAttribute('data-item'));
+  var nowActive = window.EcoConnex.wishlist.toggleWishlist(itemData);
+  btn.classList.toggle('active', nowActive);
+  btn.querySelector('i').className = 'ti ti-heart' + (nowActive ? '-filled' : '');
+  if (window.EcoConnex.showToast) window.EcoConnex.showToast(nowActive ? 'Added to Wishlist' : 'Removed from Wishlist');
 }
 
 function renderProducts(products) {

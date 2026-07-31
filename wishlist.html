@@ -28,32 +28,16 @@
   src="https://www.facebook.com/tr?id=2509241412910841&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
-  <title>EV Spare Parts Guides &amp; Tips | Eco Connex Blog</title>
-  <meta name="description" content="Practical guides on choosing and maintaining EV spare parts — chargers, brakes, throttles, controllers and more — from Eco Connex."/>
-  <meta name="keywords" content="EV spare parts guide, electric scooter maintenance, EV parts blog, Eco Connex tips"/>
-  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <title>My Wishlist | Eco Connex</title>
+  <meta name="description" content="Products you've saved for later at Eco Connex — view and add them to your cart anytime."/>
+  <meta name="robots" content="noindex, follow"/>
   <meta name="author" content="Eco Connex"/>
   <meta name="theme-color" content="#f97316"/>
-  <link rel="canonical" href="https://ecoconnex.in/blog.html"/>
+  <link rel="canonical" href="https://ecoconnex.in/wishlist.html"/>
   <link rel="manifest" href="manifest.json"/>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" sizes="any"/>
   <link rel="icon" type="image/png" href="assets/images/logo.png"/>
   <link rel="apple-touch-icon" href="assets/images/logo.png"/>
-
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="Eco Connex"/>
-  <meta property="og:locale" content="en_IN"/>
-  <meta property="og:title" content="EV Spare Parts Guides &amp; Tips | Eco Connex Blog"/>
-  <meta property="og:description" content="Practical guides on choosing and maintaining EV spare parts, from Eco Connex."/>
-  <meta property="og:url" content="https://ecoconnex.in/blog.html"/>
-  <meta property="og:image" content="https://ecoconnex.in/assets/images/logo.png"/>
-
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="EV Spare Parts Guides &amp; Tips | Eco Connex Blog"/>
-  <meta name="twitter:description" content="Practical guides on choosing and maintaining EV spare parts, from Eco Connex."/>
-  <meta name="twitter:image" content="https://ecoconnex.in/assets/images/logo.png"/>
-
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ecoconnex.in/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://ecoconnex.in/blog.html"}]}</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -62,7 +46,7 @@
   <link rel="stylesheet" href="assets/css/header.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
-  <link rel="stylesheet" href="assets/css/blog.css"/>
+  <link rel="stylesheet" href="assets/css/wishlist.css"/>
 </head>
 <body>
 
@@ -72,31 +56,14 @@
 <main>
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge"><i class="ti ti-notebook"></i> Blog</div>
-  <h1>EV Spare Parts <span>Guides &amp; Tips</span></h1>
-  <p>Practical, no-nonsense guides to help you choose and maintain EV spare parts — written by the Eco Connex team.</p>
+  <div class="hero-badge"><i class="ti ti-heart"></i> My Wishlist</div>
+  <h1>Saved For <span>Later</span></h1>
+  <p>Products you've saved on this device. Add them to your cart whenever you're ready.</p>
 </div>
 
-<!-- BLOG GRID -->
-<section class="blog-list-section">
-  <div class="container">
-    <div id="blogGrid" class="blog-grid"></div>
-    <div class="blog-empty" id="blogEmpty" style="display:none;">
-      <i class="ti ti-notebook-off"></i>
-      <p>No articles available right now. Check back soon!</p>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="dealer-banner">
-  <div class="container" style="position:relative;z-index:1;">
-    <div class="eyebrow" style="text-align:center;">Need Help?</div>
-    <h2>Can't Find What You're Looking For?</h2>
-    <p>Our team can help you identify the right spare part for your EV.</p>
-    <div class="dealer-btns">
-      <a href="https://wa.me/918778657912?text=Hi%20Eco%20Connex!%20I%20have%20a%20question." class="btn-orange" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> Ask on WhatsApp</a>
-    </div>
+<section class="wishlist-page-section">
+  <div class="container wishlist-page-container">
+    <div id="wishlistRoot"><div class="wishlist-loading"><i class="ti ti-loader-2"></i> Loading your wishlist...</div></div>
   </div>
 </section>
 </main>
@@ -123,13 +90,13 @@
 </div>
 
 <script src="assets/js/products-data.js"></script>
-<script src="assets/js/blog-data.js"></script>
 <script src="assets/js/cart.js"></script>
 <script src="assets/js/wishlist.js"></script>
 <script src="assets/js/orders.js"></script>
 <script src="assets/js/checkout.js"></script>
 <script src="assets/js/search-widget.js"></script>
 <script src="assets/js/shared-layout.js"></script>
+<script src="assets/js/wishlist-page.js"></script>
 <script>
 // ── CART UI (identical behaviour to every other page) ──
 function updateCartUI() {
@@ -179,35 +146,6 @@ window.EcoConnex.cart.onChange(updateCartUI);
 
 function openCart() { document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartSidebar').classList.add('open'); }
 function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartSidebar').classList.remove('open'); }
-
-// ── BLOG LISTING ──
-function blogCardHtml(post) {
-  return (
-    '<a href="blog-post.html?slug=' + encodeURIComponent(post.slug) + '" class="blog-card fade-up">' +
-      '<div class="blog-card-cat">' + window.EcoConnex.escapeHtml(post.category) + '</div>' +
-      '<h2 class="blog-card-title">' + window.EcoConnex.escapeHtml(post.title) + '</h2>' +
-      '<p class="blog-card-excerpt">' + window.EcoConnex.escapeHtml(post.excerpt) + '</p>' +
-      '<div class="blog-card-meta"><i class="ti ti-clock"></i> ' + window.EcoConnex.escapeHtml(post.readTime) + '</div>' +
-    '</a>'
-  );
-}
-
-window.EcoConnex.loadBlogPosts().then(function (posts) {
-  var grid = document.getElementById('blogGrid');
-  var empty = document.getElementById('blogEmpty');
-  if (!posts.length) {
-    empty.style.display = 'block';
-    return;
-  }
-  posts.sort(function (a, b) { return new Date(b.publishDate) - new Date(a.publishDate); });
-  grid.innerHTML = posts.map(blogCardHtml).join('');
-
-  var fadeEls = document.querySelectorAll('.fade-up');
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  fadeEls.forEach(function (el) { observer.observe(el); });
-});
 </script>
 </body>
 </html>
