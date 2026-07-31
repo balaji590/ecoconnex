@@ -380,6 +380,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
       const item = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.icon, image: product.image };
       for (let i = 0; i < qty; i++) window.EcoConnex.cart.addToCart(item);
       window.EcoConnex.showToast("Added to Cart Successfully");
+      window.EcoConnex.flyToCart(cartBtn, item);
       const prevHtml = cartBtn.innerHTML;
       cartBtn.classList.add("added");
       cartBtn.innerHTML = '<i class="ti ti-check"></i> Added';

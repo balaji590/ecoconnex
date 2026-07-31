@@ -92,12 +92,84 @@ window.EcoConnex = window.EcoConnex || {};
 
   /* ---------- Toast ---------- */
   function showToast(msg) {
+    let stack = document.getElementById("ecToastStack");
+    if (!stack) {
+      stack = document.createElement("div");
+      stack.id = "ecToastStack";
+      stack.className = "ec-toast-stack";
+      document.body.appendChild(stack);
+    }
     const t = document.createElement("div");
-    t.style.cssText = "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;border-left:3px solid #f97316;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,0.3);";
-    t.textContent = "✓ " + msg;
-    document.body.appendChild(t);
-    setTimeout(function () { t.remove(); }, 2500);
+    t.className = "ec-toast";
+    t.innerHTML = '<i class="ti ti-circle-check-filled"></i><span>' + msg + "</span>";
+    stack.appendChild(t);
+    requestAnimationFrame(function () { t.classList.add("show"); });
+    setTimeout(function () {
+      t.classList.remove("show");
+      t.classList.add("hide");
+      setTimeout(function () { t.remove(); }, 300);
+    }, 2400);
   }
+
+  /**
+   * Flying-product animation: clones the item's image/icon from the
+   * clicked button's card and animates it flying to the header cart
+   * icon, then pulses the cart badge. Falls back to a no-op silently
+   * if the cart icon isn't on the page (shouldn't normally happen)
+   * or if the browser doesn't support the needed APIs.
+   */
+  function flyToCart(sourceEl, item) {
+    try {
+      const cartIcon = document.querySelector(".btn-cart-nav");
+      if (!cartIcon || !sourceEl) return;
+      const card = sourceEl.closest(".product-card, .pdp-gallery, .wishlist-card, .qv-gallery, .mini-card");
+      const imgEl = (card && card.querySelector("img.product-photo")) || document.querySelector("#zoomFrame img.product-photo, .qv-gallery img.product-photo, img.product-photo");
+      const startRect = (imgEl || card || sourceEl).getBoundingClientRect();
+      const endRect = cartIcon.getBoundingClientRect();
+
+      const flying = document.createElement("div");
+      flying.className = "ec-flying-item";
+      flying.style.left = startRect.left + "px";
+      flying.style.top = startRect.top + "px";
+      flying.style.width = startRect.width + "px";
+      flying.style.height = startRect.height + "px";
+      flying.innerHTML = imgEl ? '<img src="' + imgEl.src + '" alt=""/>' : '<i class="ti ti-shopping-cart-plus"></i>';
+      document.body.appendChild(flying);
+
+      requestAnimationFrame(function () {
+        flying.style.left = (endRect.left + endRect.width / 2 - 10) + "px";
+        flying.style.top = (endRect.top + endRect.height / 2 - 10) + "px";
+        flying.style.width = "20px";
+        flying.style.height = "20px";
+        flying.style.opacity = "0.2";
+      });
+
+      setTimeout(function () {
+        flying.remove();
+        cartIcon.classList.remove("ec-cart-bump");
+        void cartIcon.offsetWidth;
+        cartIcon.classList.add("ec-cart-bump");
+      }, 550);
+    } catch (e) { /* animation is decorative — never block the actual add-to-cart */ }
+  }
+
+  /* ---------- Button ripple (delegated, no per-page wiring needed) ---------- */
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest(".btn-enquire, .btn-add-cart, .btn-orange, .btn-cart-checkout, .btn-pdp-cart, .qv-add-cart-btn, .wishlist-add-cart-btn, .btn-call, .btn-wa-product, .order-reorder-btn");
+    if (!btn || btn.disabled) return;
+    const rect = btn.getBoundingClientRect();
+    const ripple = document.createElement("span");
+    const size = Math.max(rect.width, rect.height);
+    ripple.className = "ec-ripple";
+    ripple.style.width = ripple.style.height = size + "px";
+    ripple.style.left = (e.clientX - rect.left - size / 2) + "px";
+    ripple.style.top = (e.clientY - rect.top - size / 2) + "px";
+    const prevPosition = getComputedStyle(btn).position;
+    if (prevPosition === "static") btn.style.position = "relative";
+    btn.style.overflow = "hidden";
+    btn.appendChild(ripple);
+    setTimeout(function () { ripple.remove(); }, 600);
+  });
 
   /**
    * Convenience wrapper for "Add to Cart" buttons: adds the item,
@@ -108,6 +180,7 @@ window.EcoConnex = window.EcoConnex || {};
     addToCart(item, qty);
     showToast("Added to Cart Successfully");
     if (btnEl) {
+      flyToCart(btnEl, item);
       const prevHtml = btnEl.innerHTML;
       btnEl.classList.add("added");
       btnEl.innerHTML = '<i class="ti ti-check"></i> Added';
@@ -138,4 +211,5 @@ window.EcoConnex = window.EcoConnex || {};
     onChange: onChange
   };
   ns.showToast = showToast;
+  ns.flyToCart = flyToCart;
 })(window.EcoConnex);

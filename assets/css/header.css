@@ -165,3 +165,22 @@ body.menu-open{overflow:hidden;position:fixed;width:100%;}
   .modal-body{padding-bottom:calc(20px + env(safe-area-inset-bottom));}
   .btn-wa-order{position:sticky;bottom:0;}
 }
+
+/* ── PREMIUM TOAST NOTIFICATIONS (global) ── */
+.ec-toast-stack{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column-reverse;gap:8px;align-items:center;pointer-events:none;}
+.ec-toast{display:flex;align-items:center;gap:8px;background:#111827;color:#fff;padding:11px 20px;border-radius:30px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,0.3);white-space:nowrap;opacity:0;transform:translateY(16px) scale(0.95);transition:opacity 0.25s ease,transform 0.25s ease;}
+.ec-toast.show{opacity:1;transform:translateY(0) scale(1);}
+.ec-toast.hide{opacity:0;transform:translateY(-8px) scale(0.97);}
+.ec-toast i{font-size:17px;color:#4ade80;flex:0 0 auto;}
+
+/* ── FLYING PRODUCT ANIMATION (global, targets .btn-cart-nav) ── */
+.ec-flying-item{position:fixed;z-index:9998;border-radius:12px;overflow:hidden;pointer-events:none;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,0.25);transition:left 0.55s cubic-bezier(0.2,0.8,0.3,1),top 0.55s cubic-bezier(0.2,0.8,0.3,1),width 0.55s ease,height 0.55s ease,opacity 0.55s ease 0.15s;display:flex;align-items:center;justify-content:center;}
+.ec-flying-item img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.ec-flying-item i{font-size:18px;color:var(--orange,#f97316);}
+
+@keyframes ecCartBump{0%{transform:scale(1);}30%{transform:scale(1.28);}55%{transform:scale(0.94);}100%{transform:scale(1);}}
+.ec-cart-bump{animation:ecCartBump 0.4s ease;}
+
+/* ── BUTTON RIPPLE (global, delegated in cart.js) ── */
+.ec-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.55);transform:scale(0);animation:ecRippleAnim 0.6s ease-out;pointer-events:none;}
+@keyframes ecRippleAnim{to{transform:scale(1);opacity:0;}}

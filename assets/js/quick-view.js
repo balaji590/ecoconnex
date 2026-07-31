@@ -94,6 +94,7 @@ window.EcoConnex = window.EcoConnex || {};
         const item = { id: p.id, name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || "INR", icon: p.icon, image: p.image };
         ns.cart.addToCart(item, qvQty);
         ns.showToast("Added to Cart Successfully");
+        ns.flyToCart(document.getElementById("qvAddCart"), item);
       });
     }
   }

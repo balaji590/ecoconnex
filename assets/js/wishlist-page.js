@@ -73,6 +73,7 @@
         if (!item) return;
         EC.cart.addToCart({ name: item.name, sku: item.sku, price: item.price, mrp: item.mrp, currency: item.currency, icon: item.icon, image: item.image }, 1);
         EC.showToast("Added to cart");
+        EC.flyToCart(btn, item);
       });
     });
 
