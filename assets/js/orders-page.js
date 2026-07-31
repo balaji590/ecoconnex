@@ -22,24 +22,18 @@
     }
   }
 
-  function orderItemRow(item) {
-    const priceLine = (typeof item.price === "number" && item.price > 0)
-      ? "₹" + (item.price * item.qty).toLocaleString("en-IN")
-      : "Price on Request";
+  function orderItemTile(item) {
     return (
-      '<div class="order-item-row">' +
-        '<div class="order-item-icon">' + EC.renderProductImageHtml(item, { width: 40, height: 40 }) + "</div>" +
-        '<div class="order-item-info">' +
-          '<div class="order-item-name">' + EC.escapeHtml(item.name) + "</div>" +
-          '<div class="order-item-qty">Qty: ' + item.qty + "</div>" +
-        "</div>" +
-        '<div class="order-item-price">' + priceLine + "</div>" +
+      '<div class="order-item-tile">' +
+        '<div class="order-item-tile-img">' + EC.renderProductImageHtml(item, { width: 96, height: 96 }) + "</div>" +
+        '<div class="order-item-tile-name">' + EC.escapeHtml(item.name) + "</div>" +
+        '<div class="order-item-tile-qty">Qty: ' + item.qty + "</div>" +
       "</div>"
     );
   }
 
   function orderCardHtml(order) {
-    const itemsHtml = order.items.map(orderItemRow).join("");
+    const itemsHtml = order.items.map(orderItemTile).join("");
     const totalLine = order.hasCallForPrice
       ? "₹" + order.total.toLocaleString("en-IN") + " + items to confirm"
       : "₹" + order.total.toLocaleString("en-IN");

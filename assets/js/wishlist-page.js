@@ -12,19 +12,25 @@
   const EC = window.EcoConnex;
 
   function itemCardHtml(item) {
-    const priceLine = (typeof item.price === "number" && item.price > 0)
-      ? EC.renderPriceHtml(item, { hideSavingsLine: true })
-      : '<span class="wishlist-item-call">Price on Request</span>';
+    const hasPrice = typeof item.price === "number" && item.price > 0;
+    const offer = hasPrice ? EC.getOffer(item) : null;
+    const priceHtml = hasPrice
+      ? '<div class="wishlist-card-price-row"><span class="wishlist-card-price">₹' + item.price.toLocaleString("en-IN") + "</span>" +
+          (offer ? '<span class="wishlist-card-mrp">₹' + item.mrp.toLocaleString("en-IN") + "</span>" : "") +
+        "</div>"
+      : '<div class="wishlist-card-price-row"><span class="wishlist-item-call">Price on Request</span></div>';
+    const discountBadge = offer ? '<span class="wishlist-discount-badge">' + offer.percent + '% off</span>' : "";
     return (
       '<div class="wishlist-card" data-sku="' + EC.escapeHtml(item.sku) + '">' +
-        '<a class="wishlist-card-img" href="product.html?id=' + item.id + '">' + EC.renderProductImageHtml(item, { width: 90, height: 90 }) + "</a>" +
+        '<div class="wishlist-card-img">' +
+          discountBadge +
+          '<button class="wishlist-remove-btn" data-sku="' + EC.escapeHtml(item.sku) + '" aria-label="Remove from wishlist" title="Remove"><i class="ti ti-x"></i></button>' +
+          '<a href="product.html?id=' + item.id + '">' + EC.renderProductImageHtml(item, { width: 160, height: 160 }) + "</a>" +
+        "</div>" +
         '<div class="wishlist-card-body">' +
           '<a class="wishlist-card-name" href="product.html?id=' + item.id + '">' + EC.escapeHtml(item.name) + "</a>" +
-          '<div class="wishlist-card-price">' + priceLine + "</div>" +
-        "</div>" +
-        '<div class="wishlist-card-actions">' +
-          '<button class="btn-orange wishlist-add-cart-btn" data-sku="' + EC.escapeHtml(item.sku) + '"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>' +
-          '<button class="wishlist-remove-btn" data-sku="' + EC.escapeHtml(item.sku) + '" aria-label="Remove from wishlist" title="Remove"><i class="ti ti-trash"></i></button>' +
+          priceHtml +
+          '<button class="btn-orange wishlist-add-cart-btn" data-sku="' + EC.escapeHtml(item.sku) + '"><i class="ti ti-shopping-cart-plus"></i> Add to cart</button>' +
         "</div>" +
       "</div>"
     );
