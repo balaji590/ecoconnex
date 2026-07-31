@@ -423,22 +423,10 @@ function wireCategoryHeroBanner() {
   img.addEventListener("click", openLightbox);
   img.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(); } });
 
-  // ── Subtle parallax + zoom (desktop, fine-pointer only — skipped on touch) ──
-  var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (wrap && !prefersReducedMotion && window.matchMedia && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
-    wrap.addEventListener("mouseenter", function () {
-      img.style.transition = "transform 0.2s ease";
-    });
-    wrap.addEventListener("mousemove", function (e) {
-      var rect = wrap.getBoundingClientRect();
-      var relX = (e.clientX - rect.left) / rect.width - 0.5;
-      var relY = (e.clientY - rect.top) / rect.height - 0.5;
-      img.style.transform = "translate(" + (relX * 8) + "px," + (relY * 8) + "px) scale(1.02)";
-    });
-    wrap.addEventListener("mouseleave", function () {
-      img.style.transform = "";
-    });
-  }
+  // Hover zoom + brightness is now handled purely via CSS
+  // (.category-hero-banner-wrap:hover .category-hero-banner-img) — no JS
+  // needed, and it composes cleanly with the base scale/position transform
+  // instead of fighting over the `transform` property on every mousemove.
 }
 
 /**
