@@ -422,6 +422,37 @@ window.EcoConnex = window.EcoConnex || {};
   ns.isPriceVisible = isPriceVisible;
   ns.getCurrencySymbol = getCurrencySymbol;
   ns.renderProductImageHtml = renderProductImageHtml;
+  function getCategoryIcon(cat) {
+    const map = {
+      motor: "ti-engine", charger: "ti-plug", brake: "ti-disc", "brake-shoe": "ti-disc",
+      throttle: "ti-gauge", controller: "ti-cpu", converter: "ti-bolt", disc: "ti-disc",
+      "drum-plate": "ti-circle", "fork-set": "ti-adjustments", led: "ti-bulb", lever: "ti-hand-stop",
+      lock: "ti-lock", mcb: "ti-alert-triangle", mirror: "ti-mirror", sensor: "ti-radar-2",
+      switch: "ti-toggle-left", connector: "ti-plug-connected", bearing: "ti-circle-dot",
+      body: "ti-motorbike", accessories: "ti-tools", other: "ti-package"
+    };
+    return map[cat] || "ti-package";
+  }
+
+  /**
+   * Builds the list of real categories present in the catalog, with live
+   * product counts — used by the category navigation bar, the mobile
+   * "Browse Categories" accordion, and the search idle panel. Never
+   * hardcoded: whatever categories exist in products.json show up here
+   * automatically, and disappear automatically if removed via the CMS.
+   */
+  function getCategoriesWithCounts(products) {
+    const counts = {};
+    products.forEach(function (p) {
+      if (!counts[p.category]) counts[p.category] = { key: p.category, label: p.categoryLabel || p.category, count: 0 };
+      counts[p.category].count++;
+    });
+    return Object.keys(counts).map(function (k) { return counts[k]; })
+      .sort(function (a, b) { return b.count - a.count; });
+  }
+
   ns.getStockClass = getStockClass;
+  ns.getCategoryIcon = getCategoryIcon;
+  ns.getCategoriesWithCounts = getCategoriesWithCounts;
   ns.isOutOfStock = isOutOfStock;
 })(window.EcoConnex);

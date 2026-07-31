@@ -1,0 +1,118 @@
+/* ============================================================
+   Eco Connex — Category Navigation Bar
+   Desktop: sticky pill bar below the header, dynamically built
+   from real product categories (see category-nav.js).
+   Mobile: accordion inside the existing hamburger menu — no
+   horizontal category bar on small screens (per design brief).
+   ============================================================ */
+
+.cn-bar{
+  --cn-green:#15803d;
+  --cn-green-bg:#f0fdf4;
+  --cn-orange:var(--orange,#f97316);
+  background:#fff;
+  border-top:1px solid var(--gray-100,#f3f4f6);
+  border-bottom:1px solid var(--gray-200,#e5e7eb);
+  box-shadow:0 2px 8px rgba(15,23,42,0.04);
+}
+
+.cn-bar-inner{
+  max-width:1450px;
+  margin:0 auto;
+  display:flex;
+  align-items:stretch;
+  gap:2px;
+  padding:0 20px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  mask-image:linear-gradient(to right,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);
+}
+.cn-bar-inner::-webkit-scrollbar{display:none;height:0;}
+
+.cn-item{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex:0 0 auto;
+  height:60px;
+  padding:0 16px;
+  font-size:13.5px;
+  font-weight:500;
+  color:var(--gray-700,#374151);
+  white-space:nowrap;
+  position:relative;
+  border-bottom:2.5px solid transparent;
+  transition:background 0.25s ease,color 0.25s ease,border-color 0.25s ease,transform 0.2s ease;
+}
+.cn-item i{font-size:17px;transition:transform 0.25s ease;color:inherit;}
+.cn-label{overflow:hidden;text-overflow:ellipsis;max-width:160px;}
+.cn-count{font-size:11.5px;color:var(--gray-400,#9ca3af);font-weight:400;}
+
+.cn-item:hover{background:var(--cn-green-bg);color:var(--cn-green);transform:translateY(-1px);}
+.cn-item:hover i{transform:scale(1.15);}
+.cn-item:hover .cn-count{color:var(--cn-green);}
+.cn-item:focus-visible{outline:2px solid var(--cn-orange);outline-offset:-2px;border-radius:6px;}
+
+.cn-item.active{color:var(--cn-green);font-weight:600;background:var(--cn-green-bg);border-bottom-color:var(--cn-orange);}
+
+.cn-badge{
+  font-size:9px;
+  font-weight:800;
+  color:#fff;
+  background:var(--cn-orange);
+  padding:2px 6px;
+  border-radius:10px;
+  text-transform:uppercase;
+  letter-spacing:0.3px;
+  margin-left:2px;
+}
+
+/* Desktop-only sticky behaviour, matching the header's own height sync */
+@media(min-width:901px){
+  .cn-bar{
+    position:sticky;
+    top:var(--header-h,72px);
+    z-index:90;
+  }
+}
+@media(max-width:900px){
+  .cn-bar{display:none;}
+}
+
+/* ── MOBILE: Browse Categories accordion (inside hamburger menu) ── */
+.cn-mobile-wrap{border-bottom:1px solid rgba(255,255,255,0.08);}
+.cn-mobile-toggle{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:18px;
+  font-weight:500;
+  padding:14px 0;
+  cursor:pointer;
+}
+.cn-mobile-toggle span{display:flex;align-items:center;gap:10px;}
+.cn-mobile-toggle i{font-size:18px;}
+.cn-mobile-arrow{transition:transform 0.25s ease;font-size:16px!important;}
+.cn-mobile-toggle.open .cn-mobile-arrow{transform:rotate(180deg);}
+
+.cn-mobile-list{max-height:0;overflow:hidden;transition:max-height 0.3s ease;}
+.cn-mobile-list.open{max-height:70vh;overflow-y:auto;padding-bottom:8px;}
+.cn-mobile-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 0 11px 8px;
+  font-size:15px;
+  font-weight:400;
+  color:rgba(255,255,255,0.8);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.cn-mobile-item i{font-size:17px;color:var(--orange,#f97316);flex:0 0 auto;}
+.cn-mobile-item .cn-count{margin-left:auto;font-size:12px;color:rgba(255,255,255,0.4);}
+.cn-mobile-item:active{background:rgba(255,255,255,0.05);}
