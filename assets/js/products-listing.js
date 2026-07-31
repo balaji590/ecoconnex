@@ -330,6 +330,77 @@ function renderCategoryPageHeader(categoryEntry) {
   document.title = categoryEntry.label + ' – Genuine EV Spare Parts | Eco Connex';
 }
 
+/**
+ * Category Hero Banner interactivity (no-op on products.html, where
+ * .category-hero-banner-img doesn't exist). Handles:
+ *  - fade-in once the image has actually loaded (skeleton shows until then)
+ *  - graceful fallback to default.webp if the mapped image 404s
+ *  - click/tap to open a full-screen lightbox preview
+ *  - a very subtle (5-10px) desktop-only parallax on mouse move
+ * All of this is decorative — it never blocks or delays the product grid.
+ */
+function wireCategoryHeroBanner() {
+  var img = document.querySelector(".category-hero-banner-img");
+  if (!img) return;
+  var wrap = img.closest(".category-hero-banner-wrap");
+
+  function markLoaded() { img.classList.add("is-loaded"); }
+  if (img.complete && img.naturalWidth > 0) {
+    markLoaded();
+  } else {
+    img.addEventListener("load", markLoaded);
+  }
+
+  img.addEventListener("error", function () {
+    var fallback = wrap ? wrap.getAttribute("data-default-src") : "/assets/images/hero/default.webp";
+    if (img.src.indexOf(fallback) === -1) {
+      img.src = fallback;
+    } else {
+      markLoaded(); // even the default failed — stop showing the skeleton forever
+    }
+  }, { once: false });
+
+  // ── Lightbox (click/tap to preview) ──
+  function openLightbox() {
+    var overlay = document.getElementById("heroLightboxOverlay");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "hero-lightbox-overlay";
+      overlay.id = "heroLightboxOverlay";
+      overlay.innerHTML = '<button class="hero-lightbox-close" id="heroLightboxClose" aria-label="Close preview">&times;</button><img id="heroLightboxImg" alt=""/>';
+      document.body.appendChild(overlay);
+      overlay.addEventListener("click", function (e) { if (e.target === overlay) closeLightbox(); });
+      document.getElementById("heroLightboxClose").addEventListener("click", closeLightbox);
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
+    }
+    document.getElementById("heroLightboxImg").src = img.src;
+    document.getElementById("heroLightboxImg").alt = img.alt;
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeLightbox() {
+    var overlay = document.getElementById("heroLightboxOverlay");
+    if (!overlay) return;
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  img.addEventListener("click", openLightbox);
+  img.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(); } });
+
+  // ── Subtle parallax (desktop, fine-pointer only — skipped on touch) ──
+  if (wrap && window.matchMedia && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+    wrap.addEventListener("mousemove", function (e) {
+      var rect = wrap.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width - 0.5;
+      var relY = (e.clientY - rect.top) / rect.height - 0.5;
+      img.style.transform = "translate(" + (relX * 8) + "px," + (relY * 8) + "px)";
+    });
+    wrap.addEventListener("mouseleave", function () {
+      img.style.transform = "";
+    });
+  }
+}
+
 function init() {
   window.EcoConnex.loadProducts().then(function (products) {
     ALL_PRODUCTS = products;
@@ -346,6 +417,7 @@ function init() {
     applyCategoryFromUrl();
     highlightFromSearch();
   });
+  wireCategoryHeroBanner();
 }
 
 window.EcoConnex.cart.onChange(updateCartUI);

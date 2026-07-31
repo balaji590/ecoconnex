@@ -48,20 +48,17 @@ function categoryDescription(label) {
   return "Explore quality-tested " + label.toLowerCase() + " components for dependable EV repairs and maintenance.";
 }
 
-function categoryCollage(cat) {
-  const products = cat.products.filter(function (p) {
-    return typeof p.image === "string" && /\.(webp|jpg|jpeg|png|gif|avif)$/i.test(p.image);
-  }).sort(function (a, b) {
-    return Number(Boolean(b.bestSeller || b.featured)) - Number(Boolean(a.bestSeller || a.featured));
-  }).slice(0, 4);
+const getHeroImage = require("./category-hero-map");
 
-  if (!products.length) return '<div class="category-collage-empty" aria-hidden="true"><i class="ti ph-icon-placeholder"></i></div>';
-
-  return products.map(function (p, index) {
-    return '<div class="category-collage-item category-collage-item-' + (index + 1) + '">' +
-      '<img src="/assets/images/products/' + encodeURIComponent(p.image) + '" alt="' + escapeHtml(p.name) + '" loading="lazy" decoding="async"/>' +
-    '</div>';
-  }).join("");
+function categoryHeroBanner(cat) {
+  const file = getHeroImage(cat.key);
+  const alt = "Eco Connex " + cat.label + " Category Hero";
+  return (
+    '<div class="category-hero-banner-wrap" data-default-src="/assets/images/hero/default.webp">' +
+      '<div class="category-hero-skeleton" aria-hidden="true"></div>' +
+      '<img class="category-hero-banner-img" src="/assets/images/hero/' + file + '" alt="' + escapeHtml(alt) + '" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View larger image of ' + escapeHtml(cat.label) + '"/>' +
+    "</div>"
+  );
 }
 
 function pageTemplate(cat) {
@@ -72,7 +69,7 @@ function pageTemplate(cat) {
   const description = "Shop genuine " + label + " for your EV at Eco Connex — " + cat.count + "+ products, COD available, fast Tamil Nadu delivery, GST billing.";
 
   const heroDescription = categoryDescription(label);
-  const collage = categoryCollage(cat);
+  const heroBanner = categoryHeroBanner(cat);
 
   const breadcrumbSchema = JSON.stringify({
     "@context": "https://schema.org",
@@ -172,17 +169,21 @@ function pageTemplate(cat) {
 "</div>\n" +
 "\n" +
 '<section class="hero category-hero" aria-labelledby="heroTitle">\n' +
-'  <div class="hero-badge" id="heroBadge"><i class="ti ' + "ph-icon-placeholder" + '"></i> ' + escapeHtml(label) + "</div>\n" +
-'  <h1 id="heroTitle">' + escapeHtml(label) + " <span>for Your EV</span></h1>\n" +
-'  <p id="heroSubtitle">Browse all ' + escapeHtml(label) + " available for your EV — genuine parts, fast delivery.</p>\n" +
-'  <div class="hero-stats">\n' +
-'    <div class="hero-stat"><div class="hero-stat-num" id="heroStatCount">' + cat.count + '</div><div class="hero-stat-label" id="heroStatCountLabel">Products</div></div>\n' +
-'    <div class="hero-stat"><div class="hero-stat-num">COD</div><div class="hero-stat-label">Available</div></div>\n' +
-'    <div class="hero-stat"><div class="hero-stat-num">All India</div><div class="hero-stat-label">Delivery</div></div>\n' +
-'    <div class="hero-stat"><div class="hero-stat-num">GST</div><div class="hero-stat-label">Registered</div></div>\n' +
+'  <div class="category-hero-inner">\n' +
+'    <div class="category-hero-left">\n' +
+'      <div class="hero-badge" id="heroBadge"><i class="ti ' + "ph-icon-placeholder" + '"></i> ' + escapeHtml(label) + "</div>\n" +
+'      <h1 id="heroTitle">' + escapeHtml(label) + " <span>for Your EV</span></h1>\n" +
+'      <p id="heroSubtitle">Browse all ' + escapeHtml(label) + " available for your EV — genuine parts, fast delivery.</p>\n" +
+'      <div class="hero-stats">\n' +
+'        <div class="hero-stat"><div class="hero-stat-num" id="heroStatCount">' + cat.count + '</div><div class="hero-stat-label" id="heroStatCountLabel">Products</div></div>\n' +
+'        <div class="hero-stat"><div class="hero-stat-num">COD</div><div class="hero-stat-label">Available</div></div>\n' +
+'        <div class="hero-stat"><div class="hero-stat-num">All India</div><div class="hero-stat-label">Delivery</div></div>\n' +
+'        <div class="hero-stat"><div class="hero-stat-num">GST</div><div class="hero-stat-label">Registered</div></div>\n' +
+"      </div>\n" +
+'      <p class="category-hero-description">' + escapeHtml(heroDescription) + "</p>\n" +
+"    </div>\n" +
+'    <div class="category-hero-right">' + heroBanner + "</div>\n" +
 "  </div>\n" +
-'  <p class="category-hero-description">' + escapeHtml(heroDescription) + '</p>\n' +
-'  <div class="category-hero-collage" aria-label="Featured ' + escapeHtml(label) + ' products">' + collage + '</div>\n' +
 "</section>\n" +
 "\n" +
 '<div class="controls">\n' +
