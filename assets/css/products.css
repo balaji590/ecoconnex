@@ -194,3 +194,18 @@ a{text-decoration:none;color:inherit;}
 .wishlist-heart-btn.active i{color:#ef4444;}
 
 .cart-gst-note{font-size:11px;color:var(--gray-400);margin:-8px 0 12px;line-height:1.5;}
+
+/* ── BREADCRUMB (shared with PDP breadcrumb style) ── */
+.breadcrumb{max-width:1200px;margin:0 auto;padding:16px 24px 0;font-size:12.5px;color:var(--gray-500);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.breadcrumb a{color:var(--gray-500);transition:color 0.2s;}
+.breadcrumb a:hover{color:var(--orange-dark);}
+.breadcrumb i{font-size:12px;color:var(--gray-400);}
+.breadcrumb .current{color:var(--gray-900);font-weight:600;}
+@media(max-width:600px){.breadcrumb{font-size:11.5px;padding:12px 16px 0;}}
+
+/* ── CATEGORY RELATED-NAVIGATION CHIPS (category landing pages only) ── */
+.category-related-chips{max-width:1200px;margin:0 auto;padding:4px 24px 0;display:flex;flex-wrap:wrap;gap:8px;}
+.category-related-chips a{display:inline-flex;align-items:center;gap:6px;padding:7px 15px;border-radius:20px;font-size:12.5px;font-weight:500;border:1.5px solid var(--gray-200);background:#fff;color:var(--gray-700);transition:all 0.2s;}
+.category-related-chips a:hover{border-color:var(--orange);color:var(--orange-dark);}
+.category-related-chips a.current{background:var(--orange);border-color:var(--orange);color:#fff;}
+@media(max-width:600px){.category-related-chips{padding:4px 16px 0;}}

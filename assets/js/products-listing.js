@@ -1,0 +1,352 @@
+/* ============================================================
+   Eco Connex — Shared Product Listing Engine.
+   ONE module renders both:
+     - products.html ("All Products" — every category browsable,
+       category filter chips visible, multi-select)
+     - every /products/category/<slug>/ landing page (category
+       pre-locked via window.EC_CATEGORY_LOCK set by that page's
+       own tiny inline script before this file loads — filter
+       chips hidden, related-category nav chips shown instead)
+
+   Search, sort-ready structure, brand/availability/price filters,
+   cart, wishlist and quick view all work identically in both
+   modes — only the category dimension changes behaviour.
+   ============================================================ */
+window.EcoConnex = window.EcoConnex || {};
+
+var ALL_PRODUCTS = [];
+var selectedCategories = new Set();
+var selectedBrands = new Set();
+
+var CATEGORY_LOCK = window.EC_CATEGORY_LOCK || null; // set by category page template, null on products.html
+
+function priceHtml(p) {
+  return window.EcoConnex.renderPriceHtml(p, { hideSavingsLine: true });
+}
+
+function cardHtml(p) {
+  var hasPrice = typeof p.price === 'number' && p.price > 0;
+  var outOfStock = window.EcoConnex.isOutOfStock(p);
+  var itemJson = window.EcoConnex.escapeHtml(JSON.stringify({ id: p.id, name: p.name, sku: p.sku, price: hasPrice ? p.price : null, mrp: hasPrice ? p.mrp : null, currency: p.currency || 'INR', icon: p.icon, image: p.image }));
+  var isWished = window.EcoConnex.wishlist && window.EcoConnex.wishlist.isInWishlist(p.sku);
+  var qtyId = 'tqty-cat-' + p.id;
+  var qtyStepper =
+    '<div class="tile-qty" onclick="event.stopPropagation()">' +
+      '<button type="button" aria-label="Decrease quantity" onclick="var el=document.getElementById(\'' + qtyId + '\');el.textContent=Math.max(1,parseInt(el.textContent,10)-1);">−</button>' +
+      '<span class="tile-qty-num" id="' + qtyId + '">1</span>' +
+      '<button type="button" aria-label="Increase quantity" onclick="var el=document.getElementById(\'' + qtyId + '\');el.textContent=parseInt(el.textContent,10)+1;">+</button>' +
+    '</div>';
+  var actionBtn = outOfStock
+    ? '<button class="btn-enquire" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
+    : '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
+  var trustBadges = '<div class="product-trust-badges">';
+  if (typeof p.gstPercent === 'number' && p.gstPercent > 0) trustBadges += '<span class="product-mini-badge"><i class="ti ti-receipt-tax"></i> GST Applicable</span>';
+  trustBadges += '</div>';
+  return (
+    '<div class="product-card" id="product-' + p.id + '" data-cat="' + p.category + '" data-name="' + window.EcoConnex.escapeHtml(p.name.toLowerCase()) + '" data-sku="' + p.sku + '" onclick="if(!event.target.closest(\'button\')&&!event.target.closest(\'a\')){window.location.href=\'' + productUrl(p.id) + '\';}" style="cursor:pointer;">' +
+      '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p, { width: 220, height: 220 }) +
+        '<span class="stock-badge ' + window.EcoConnex.getStockClass(p.stock) + '">' + window.EcoConnex.escapeHtml(p.stock) + '</span>' +
+        '<span class="cat-badge">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + '</span>' +
+        '<div class="product-quickview-overlay"><button class="product-quickview-btn" onclick="event.stopPropagation();EcoConnex.openQuickView(' + p.id + ')"><i class="ti ti-eye"></i> Quick View</button></div>' +
+        '<button class="wishlist-heart-btn' + (isWished ? ' active' : '') + '" onclick="event.stopPropagation();toggleWishlistBtn(this,' + JSON.stringify(p.id) + ',\'' + p.sku + '\')" data-item="' + itemJson + '" aria-label="Save to wishlist"><i class="ti ti-heart' + (isWished ? '-filled' : '') + '"></i></button>' +
+      '</div>' +
+      '<div class="product-body">' +
+        '<div class="product-name">' + window.EcoConnex.escapeHtml(p.name) + '</div>' +
+        priceHtml(p) +
+        trustBadges +
+        (outOfStock ? '' : qtyStepper) +
+        '<div class="product-actions">' +
+          actionBtn +
+          '<button class="btn-call" onclick="event.stopPropagation();wa(\'' + p.name.replace(/'/g, "\\'") + '\',\'' + (hasPrice ? '₹' + p.price : 'Price on Request') + '\')" aria-label="Enquire on WhatsApp"><i class="ti ti-brand-whatsapp"></i></button>' +
+          '<button class="btn-share-product" onclick="event.stopPropagation();shareProductCard(\'' + p.id + '\',\'' + p.name.replace(/'/g, "\\'") + '\')" aria-label="Share product"><i class="ti ti-share-3"></i></button>' +
+        '</div>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+// Absolute paths (leading slash) so links resolve correctly whether this
+// page lives at /products.html (root) or /products/category/<slug>/
+// (2 levels deep) — the site is served from the domain root.
+function productUrl(id) {
+  return '/product.html?id=' + id;
+}
+
+function toggleWishlistBtn(btn, id, sku) {
+  var itemData = JSON.parse(btn.getAttribute('data-item'));
+  var nowActive = window.EcoConnex.wishlist.toggleWishlist(itemData);
+  btn.classList.toggle('active', nowActive);
+  btn.querySelector('i').className = 'ti ti-heart' + (nowActive ? '-filled' : '');
+  btn.classList.remove('pulse'); void btn.offsetWidth; btn.classList.add('pulse');
+  if (window.EcoConnex.showToast) window.EcoConnex.showToast(nowActive ? 'Added to Wishlist' : 'Removed from Wishlist');
+}
+
+function shareProductCard(id, name) {
+  var shareUrl = window.location.origin + '/product.html?id=' + id;
+  var shareData = { title: name + ' – Eco Connex', text: 'Check out ' + name + ' on Eco Connex', url: shareUrl };
+  if (navigator.share) {
+    navigator.share(shareData).catch(function () {});
+  } else if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(shareUrl).then(function () {
+      if (window.EcoConnex.showToast) window.EcoConnex.showToast('Product link copied!');
+    });
+  } else {
+    window.prompt('Copy this link:', shareUrl);
+  }
+}
+
+function renderProducts(products) {
+  document.getElementById('productsGrid').innerHTML = products.map(cardHtml).join('');
+}
+
+// ── CATEGORY CHIPS (only on products.html — hidden entirely when locked) ──
+function getCategoryEntries() {
+  var entries = window.EcoConnex.getCategoriesWithCounts(ALL_PRODUCTS);
+  return entries.slice().sort(function (a, b) { return a.label.localeCompare(b.label); });
+}
+
+function renderCategoryChips() {
+  var toprow = document.getElementById('filterToprow');
+  if (CATEGORY_LOCK) {
+    // Category landing page: no category selector — the user is already
+    // inside this category. Render sibling-category NAV chips instead
+    // (real links to other category pages, never a filter toggle).
+    if (toprow) toprow.querySelector('.filter-scroll').style.display = 'none';
+    renderRelatedCategoryChips();
+    return;
+  }
+  var entries = getCategoryEntries();
+  var html = '<button type="button" class="filter-btn' + (selectedCategories.size === 0 ? ' active' : '') + '" data-cat="all" onclick="toggleCategory(\'all\')"><i class="ti ti-layout-grid"></i> All <span class="filter-count">(' + ALL_PRODUCTS.length + ')</span></button>';
+  entries.forEach(function (e) {
+    var isActive = selectedCategories.has(e.key);
+    html += '<button type="button" class="filter-btn' + (isActive ? ' active' : '') + '" data-cat="' + e.key + '" onclick="toggleCategory(\'' + e.key + '\')">' + window.EcoConnex.escapeHtml(e.label) + ' <span class="filter-count">(' + e.count + ')</span></button>';
+  });
+  document.getElementById('filterBtns').innerHTML = html;
+}
+
+function renderRelatedCategoryChips() {
+  var el = document.getElementById('categoryRelatedChips');
+  if (!el) return;
+  var entries = window.EcoConnex.getCategoriesWithCounts(ALL_PRODUCTS);
+  el.innerHTML = entries.map(function (e) {
+    var isCurrent = e.key === CATEGORY_LOCK;
+    return '<a href="/products/category/' + e.key + '/" class="' + (isCurrent ? 'current' : '') + '"><i class="ti ' + window.EcoConnex.getCategoryIcon(e.key) + '"></i> ' + window.EcoConnex.escapeHtml(e.label) + '</a>';
+  }).join('');
+  el.style.display = 'flex';
+}
+
+function toggleCategory(cat) {
+  if (CATEGORY_LOCK) return; // locked pages never allow switching category via chip — only via a real nav link
+  if (cat === 'all') {
+    selectedCategories.clear();
+  } else {
+    if (selectedCategories.has(cat)) selectedCategories.delete(cat);
+    else selectedCategories.add(cat);
+  }
+  renderCategoryChips();
+  filterProducts();
+}
+
+// ── BRAND FILTER (multi-select, dynamically built, works identically locked or not) ──
+function renderBrandFilters() {
+  var pool = CATEGORY_LOCK ? ALL_PRODUCTS.filter(function (p) { return p.category === CATEGORY_LOCK; }) : ALL_PRODUCTS;
+  var brands = Array.from(new Set(pool.map(function (p) { return p.brand; }).filter(Boolean))).sort();
+  document.getElementById('brandFilterList').innerHTML = brands.map(function (b) {
+    var id = 'brand-' + b.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+    return '<label class="filters-check-item"><input type="checkbox" id="' + id + '" data-brand="' + window.EcoConnex.escapeHtml(b) + '" onchange="toggleBrand(\'' + b.replace(/'/g, "\\'") + '\')"/> ' + window.EcoConnex.escapeHtml(b) + '</label>';
+  }).join('');
+}
+
+function toggleBrand(brand) {
+  if (selectedBrands.has(brand)) selectedBrands.delete(brand);
+  else selectedBrands.add(brand);
+  filterProducts();
+}
+
+function toggleFiltersPanel() {
+  var panel = document.getElementById('filtersPanel');
+  var btn = document.getElementById('filtersToggle');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+
+function clearAllFilters() {
+  selectedCategories.clear();
+  selectedBrands.clear();
+  document.querySelectorAll('#brandFilterList input[type=checkbox]').forEach(function (cb) { cb.checked = false; });
+  document.getElementById('inStockOnly').checked = false;
+  document.getElementById('priceMin').value = '';
+  document.getElementById('priceMax').value = '';
+  renderCategoryChips();
+  filterProducts();
+}
+
+function updateFilterActiveBadge() {
+  var inStockOnly = document.getElementById('inStockOnly').checked;
+  var priceMin = document.getElementById('priceMin').value;
+  var priceMax = document.getElementById('priceMax').value;
+  var count = selectedBrands.size + (inStockOnly ? 1 : 0) + ((priceMin || priceMax) ? 1 : 0);
+  var badge = document.getElementById('filterActiveBadge');
+  if (count > 0) {
+    badge.textContent = '(' + count + ')';
+    badge.style.display = 'inline';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+// ── COMBINED FILTER LOGIC — search, sort-ready, brand/availability/price all compose together ──
+function filterProducts() {
+  var inStockOnly = document.getElementById('inStockOnly').checked;
+  var priceMin = parseFloat(document.getElementById('priceMin').value);
+  var priceMax = parseFloat(document.getElementById('priceMax').value);
+
+  var filtered = ALL_PRODUCTS.filter(function (p) {
+    if (CATEGORY_LOCK) {
+      if (p.category !== CATEGORY_LOCK) return false;
+    } else if (selectedCategories.size > 0 && !selectedCategories.has(p.category)) {
+      return false;
+    }
+    if (selectedBrands.size > 0 && !selectedBrands.has(p.brand)) return false;
+    if (inStockOnly && window.EcoConnex.isOutOfStock(p)) return false;
+    if (!isNaN(priceMin) && (typeof p.price !== 'number' || p.price < priceMin)) return false;
+    if (!isNaN(priceMax) && (typeof p.price !== 'number' || p.price > priceMax)) return false;
+    return true;
+  });
+
+  renderProducts(filtered);
+  document.getElementById('resultCount').textContent = filtered.length;
+  document.getElementById('noResults').style.display = filtered.length === 0 ? 'block' : 'none';
+  updateFilterActiveBadge();
+}
+
+function wa(product, price) {
+  var msg = 'Hi Eco Connex! I am interested in: *' + product + '* (' + price + '). Please share details and availability.';
+  window.open('https://wa.me/918778657912?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function highlightFromSearch() {
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('highlight');
+  if (!id) return;
+  var el = document.getElementById('product-' + id);
+  if (!el) return;
+  setTimeout(function () {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.add('product-card-highlight');
+    setTimeout(function () { el.classList.remove('product-card-highlight'); }, 2400);
+  }, 300);
+}
+
+// ── CART UI ──
+function updateCartUI() {
+  var cart = window.EcoConnex.cart.getCart();
+  var total = window.EcoConnex.cart.getTotal();
+  var count = window.EcoConnex.cart.getCount();
+  var totalSavings = window.EcoConnex.cart.getTotalSavings();
+  var badge = document.getElementById('cartBadge');
+  badge.textContent = count;
+  badge.style.display = count > 0 ? 'flex' : 'none';
+  var container = document.getElementById('cartItems');
+  var footer = document.getElementById('cartFooter');
+  document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+  var summaryExtra = document.getElementById('cartSummaryExtra');
+  if (totalSavings > 0) {
+    document.getElementById('cartMrpTotal').textContent = '₹' + window.EcoConnex.cart.getTotalMRP().toLocaleString('en-IN');
+    document.getElementById('cartSavingsTotal').textContent = '₹' + totalSavings.toLocaleString('en-IN');
+    summaryExtra.style.display = 'block';
+  } else {
+    summaryExtra.style.display = 'none';
+  }
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty"><i class="ti ti-shopping-cart-off"></i><p>Your cart is empty</p></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  var priceNote = window.EcoConnex.cart.hasCallForPrice()
+    ? '<div class="cart-price-note"><i class="ti ti-info-circle"></i> Price will be confirmed by Eco Connex</div>'
+    : '';
+  container.innerHTML = priceNote + cart.map(function (item) {
+    var priceLine;
+    if (item.price === null) {
+      priceLine = 'Price on Request × ' + item.qty;
+    } else {
+      var unitLine = '₹' + item.price.toLocaleString('en-IN');
+      if (item.mrp && item.mrp > item.price) {
+        var pct = Math.round((item.mrp - item.price) / item.mrp * 100);
+        unitLine += ' <span class="price-mrp">₹' + item.mrp.toLocaleString('en-IN') + '</span> <span class="price-off-badge">' + pct + '% OFF</span>';
+      }
+      priceLine = unitLine + ' × ' + item.qty + ' = ₹' + (item.price * item.qty).toLocaleString('en-IN');
+    }
+    return '<div class="cart-item"><div class="cart-item-icon">' + window.EcoConnex.renderProductImageHtml({image:item.image,icon:item.icon,name:item.name},{width:44,height:44}) + '</div><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">' + priceLine + '</div><div class="cart-item-qty"><button class="qty-btn" aria-label="Decrease quantity" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" aria-label="Increase quantity" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\'' + item.sku + '\')" title="Remove" aria-label="Remove item"><i class="ti ti-trash"></i></button></div>';
+  }).join('');
+}
+
+function openCart() { document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartSidebar').classList.add('open'); }
+function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartSidebar').classList.remove('open'); }
+
+function applyCategoryFromUrl() {
+  if (CATEGORY_LOCK) return; // already locked via the page itself, no query param needed
+  var params = new URLSearchParams(window.location.search);
+  var cat = params.get('category');
+  if (!cat) return;
+  var chips = document.querySelectorAll('.filter-btn');
+  for (var i = 0; i < chips.length; i++) {
+    if (chips[i].getAttribute('data-cat') === cat) {
+      toggleCategory(cat);
+      break;
+    }
+  }
+}
+
+// ── PAGE HEADER (breadcrumb + hero text) — populates the SAME markup
+// products.html already has, so there is exactly one hero template. ──
+function renderCategoryPageHeader(categoryEntry) {
+  if (!CATEGORY_LOCK || !categoryEntry) return;
+
+  var crumb = document.getElementById('categoryBreadcrumb');
+  if (crumb) {
+    crumb.innerHTML =
+      '<a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>' +
+      '<a href="/products.html">Products</a><i class="ti ti-chevron-right"></i>' +
+      '<span class="current">' + window.EcoConnex.escapeHtml(categoryEntry.label) + '</span>';
+  }
+
+  var badge = document.getElementById('heroBadge');
+  if (badge) badge.innerHTML = '<i class="ti ' + window.EcoConnex.getCategoryIcon(categoryEntry.key) + '"></i> ' + window.EcoConnex.escapeHtml(categoryEntry.label);
+
+  var title = document.getElementById('heroTitle');
+  if (title) title.innerHTML = window.EcoConnex.escapeHtml(categoryEntry.label) + ' <span>for Your EV</span>';
+
+  var subtitle = document.getElementById('heroSubtitle');
+  if (subtitle) subtitle.textContent = 'Browse all ' + categoryEntry.label + ' available for your EV — genuine parts, fast delivery.';
+
+  var statCount = document.getElementById('heroStatCount');
+  if (statCount) statCount.textContent = categoryEntry.count;
+  var statLabel = document.getElementById('heroStatCountLabel');
+  if (statLabel) statLabel.textContent = 'Products';
+
+  document.title = categoryEntry.label + ' – Genuine EV Spare Parts | Eco Connex';
+}
+
+function init() {
+  window.EcoConnex.loadProducts().then(function (products) {
+    ALL_PRODUCTS = products;
+
+    if (CATEGORY_LOCK) {
+      var categoryEntry = window.EcoConnex.getCategoriesWithCounts(products).find(function (c) { return c.key === CATEGORY_LOCK; });
+      renderCategoryPageHeader(categoryEntry);
+      selectedCategories = new Set([CATEGORY_LOCK]);
+    }
+
+    renderCategoryChips();
+    renderBrandFilters();
+    filterProducts();
+    applyCategoryFromUrl();
+    highlightFromSearch();
+  });
+}
+
+window.EcoConnex.cart.onChange(updateCartUI);
+init();

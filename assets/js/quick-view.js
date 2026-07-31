@@ -75,7 +75,7 @@ window.EcoConnex = window.EcoConnex || {};
     html += outOfStock
       ? '<button class="qv-add-cart-btn" disabled><i class="ti ti-ban"></i> Out of Stock</button>'
       : '<button class="qv-add-cart-btn" id="qvAddCart"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>';
-    html += '<a class="qv-view-full-btn" href="product.html?id=' + p.id + '">View Full Details <i class="ti ti-arrow-right"></i></a>';
+    html += '<a class="qv-view-full-btn" href="/product.html?id=' + p.id + '">View Full Details <i class="ti ti-arrow-right"></i></a>';
     html += "</div>";
     html += "</div>";
 

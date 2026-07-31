@@ -35,8 +35,8 @@ window.EcoConnex = window.EcoConnex || {};
    */
   function buildNavEntries(categories) {
     const entries = [
-      { key: "", label: "Home", icon: "ti-home", href: "index.html", isStatic: true },
-      { key: "all", label: "All Products", icon: "ti-layout-grid", href: "products.html", isStatic: true }
+      { key: "", label: "Home", icon: "ti-home", href: "/index.html", isStatic: true },
+      { key: "all", label: "All Products", icon: "ti-layout-grid", href: "/products.html", isStatic: true }
     ];
     categories.forEach(function (c) {
       entries.push({
@@ -44,11 +44,11 @@ window.EcoConnex = window.EcoConnex || {};
         label: c.label,
         icon: ns.getCategoryIcon(c.key),
         count: c.count,
-        href: "products.html?category=" + encodeURIComponent(c.key),
+        href: "/products/category/" + encodeURIComponent(c.key) + "/",
         isStatic: false
       });
     });
-    entries.push({ key: "contact", label: "Contact", icon: "ti-headset", href: "contact.html", isStatic: true });
+    entries.push({ key: "contact", label: "Contact", icon: "ti-headset", href: "/contact.html", isStatic: true });
     return entries;
   }
 
@@ -65,6 +65,8 @@ window.EcoConnex = window.EcoConnex || {};
   }
 
   function getCurrentPageActiveKey() {
+    const catMatch = window.location.pathname.match(/\/products\/category\/([^/]+)\/?/);
+    if (catMatch) return decodeURIComponent(catMatch[1]);
     if (isOnProductsPage()) return getActiveCategory() || "all";
     const pageName = window.location.pathname.replace(/^.*\//, "");
     if (pageName === "" || pageName === "index.html") return "";

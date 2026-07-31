@@ -1,0 +1,40 @@
+name: Generate category pages
+
+# Runs automatically whenever data/products.json changes (e.g. a product's
+# category is added/edited via the /admin CMS, which commits straight to
+# main) or whenever the generator script itself changes. Keeps every
+# /products/category/<slug>/ page in sync with zero manual steps.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/products.json"
+      - "scripts/generate-category-pages.js"
+      - "scripts/category-icon-map.js"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate category pages
+        run: node scripts/generate-category-pages.js
+
+      - name: Commit generated pages (if anything changed)
+        run: |
+          git config user.name "eco-connex-bot"
+          git config user.email "actions@github.com"
+          git add products/category sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No category page changes."
+          else
+            git commit -m "chore: auto-regenerate category pages [skip ci]"
+            git push
+          fi
