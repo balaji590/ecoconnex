@@ -33,8 +33,9 @@ function loadCategories() {
   const products = raw.products || raw;
   const counts = {};
   products.forEach(function (p) {
-    if (!counts[p.category]) counts[p.category] = { key: p.category, label: p.categoryLabel || p.category, count: 0 };
+    if (!counts[p.category]) counts[p.category] = { key: p.category, label: p.categoryLabel || p.category, count: 0, products: [] };
     counts[p.category].count++;
+    counts[p.category].products.push(p);
   });
   return Object.keys(counts).map(function (k) { return counts[k]; }).sort(function (a, b) { return b.count - a.count; });
 }
@@ -43,12 +44,35 @@ function escapeHtml(str) {
   return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+function categoryDescription(label) {
+  return "Explore quality-tested " + label.toLowerCase() + " components for dependable EV repairs and maintenance.";
+}
+
+function categoryCollage(cat) {
+  const products = cat.products.filter(function (p) {
+    return typeof p.image === "string" && /\.(webp|jpg|jpeg|png|gif|avif)$/i.test(p.image);
+  }).sort(function (a, b) {
+    return Number(Boolean(b.bestSeller || b.featured)) - Number(Boolean(a.bestSeller || a.featured));
+  }).slice(0, 4);
+
+  if (!products.length) return '<div class="category-collage-empty" aria-hidden="true"><i class="ti ph-icon-placeholder"></i></div>';
+
+  return products.map(function (p, index) {
+    return '<div class="category-collage-item category-collage-item-' + (index + 1) + '">' +
+      '<img src="/assets/images/products/' + encodeURIComponent(p.image) + '" alt="' + escapeHtml(p.name) + '" loading="lazy" decoding="async"/>' +
+    '</div>';
+  }).join("");
+}
+
 function pageTemplate(cat) {
   const label = cat.label;
   const slug = cat.key;
   const url = SITE_URL + "/products/category/" + slug + "/";
   const title = label + " – Genuine EV Spare Parts (" + cat.count + "+ Products) | Eco Connex";
   const description = "Shop genuine " + label + " for your EV at Eco Connex — " + cat.count + "+ products, COD available, fast Tamil Nadu delivery, GST billing.";
+
+  const heroDescription = categoryDescription(label);
+  const collage = categoryCollage(cat);
 
   const breadcrumbSchema = JSON.stringify({
     "@context": "https://schema.org",
@@ -147,7 +171,7 @@ function pageTemplate(cat) {
 '  <span class="current">' + escapeHtml(label) + "</span>\n" +
 "</div>\n" +
 "\n" +
-'<div class="hero">\n' +
+'<section class="hero category-hero" aria-labelledby="heroTitle">\n' +
 '  <div class="hero-badge" id="heroBadge"><i class="ti ' + "ph-icon-placeholder" + '"></i> ' + escapeHtml(label) + "</div>\n" +
 '  <h1 id="heroTitle">' + escapeHtml(label) + " <span>for Your EV</span></h1>\n" +
 '  <p id="heroSubtitle">Browse all ' + escapeHtml(label) + " available for your EV — genuine parts, fast delivery.</p>\n" +
@@ -157,8 +181,9 @@ function pageTemplate(cat) {
 '    <div class="hero-stat"><div class="hero-stat-num">All India</div><div class="hero-stat-label">Delivery</div></div>\n' +
 '    <div class="hero-stat"><div class="hero-stat-num">GST</div><div class="hero-stat-label">Registered</div></div>\n' +
 "  </div>\n" +
-"</div>\n" +
-"\n" +
+'  <p class="category-hero-description">' + escapeHtml(heroDescription) + '</p>\n' +
+'  <div class="category-hero-collage" aria-label="Featured ' + escapeHtml(label) + ' products">' + collage + '</div>\n' +
+"</section>\n" +
 "\n" +
 '<div class="controls">\n' +
 '  <div class="filter-toprow" id="filterToprow">\n' +
@@ -283,8 +308,7 @@ function main() {
   categories.forEach(function (cat) {
     const dir = path.join(OUTPUT_BASE, cat.key);
     fs.mkdirSync(dir, { recursive: true });
-    const html = pageTemplate(cat).replace(
-      '<i class="ti ph-icon-placeholder"></i>',
+    const html = pageTemplate(cat).replace(/<i class="ti ph-icon-placeholder"><\/i>/g,
       '<i class="ti ' + require("./category-icon-map")(cat.key) + '"></i>'
     );
     fs.writeFileSync(path.join(dir, "index.html"), html, "utf-8");
