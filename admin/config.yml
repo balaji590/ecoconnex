@@ -58,6 +58,9 @@ collections:
             name: "products"
             widget: "list"
             summary: "{{fields.name}} — {{fields.sku}} ({{fields.stock}})"
+            minimize_collapsed: true
+            min: 100
+            allow_add: true
             fields:
                 - { label: "ID", name: "id", widget: "number", value_type: "int", hint: "Must be unique. Check the highest existing ID before adding a new product." }
                 - { label: "Product Name", name: "name", widget: "string" }
