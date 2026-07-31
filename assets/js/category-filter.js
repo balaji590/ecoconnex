@@ -37,11 +37,17 @@
     const actionBtn = outOfStock
       ? '<button class="btn-add-cart" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
       : '<button class="btn-add-cart" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
-    const badgeBg = outOfStock ? "#6b7280" : (window.EcoConnex.getStockClass(p.stock) === "in-stock" ? "var(--orange)" : "#6b7280");
+    const stockCls = window.EcoConnex.getStockClass(p.stock);
+    const badgeBg = stockCls === "in-stock" ? "#16a34a" : (stockCls === "out-of-stock" ? "#dc2626" : "#f59e0b");
+    const trustBadges = '<div class="product-trust-badges">' +
+      (typeof p.gstPercent === "number" && p.gstPercent > 0 ? '<span class="product-mini-badge"><i class="ti ti-receipt-tax"></i> GST Incl.</span>' : "") +
+      (p.warranty ? '<span class="product-mini-badge"><i class="ti ti-certificate"></i> Warranty</span>' : "") +
+      "</div>";
 
     return (
       '<article class="product-card" id="home-product-' + p.id + '" onclick="if(!event.target.closest(\'button\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
         '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p, { width: 280, height: 280 }) + '<span class="product-badge" style="background:' + badgeBg + '">' + window.EcoConnex.escapeHtml(p.stock) + "</span>" +
+          '<div class="product-quickview-overlay"><button class="product-quickview-btn" onclick="event.stopPropagation();EcoConnex.openQuickView(' + p.id + ')"><i class="ti ti-eye"></i> Quick View</button></div>' +
           '<button class="wishlist-heart-btn' + (isWished ? " active" : "") + '" onclick="event.stopPropagation();toggleWishlistBtnHome(this,\'' + p.sku + '\')" data-item="' + itemJson + '" aria-label="Save to wishlist"><i class="ti ti-heart' + (isWished ? "-filled" : "") + '"></i></button>' +
         "</div>" +
         '<div class="product-body">' +
@@ -49,10 +55,12 @@
           '<p class="product-desc">' + window.EcoConnex.escapeHtml(p.shortDescription || window.EcoConnex.shortText(p.description, 90)) + "</p>" +
           '<span class="product-compat">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + " · " + window.EcoConnex.escapeHtml(p.sku) + "</span>" +
           priceBlock +
+          trustBadges +
           (outOfStock ? "" : qtyStepper) +
           '<div class="product-actions">' +
             actionBtn +
             '<button class="btn-wa-product" onclick="waEnquiry(\'' + p.name.replace(/'/g, "\\'") + '\')"><i class="ti ti-brand-whatsapp"></i></button>' +
+            '<button class="btn-share-product" onclick="event.stopPropagation();shareProductCardHome(\'' + p.id + '\',\'' + p.name.replace(/'/g, "\\'") + '\')" aria-label="Share product"><i class="ti ti-share-3"></i></button>' +
           "</div>" +
         "</div>" +
       "</article>"
@@ -64,9 +72,25 @@
     const nowActive = window.EcoConnex.wishlist.toggleWishlist(itemData);
     btn.classList.toggle("active", nowActive);
     btn.querySelector("i").className = "ti ti-heart" + (nowActive ? "-filled" : "");
+    btn.classList.remove("pulse"); void btn.offsetWidth; btn.classList.add("pulse");
     if (window.EcoConnex.showToast) window.EcoConnex.showToast(nowActive ? "Added to Wishlist" : "Removed from Wishlist");
   }
   window.toggleWishlistBtnHome = toggleWishlistBtnHome;
+
+  function shareProductCardHome(id, name) {
+    const shareUrl = window.location.origin + "/product.html?id=" + id;
+    const shareData = { title: name + " – Eco Connex", text: "Check out " + name + " on Eco Connex", url: shareUrl };
+    if (navigator.share) {
+      navigator.share(shareData).catch(function () {});
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareUrl).then(function () {
+        if (window.EcoConnex.showToast) window.EcoConnex.showToast("Product link copied!");
+      });
+    } else {
+      window.prompt("Copy this link:", shareUrl);
+    }
+  }
+  window.shareProductCardHome = shareProductCardHome;
 
   /* ---------- Featured Products grid (8 items, reused card) ---------- */
 

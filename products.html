@@ -62,6 +62,7 @@
   <link rel="stylesheet" href="assets/css/header.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
 <link rel="stylesheet" href="assets/css/products.css"/>
+<link rel="stylesheet" href="assets/css/quick-view.css"/>
 </head>
 <body>
 
@@ -152,6 +153,7 @@
 <script src="assets/js/wishlist.js"></script>
 <script src="assets/js/orders.js"></script>
 <script src="assets/js/checkout.js"></script>
+<script src="assets/js/quick-view.js"></script>
 <script src="assets/js/search-widget.js"></script>
 <script src="assets/js/shared-layout.js"></script>
 <script>
@@ -178,20 +180,27 @@ function cardHtml(p) {
   var actionBtn = outOfStock
     ? '<button class="btn-enquire" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
     : '<button class="btn-enquire" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
+  var trustBadges = '<div class="product-trust-badges">';
+  if (typeof p.gstPercent === 'number' && p.gstPercent > 0) trustBadges += '<span class="product-mini-badge"><i class="ti ti-receipt-tax"></i> GST Incl.</span>';
+  if (p.warranty) trustBadges += '<span class="product-mini-badge"><i class="ti ti-certificate"></i> Warranty</span>';
+  trustBadges += '</div>';
   return (
     '<div class="product-card" id="product-' + p.id + '" data-cat="' + p.category + '" data-name="' + window.EcoConnex.escapeHtml(p.name.toLowerCase()) + '" data-sku="' + p.sku + '" onclick="if(!event.target.closest(\'button\')&&!event.target.closest(\'a\')){window.location.href=\'product.html?id=' + p.id + '\';}" style="cursor:pointer;">' +
       '<div class="product-img">' + window.EcoConnex.renderProductImageHtml(p, { width: 220, height: 220 }) +
         '<span class="stock-badge ' + window.EcoConnex.getStockClass(p.stock) + '">' + window.EcoConnex.escapeHtml(p.stock) + '</span>' +
         '<span class="cat-badge">' + window.EcoConnex.escapeHtml(p.categoryLabel || p.category) + '</span>' +
+        '<div class="product-quickview-overlay"><button class="product-quickview-btn" onclick="event.stopPropagation();EcoConnex.openQuickView(' + p.id + ')"><i class="ti ti-eye"></i> Quick View</button></div>' +
         '<button class="wishlist-heart-btn' + (isWished ? ' active' : '') + '" onclick="event.stopPropagation();toggleWishlistBtn(this,' + JSON.stringify(p.id) + ',\'' + p.sku + '\')" data-item="' + itemJson + '" aria-label="Save to wishlist"><i class="ti ti-heart' + (isWished ? '-filled' : '') + '"></i></button>' +
       '</div>' +
       '<div class="product-body">' +
         '<div class="product-name">' + window.EcoConnex.escapeHtml(p.name) + '</div>' +
         priceHtml(p) +
+        trustBadges +
         (outOfStock ? '' : qtyStepper) +
         '<div class="product-actions">' +
           actionBtn +
           '<button class="btn-call" onclick="event.stopPropagation();wa(\'' + p.name.replace(/'/g, "\\'") + '\',\'' + (hasPrice ? '₹' + p.price : 'Price on Request') + '\')" aria-label="Enquire on WhatsApp"><i class="ti ti-brand-whatsapp"></i></button>' +
+          '<button class="btn-share-product" onclick="event.stopPropagation();shareProductCard(\'' + p.id + '\',\'' + p.name.replace(/'/g, "\\'") + '\')" aria-label="Share product"><i class="ti ti-share-3"></i></button>' +
         '</div>' +
       '</div>' +
     '</div>'
@@ -203,7 +212,22 @@ function toggleWishlistBtn(btn, id, sku) {
   var nowActive = window.EcoConnex.wishlist.toggleWishlist(itemData);
   btn.classList.toggle('active', nowActive);
   btn.querySelector('i').className = 'ti ti-heart' + (nowActive ? '-filled' : '');
+  btn.classList.remove('pulse'); void btn.offsetWidth; btn.classList.add('pulse');
   if (window.EcoConnex.showToast) window.EcoConnex.showToast(nowActive ? 'Added to Wishlist' : 'Removed from Wishlist');
+}
+
+function shareProductCard(id, name) {
+  var shareUrl = window.location.origin + window.location.pathname.replace(/products\.html$/, '') + 'product.html?id=' + id;
+  var shareData = { title: name + ' – Eco Connex', text: 'Check out ' + name + ' on Eco Connex', url: shareUrl };
+  if (navigator.share) {
+    navigator.share(shareData).catch(function () {});
+  } else if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(shareUrl).then(function () {
+      if (window.EcoConnex.showToast) window.EcoConnex.showToast('Product link copied!');
+    });
+  } else {
+    window.prompt('Copy this link:', shareUrl);
+  }
 }
 
 function renderProducts(products) {
