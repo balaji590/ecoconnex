@@ -66,6 +66,7 @@
     btn.querySelector("i").className = "ti ti-heart" + (nowActive ? "-filled" : "");
     if (window.EcoConnex.showToast) window.EcoConnex.showToast(nowActive ? "Added to Wishlist" : "Removed from Wishlist");
   }
+  window.toggleWishlistBtnHome = toggleWishlistBtnHome;
 
   /* ---------- Featured Products grid (8 items, reused card) ---------- */
 
