@@ -38,7 +38,7 @@
       ? '<button class="btn-add-cart" disabled style="opacity:0.5;cursor:not-allowed;"><i class="ti ti-ban"></i> Out of Stock</button>'
       : '<button class="btn-add-cart" onclick="var q=parseInt(document.getElementById(\'' + qtyId + '\').textContent,10)||1;EcoConnex.cart.addToCartUI(this, JSON.parse(this.getAttribute(\'data-item\')), q);document.getElementById(\'' + qtyId + '\').textContent=\'1\';" data-item="' + itemJson + '"><i class="ti ti-shopping-cart-plus"></i> Add</button>';
     const stockCls = window.EcoConnex.getStockClass(p.stock);
-    const badgeBg = stockCls === "in-stock" ? "#16a34a" : (stockCls === "out-of-stock" ? "#dc2626" : "#f59e0b");
+    const badgeBg = stockCls === "in-stock" ? "#15803d" : (stockCls === "out-of-stock" ? "#dc2626" : "#b45309");
     const trustBadges = '<div class="product-trust-badges">' +
       (typeof p.gstPercent === "number" && p.gstPercent > 0 ? '<span class="product-mini-badge"><i class="ti ti-receipt-tax"></i> GST Incl.</span>' : "") +
       (p.warranty ? '<span class="product-mini-badge"><i class="ti ti-certificate"></i> Warranty</span>' : "") +

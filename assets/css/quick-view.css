@@ -12,9 +12,9 @@
 .qv-gallery .product-photo{width:100%;height:100%;object-fit:contain;padding:24px;}
 .qv-info{flex:1 1 300px;padding:28px 28px 28px 8px;display:flex;flex-direction:column;}
 .qv-stock-badge{align-self:flex-start;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;text-transform:uppercase;margin-bottom:10px;}
-.qv-stock-badge.in-stock{background:#16a34a;color:#fff;}
-.qv-stock-badge.low{background:#f59e0b;color:#fff;}
-.qv-stock-badge.enquire{background:#f59e0b;color:#fff;}
+.qv-stock-badge.in-stock{background:#15803d;color:#fff;}
+.qv-stock-badge.low{background:#b45309;color:#fff;}
+.qv-stock-badge.enquire{background:#b45309;color:#fff;}
 .qv-stock-badge.out-of-stock{background:#dc2626;color:#fff;}
 .qv-name{font-size:20px;font-weight:800;color:var(--gray-900);margin-bottom:6px;line-height:1.3;}
 .qv-meta{font-size:12.5px;color:var(--gray-500);margin-bottom:14px;}

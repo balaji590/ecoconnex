@@ -15,6 +15,26 @@
   const headerMount = document.getElementById("site-header");
   const footerMount = document.getElementById("site-footer");
 
+  /**
+   * Accessibility: "Skip to main content" link (WCAG 2.4.1 Bypass
+   * Blocks). Visually hidden until keyboard-focused, lets keyboard
+   * and screen-reader users jump past the header/nav straight to
+   * the page's main content. Added here (not per-page) so every
+   * page gets it automatically with zero HTML changes.
+   */
+  function addSkipLink() {
+    const main = document.querySelector("main");
+    if (!main) return;
+    if (!main.id) main.id = "main-content";
+    const link = document.createElement("a");
+    link.href = "#" + main.id;
+    link.className = "ec-skip-link";
+    link.textContent = "Skip to main content";
+    document.body.insertBefore(link, document.body.firstChild);
+  }
+  addSkipLink();
+
+
   function wireHamburger() {
     const hamburger = document.getElementById("hamburger");
     const mobileMenu = document.getElementById("mobileMenu");

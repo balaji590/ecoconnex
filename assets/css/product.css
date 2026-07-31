@@ -167,7 +167,7 @@ a{text-decoration:none;color:inherit;}
 .price-block.price-lg .price-mrp{font-size:18px;}
 .price-selling{font-weight:800;color:var(--orange-dark);}
 .price-mrp{font-size:0.78em;color:var(--gray-500);text-decoration:line-through;font-weight:500;}
-.price-off-badge{background:var(--orange);color:#fff;font-size:12px;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:0.2px;}
+.price-off-badge{background:#c2410c;color:#fff;font-size:12px;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:0.2px;}
 .price-call{color:var(--gray-600);font-weight:600;font-size:20px;}
 .price-savings{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#16a34a;margin-top:4px;}
 .price-savings i{font-size:15px;}
