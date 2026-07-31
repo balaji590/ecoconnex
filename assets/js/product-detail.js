@@ -284,6 +284,31 @@ window.waEnquiry = window.waEnquiry || function (product) {
             : "Standard Eco Connex dealer warranty applies as per manufacturer terms. Contact us on WhatsApp for warranty claims or replacement support.") + "</p>" +
         "</div>" +
         '<div class="pdp-section-card">' +
+          '<h3><i class="ti ti-truck-delivery"></i> Delivery &amp; Returns</h3>' +
+          '<div class="pdp-delivery-row"><i class="ti ti-clock-hour-4"></i><div><strong>Dispatch</strong><span>Orders dispatched within 24 hours</span></div></div>' +
+          '<div class="pdp-delivery-row"><i class="ti ti-map-pin"></i><div><strong>Delivery Area</strong><span>Across Tamil Nadu via courier, 1\u20133 business days</span></div></div>' +
+          '<div class="pdp-delivery-row"><i class="ti ti-receipt-2"></i><div><strong>Shipping Charges</strong><span>Shown alongside GST in your WhatsApp order summary. See <a href="shipping.html">Shipping Policy</a></span></div></div>' +
+          '<div class="pdp-delivery-row"><i class="ti ti-replace"></i><div><strong>Returns</strong><span>Orders are not returnable or refundable once confirmed or delivered, as per our <a href="terms.html">Terms &amp; Conditions</a>. Contact us on WhatsApp before ordering if unsure about fitment.</span></div></div>' +
+        "</div>" +
+        '<div class="pdp-section-card">' +
+          '<h3><i class="ti ti-building-store"></i> Dealer &amp; Bulk Order Support</h3>' +
+          "<p>Running a repair shop or EV showroom? Eco Connex supports bulk orders and dealership pricing for genuine spare parts.</p>" +
+          '<div class="pdp-dealer-actions">' +
+            '<a href="dealer.html" class="btn-outline-orange"><i class="ti ti-building-store"></i> Dealer Program</a>' +
+            '<a href="https://wa.me/918778657912?text=' + encodeURIComponent("Hi Eco Connex! I'd like to enquire about bulk/dealer pricing for: " + product.name) + '" target="_blank" rel="noopener" class="btn-outline-orange"><i class="ti ti-brand-whatsapp"></i> Ask on WhatsApp</a>' +
+          "</div>" +
+        "</div>" +
+        '<div class="pdp-section-card">' +
+          '<h3><i class="ti ti-help-circle"></i> Frequently Asked Questions</h3>' +
+          '<div class="pdp-faq-list">' +
+            '<div class="pdp-faq-item"><button class="pdp-faq-q" onclick="this.parentElement.classList.toggle(\'open\')">Are your parts genuine? <i class="ti ti-chevron-down"></i></button><div class="pdp-faq-a">All parts are 100% genuine and quality-tested. No duplicate or substandard parts.</div></div>' +
+            '<div class="pdp-faq-item"><button class="pdp-faq-q" onclick="this.parentElement.classList.toggle(\'open\')">How do I know this fits my EV? <i class="ti ti-chevron-down"></i></button><div class="pdp-faq-a">WhatsApp us with your bike model and we\'ll guide you to the exact compatible part before you order.</div></div>' +
+            '<div class="pdp-faq-item"><button class="pdp-faq-q" onclick="this.parentElement.classList.toggle(\'open\')">Do you deliver outside Tiruvannamalai? <i class="ti ti-chevron-down"></i></button><div class="pdp-faq-a">Yes, we deliver across Tamil Nadu via courier. Orders dispatched within 24 hours, delivered in 1\u20133 business days.</div></div>' +
+            '<div class="pdp-faq-item"><button class="pdp-faq-q" onclick="this.parentElement.classList.toggle(\'open\')">Do you provide GST invoices? <i class="ti ti-chevron-down"></i></button><div class="pdp-faq-a">Yes, we are GST registered and provide proper invoices for all purchases.</div></div>' +
+          "</div>" +
+          '<a href="faq.html" class="pdp-faq-more-link">View all FAQs <i class="ti ti-arrow-right"></i></a>' +
+        "</div>" +
+        '<div class="pdp-section-card">' +
           '<h3><i class="ti ti-star"></i> Customer Reviews</h3>' +
           buildReviewsHtml(product) +
         "</div>" +
@@ -398,6 +423,52 @@ window.waEnquiry = window.waEnquiry || function (product) {
     frame.addEventListener("click", function () {
       frame.classList.toggle("zoomed");
     });
+
+    wireMobileStickyBar(product, hasPrice, EC.isOutOfStock(product));
+  }
+
+  function ensureMobileStickyBar() {
+    if (document.getElementById("pdpMobileSticky")) return;
+    const bar = document.createElement("div");
+    bar.id = "pdpMobileSticky";
+    bar.className = "pdp-mobile-sticky";
+    bar.innerHTML =
+      '<div class="pdp-mobile-sticky-price" id="pdpMobileStickyPrice"></div>' +
+      '<button class="pdp-mobile-sticky-btn" id="pdpMobileStickyBtn"><i class="ti ti-shopping-cart-plus"></i> Add to Cart</button>';
+    document.body.appendChild(bar);
+  }
+
+  function wireMobileStickyBar(product, hasPrice, outOfStock) {
+    ensureMobileStickyBar();
+    const bar = document.getElementById("pdpMobileSticky");
+    const priceEl = document.getElementById("pdpMobileStickyPrice");
+    const btn = document.getElementById("pdpMobileStickyBtn");
+
+    priceEl.innerHTML = hasPrice
+      ? "₹" + product.price.toLocaleString("en-IN") + (EC.getOffer(product) ? '<span class="pdp-mobile-sticky-mrp">₹' + product.mrp.toLocaleString("en-IN") + "</span>" : "")
+      : "Price on Request";
+
+    if (outOfStock) {
+      btn.disabled = true;
+      btn.innerHTML = '<i class="ti ti-ban"></i> Out of Stock';
+      btn.style.opacity = "0.5";
+    } else {
+      btn.disabled = false;
+      btn.style.opacity = "1";
+      btn.innerHTML = '<i class="ti ti-shopping-cart-plus"></i> Add to Cart';
+      btn.onclick = function () {
+        const mainBtn = document.getElementById("pdpAddToCart");
+        if (mainBtn) mainBtn.click();
+      };
+    }
+
+    const mainActions = document.querySelector(".pdp-actions");
+    if (mainActions && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(function (entries) {
+        bar.classList.toggle("visible", !entries[0].isIntersecting);
+      }, { threshold: 0 });
+      observer.observe(mainActions);
+    }
   }
 
   function renderNotFound() {
