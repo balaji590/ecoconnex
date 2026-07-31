@@ -64,7 +64,7 @@
   function syncHeaderHeight() {
     const navbar = document.getElementById("navbar");
     if (!navbar) return;
-    const h = Math.ceil(navbar.getBoundingClientRect().height);
+    const h = navbar.getBoundingClientRect().height;
     if (h > 0) {
       document.documentElement.style.setProperty("--header-h", h + "px");
     }
