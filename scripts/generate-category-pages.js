@@ -180,7 +180,6 @@ function pageTemplate(cat) {
 '    <div class="category-hero-left">\n' +
 '      <h1 id="heroTitle">' + escapeHtml(label) + "</h1>\n" +
 '      <p class="category-hero-description" id="heroDescription">' + escapeHtml(heroDescription) + "</p>\n" +
-'      <div class="category-hero-count-badge" id="heroCountBadge"><i class="ti ti-box-seam"></i><span id="heroStatCount">' + cat.count + '</span>&nbsp;Products</div>\n' +
 "    </div>\n" +
 '    <div class="category-hero-right">' + heroBanner + "</div>\n" +
 "  </div>\n" +
@@ -188,6 +187,7 @@ function pageTemplate(cat) {
 "\n" +
 '<div class="controls">\n' +
 '  <div class="filter-toprow" id="filterToprow">\n' +
+'    <div class="category-hero-count-badge" id="heroCountBadge"><i class="ti ti-box-seam"></i><span id="heroStatCount">' + cat.count + '</span>&nbsp;Products</div>\n' +
 '    <div class="filter-scroll" id="filterBtns"></div>\n' +
 '    <button class="btn-filters-toggle" id="filtersToggle" onclick="toggleFiltersPanel()"><i class="ti ti-adjustments-horizontal"></i> Filters<span class="filter-active-badge" id="filterActiveBadge" style="display:none;"></span></button>\n' +
 "  </div>\n" +
