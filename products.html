@@ -65,30 +65,27 @@
 <link rel="stylesheet" href="assets/css/products.css"/>
 <link rel="stylesheet" href="assets/css/quick-view.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
-<!-- BREADCRUMB (populated by products-listing.js — shows Home > Products > Category on category pages) -->
+<!-- BREADCRUMB -->
 <div class="breadcrumb" id="categoryBreadcrumb">
   <a href="index.html">Home</a><i class="ti ti-chevron-right"></i>
   <span class="current">Products</span>
 </div>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-badge" id="heroBadge"><i class="ti ti-packages"></i> Complete Product Catalog</div>
-  <h1 id="heroTitle">All EV <span>Spare Parts</span></h1>
-  <p id="heroSubtitle">130+ genuine parts · COD available · All India delivery · GST billing</p>
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-num" id="heroStatCount">130+</div><div class="hero-stat-label" id="heroStatCountLabel">Products</div></div>
-    <div class="hero-stat"><div class="hero-stat-num">COD</div><div class="hero-stat-label">Available</div></div>
-    <div class="hero-stat"><div class="hero-stat-num">All India</div><div class="hero-stat-label">Delivery</div></div>
-    <div class="hero-stat"><div class="hero-stat-num">GST</div><div class="hero-stat-label">Registered</div></div>
+<!-- HERO (same premium style as every category landing page) -->
+<section class="hero category-hero category-hero--no-image" aria-labelledby="heroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="heroTitle">All Products</h1>
+      <p class="category-hero-description" id="heroDescription">Browse the complete Eco Connex catalog — genuine, quality-tested EV spare parts with fast delivery and GST billing.</p>
+    </div>
   </div>
-</div>
+</section>
 
 <!-- RELATED CATEGORY CHIPS (only populated/shown on category landing pages) -->
 <div class="category-related-chips" id="categoryRelatedChips" style="display:none;"></div>
@@ -97,6 +94,7 @@
 <!-- CONTROLS -->
 <div class="controls">
   <div class="filter-toprow" id="filterToprow">
+    <div class="category-hero-count-badge" id="heroCountBadge"><i class="ti ti-box-seam"></i><span id="resultCount">130</span>&nbsp;Products</div>
     <div class="filter-scroll" id="filterBtns"></div>
     <button class="btn-filters-toggle" id="filtersToggle" onclick="toggleFiltersPanel()"><i class="ti ti-adjustments-horizontal"></i> Filters<span class="filter-active-badge" id="filterActiveBadge" style="display:none;"></span></button>
   </div>
@@ -122,7 +120,6 @@
     </div>
   </div>
 </div>
-<div class="results-count"><span id="resultCount">130</span> products found</div>
 
 <!-- PRODUCTS -->
 <div class="products-wrap">
