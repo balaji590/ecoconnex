@@ -63,20 +63,29 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/privacy.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><i class="ti ti-file-text"></i> Terms &amp; Conditions</div>
-  <h1>Terms &amp; Conditions</h1>
-  <p>Please read these Terms &amp; Conditions carefully before using the Eco Connex website or placing an order.</p>
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">Terms &amp; Conditions</span>
 </div>
+
+<section class="hero category-hero category-hero--no-image" aria-labelledby="pageHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="pageHeroTitle">Terms &amp; Conditions</h1>
+      <p class="category-hero-description">Please read carefully before using the website or placing an order.</p>
+    </div>
+  </div>
+</section>
 
 <!-- POLICY CONTENT -->
 <section class="policy-section">

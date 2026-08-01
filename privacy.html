@@ -63,20 +63,29 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/privacy.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><i class="ti ti-shield-lock"></i> Privacy Policy</div>
-  <h1>Privacy Policy</h1>
-  <p>Your privacy is important to us. This Privacy Policy explains how Eco Connex collects, uses and protects your information when you use our website.</p>
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">Privacy Policy</span>
 </div>
+
+<section class="hero category-hero category-hero--no-image" aria-labelledby="pageHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="pageHeroTitle">Privacy Policy</h1>
+      <p class="category-hero-description">How Eco Connex collects, uses and protects your information.</p>
+    </div>
+  </div>
+</section>
 
 <!-- POLICY CONTENT -->
 <section class="policy-section">

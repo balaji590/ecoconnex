@@ -28,29 +28,30 @@
   <link rel="stylesheet" href="/assets/css/header.css"/>
   <link rel="stylesheet" href="/assets/css/footer.css"/>
   <link rel="stylesheet" href="/assets/css/home.css"/>
-  <style>
-    .hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:80px 24px;border-bottom:1px solid rgba(249,115,22,0.15);min-height:56vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.3);color:#fdba74;font-size:13px;font-weight:600;padding:7px 18px;border-radius:20px;margin-bottom:18px;}
-    .hero h1{font-size:44px;font-weight:800;color:#fff;margin-bottom:14px;}
-    .hero h1 span{color:var(--orange);}
-    .hero p{font-size:15px;color:rgba(255,255,255,0.72);max-width:440px;margin:0 auto;}
-    @media(max-width:600px){.hero{padding:56px 20px;}.hero h1{font-size:30px;}}
-  </style>
+  <link rel="stylesheet" href="/assets/css/products.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <div id="site-header"></div>
 
 <main>
-<div class="hero" style="text-align:center;">
-  <div class="hero-badge"><i class="ti ti-map-off"></i> Error 404</div>
-  <h1>Page Not <span>Found</span></h1>
-  <p>The page you're looking for doesn't exist or may have moved. Let's get you back on track.</p>
-  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px;">
-    <a href="/index.html" class="btn-quote-nav" style="padding:12px 26px;font-size:14px;"><i class="ti ti-home"></i> Back to Home</a>
-    <a href="/products.html" class="btn-quote-nav" style="padding:12px 26px;font-size:14px;background:rgba(255,255,255,0.08);"><i class="ti ti-packages"></i> Browse Products</a>
-  </div>
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">Page Not Found</span>
 </div>
+
+<section class="hero category-hero category-hero--no-image" aria-labelledby="pageHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="pageHeroTitle">Page Not Found</h1>
+      <p class="category-hero-description">The page you're looking for doesn't exist or may have moved. Let's get you back on track.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;">
+        <a href="/index.html" class="btn-orange" style="display:inline-flex;align-items:center;gap:8px;padding:12px 26px;font-size:14px;"><i class="ti ti-home"></i> Back to Home</a>
+        <a href="/products.html" class="btn-orange" style="display:inline-flex;align-items:center;gap:8px;padding:12px 26px;font-size:14px;background:#fff;color:var(--gray-900);border:1.5px solid var(--gray-200);"><i class="ti ti-packages"></i> Browse Products</a>
+      </div>
+    </div>
+  </div>
+</section>
 </main>
 
 <div id="site-footer"></div>

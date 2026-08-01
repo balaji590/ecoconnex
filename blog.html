@@ -63,20 +63,29 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/blog.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><i class="ti ti-notebook"></i> Blog</div>
-  <h1>EV Spare Parts <span>Guides &amp; Tips</span></h1>
-  <p>Practical, no-nonsense guides to help you choose and maintain EV spare parts — written by the Eco Connex team.</p>
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">Blog</span>
 </div>
+
+<section class="hero category-hero category-hero--no-image" aria-labelledby="pageHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="pageHeroTitle">EV Spare Parts Guides &amp; Tips</h1>
+      <p class="category-hero-description">Practical, no-nonsense guides to help you choose and maintain EV spare parts.</p>
+    </div>
+  </div>
+</section>
 
 <!-- BLOG GRID -->
 <section class="blog-list-section">

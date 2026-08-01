@@ -63,20 +63,29 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/privacy.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><i class="ti ti-truck-delivery"></i> Shipping Policy</div>
-  <h1>Shipping Policy</h1>
-  <p>Learn about our shipping process, delivery timelines and important shipping information before placing your order.</p>
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">Shipping Policy</span>
 </div>
+
+<section class="hero category-hero category-hero--no-image" aria-labelledby="pageHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="pageHeroTitle">Shipping Policy</h1>
+      <p class="category-hero-description">Our shipping process, delivery timelines and shipping charges.</p>
+    </div>
+  </div>
+</section>
 
 <!-- POLICY CONTENT -->
 <section class="policy-section">
