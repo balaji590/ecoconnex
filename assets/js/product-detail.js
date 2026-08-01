@@ -162,7 +162,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ecoconnex.in/" },
         { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://ecoconnex.in/products.html" },
-        { "@type": "ListItem", "position": 3, "name": catLabel, "item": "https://ecoconnex.in/products.html?category=" + encodeURIComponent(product.category) },
+        { "@type": "ListItem", "position": 3, "name": catLabel, "item": "https://ecoconnex.in/products/category/" + encodeURIComponent(product.category) + "/" },
         { "@type": "ListItem", "position": 4, "name": product.name, "item": pageUrl }
       ]
     };
@@ -206,7 +206,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
     document.getElementById("breadcrumb").innerHTML =
       '<a href="index.html">Home</a><i class="ti ti-chevron-right"></i>' +
       '<a href="products.html">Products</a><i class="ti ti-chevron-right"></i>' +
-      '<a href="products.html?category=' + encodeURIComponent(product.category) + '">' + EC.escapeHtml(product.categoryLabel || product.category) + '</a><i class="ti ti-chevron-right"></i>' +
+      '<a href="/products/category/' + encodeURIComponent(product.category) + '/">' + EC.escapeHtml(product.categoryLabel || product.category) + '</a><i class="ti ti-chevron-right"></i>' +
       '<span class="current">' + EC.escapeHtml(product.name) + "</span>";
 
     const sClass = EC.getStockClass(product.stock);

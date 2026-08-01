@@ -62,7 +62,7 @@ window.EcoConnex.initSearchWidget = function () {
     if (!top.length) return "";
     let html = '<div class="sd-section-label">Browse Categories</div><div class="sd-cat-grid">';
     top.forEach(function (e) {
-      html += '<a class="sd-cat-chip" href="products.html?category=' + encodeURIComponent(e.key) + '"><i class="ti ' + window.EcoConnex.getCategoryIcon(e.key) + '"></i><span>' + window.EcoConnex.escapeHtml(e.label) + '</span></a>';
+      html += '<a class="sd-cat-chip" href="/products/category/' + encodeURIComponent(e.key) + '/"><i class="ti ' + window.EcoConnex.getCategoryIcon(e.key) + '"></i><span>' + window.EcoConnex.escapeHtml(e.label) + '</span></a>';
     });
     html += "</div>";
     return html;

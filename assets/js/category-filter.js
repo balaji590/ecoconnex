@@ -145,7 +145,7 @@
 
   function heroCardHtml(entry, index) {
     return (
-      '<a href="products.html?category=' + encodeURIComponent(entry.category) + '" class="hero-float-card card-' + (index + 1) + '" aria-label="Browse ' + window.EcoConnex.escapeHtml(entry.label) + '">' +
+      '<a href="/products/category/' + encodeURIComponent(entry.category) + '/" class="hero-float-card card-' + (index + 1) + '" aria-label="Browse ' + window.EcoConnex.escapeHtml(entry.label) + '">' +
         '<span class="hero-float-icon" aria-hidden="true">' + entry.icon + "</span>" +
         "<div>" +
           '<div class="hero-float-name">' + window.EcoConnex.escapeHtml(entry.label) + "</div>" +
