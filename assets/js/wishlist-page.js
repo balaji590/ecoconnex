@@ -15,7 +15,7 @@
 
   function setHeroCount(n) {
     const el = document.getElementById("wishlistHeroCount");
-    if (el) el.textContent = n + (n === 1 ? " Saved Product" : " Saved Products");
+    if (el) el.innerHTML = '<i class="ti ti-heart"></i> ' + n + (n === 1 ? " Saved Product" : " Saved Products");
   }
 
   function stockBadgeHtml(stockLabel) {

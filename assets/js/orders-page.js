@@ -16,7 +16,7 @@
 
   function setHeroCount(n) {
     const el = document.getElementById("ordersHeroCount");
-    if (el) el.textContent = n + (n === 1 ? " Order" : " Orders");
+    if (el) el.innerHTML = '<i class="ti ti-package"></i> ' + n + (n === 1 ? " Order" : " Orders");
   }
 
   function formatDate(iso) {

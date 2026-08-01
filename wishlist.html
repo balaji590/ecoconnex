@@ -47,21 +47,31 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/wishlist.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><i class="ti ti-heart"></i> My Wishlist</div>
-  <h1>Save Your Favourites <span>For Later</span></h1>
-  <p>Save your favourite products for later.</p>
-  <div class="hero-count-pill" id="wishlistHeroCount">0 Saved Products</div>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">My Wishlist</span>
 </div>
+
+<!-- HERO -->
+<section class="hero category-hero category-hero--no-image" aria-labelledby="wishlistHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="wishlistHeroTitle">My Wishlist</h1>
+      <p class="category-hero-description">Save your favourite products for later and add them to your cart anytime.</p>
+      <div class="category-hero-count-badge" id="wishlistHeroCount"><i class="ti ti-heart"></i> 0 Saved Products</div>
+    </div>
+  </div>
+</section>
 
 <section class="wishlist-page-section">
   <div class="container wishlist-page-container">

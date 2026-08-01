@@ -47,21 +47,31 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/orders.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><i class="ti ti-package"></i> My Orders</div>
-  <h1>Track All Your <span>Purchases</span></h1>
-  <p>Track all your previous purchases.</p>
-  <div class="hero-count-pill" id="ordersHeroCount">0 Orders</div>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">My Orders</span>
 </div>
+
+<!-- HERO -->
+<section class="hero category-hero category-hero--no-image" aria-labelledby="ordersHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="ordersHeroTitle">My Orders</h1>
+      <p class="category-hero-description">Track all your previous purchases and reorder in one click.</p>
+      <div class="category-hero-count-badge" id="ordersHeroCount"><i class="ti ti-package"></i> 0 Orders</div>
+    </div>
+  </div>
+</section>
 
 <section class="orders-page-section">
   <div class="container orders-page-container">

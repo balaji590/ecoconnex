@@ -16,15 +16,6 @@
   --or-shadow-hover:0 16px 32px rgba(15,23,42,0.12);
 }
 
-/* ── HERO ── */
-.hero{background:linear-gradient(135deg,var(--or-primary) 0%,#1b5e20 55%,#12401a 100%);padding:52px 24px 44px;text-align:center;border-radius:0 0 32px 32px;}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.28);color:#e8f5e9;font-size:12px;font-weight:600;padding:6px 16px;border-radius:20px;margin-bottom:16px;}
-.hero-badge i{color:var(--or-accent);}
-.hero h1{font-size:34px;font-weight:800;color:#fff;margin-bottom:10px;letter-spacing:-0.5px;}
-.hero h1 span{color:var(--or-accent);}
-.hero p{font-size:15px;color:rgba(255,255,255,0.82);margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto;}
-.hero-count-pill{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--or-primary-dark);font-size:14px;font-weight:700;padding:10px 22px;border-radius:30px;box-shadow:0 8px 20px rgba(0,0,0,0.18);}
-
 /* ── PAGE ── */
 .orders-page-section{padding:44px 0 72px;background:var(--or-bg);}
 .orders-page-container{max-width:880px;}
