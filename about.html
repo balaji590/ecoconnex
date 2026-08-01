@@ -64,20 +64,29 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/about.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
 <!-- HERO -->
-<div class="hero about-hero">
-  <div class="hero-badge"><i class="ti ti-info-circle"></i> About Us</div>
-  <h1>About <span>Eco Connex</span></h1>
-  <p>Powering Every Ride with Quality EV Spare Parts</p>
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">About Us</span>
 </div>
+
+<section class="hero category-hero category-hero--no-image" aria-labelledby="pageHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="pageHeroTitle">About Eco Connex</h1>
+      <p class="category-hero-description">Powering every ride with quality, genuine EV spare parts.</p>
+    </div>
+  </div>
+</section>
 
 <!-- INTRO -->
 <section class="about-intro">

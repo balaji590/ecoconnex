@@ -63,20 +63,29 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/dealer.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><i class="ti ti-building-store"></i> For Businesses</div>
-  <h1>Become an <span>Eco Connex Dealer</span></h1>
-  <p>Partner with us for wholesale EV spare parts pricing, priority stock access, and dedicated support for your workshop, service center, or retail business.</p>
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">Dealer Program</span>
 </div>
+
+<section class="hero category-hero category-hero--no-image" aria-labelledby="pageHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="pageHeroTitle">Become an Eco Connex Dealer</h1>
+      <p class="category-hero-description">Wholesale pricing, priority stock access and dedicated support for your business.</p>
+    </div>
+  </div>
+</section>
 
 <!-- WHY PARTNER -->
 <section class="features">

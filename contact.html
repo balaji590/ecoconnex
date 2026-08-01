@@ -65,20 +65,29 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/contact.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><i class="ti ti-headset"></i> Contact Us</div>
-  <h1>Contact <span>Us</span></h1>
-  <p>We're here to help. Whether you have questions about our EV spare parts, need assistance selecting the right product, or want to discuss dealership opportunities, our team is always ready to assist you.</p>
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">Contact</span>
 </div>
+
+<section class="hero category-hero category-hero--no-image" aria-labelledby="pageHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="pageHeroTitle">Contact Us</h1>
+      <p class="category-hero-description">We're here to help with orders, product questions, or dealership opportunities.</p>
+    </div>
+  </div>
+</section>
 
 <!-- CONTACT INFORMATION CARDS -->
 <section class="contact-info-section">

@@ -74,20 +74,29 @@
 <link rel="stylesheet" href="assets/css/category-nav.css"/>
   <link rel="stylesheet" href="assets/css/footer.css"/>
   <link rel="stylesheet" href="assets/css/home.css"/>
+  <link rel="stylesheet" href="assets/css/products.css"/>
   <link rel="stylesheet" href="assets/css/faq.css"/>
 </head>
-<body>
+<body class="category-page">
 
 <!-- SHARED HEADER (loaded from header.html by shared-layout.js) -->
 <div id="site-header"></div>
 
 <main>
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><i class="ti ti-help-circle"></i> FAQ</div>
-  <h1>Frequently Asked <span>Questions</span></h1>
-  <p>Answers to the questions we hear most — organized by topic so you can find what you need quickly.</p>
+<div class="breadcrumb">
+  <a href="/index.html">Home</a><i class="ti ti-chevron-right"></i>
+  <span class="current">FAQ</span>
 </div>
+
+<section class="hero category-hero category-hero--no-image" aria-labelledby="pageHeroTitle">
+  <div class="category-hero-inner">
+    <div class="category-hero-left">
+      <h1 id="pageHeroTitle">Frequently Asked Questions</h1>
+      <p class="category-hero-description">Answers to the questions we hear most, organized by topic.</p>
+    </div>
+  </div>
+</section>
 
 <!-- FAQ CATEGORIES -->
 <section class="faq-page-section">

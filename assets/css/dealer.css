@@ -6,11 +6,6 @@
    the dark hero-banner pattern used on about.html / contact.html.
    ============================================================ */
 
-.hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:40px 24px;text-align:center;border-bottom:1px solid rgba(249,115,22,0.15);}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:var(--orange-light);font-size:12px;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
-.hero h1{font-size:32px;font-weight:800;color:#fff;margin-bottom:10px;}
-.hero h1 span{color:var(--orange);}
-.hero p{font-size:15px;color:#9ca3af;margin-bottom:0;max-width:640px;margin-left:auto;margin-right:auto;}
 
 /* Who Can Apply */
 .dealer-who{background:#fff;padding:64px 0;}
@@ -37,7 +32,6 @@
   .dealer-steps-grid{grid-template-columns:1fr;}
 }
 @media(max-width:600px){
-  .hero h1{font-size:24px;}
   .dealer-who{padding:40px 0;}
   .dealer-steps{padding:40px 0;}
   .dealer-form-section{padding:40px 0;}
