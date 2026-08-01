@@ -349,19 +349,18 @@ function renderCategoryPageHeader(categoryEntry) {
       '<span class="current">' + window.EcoConnex.escapeHtml(categoryEntry.label) + '</span>';
   }
 
-  var badge = document.getElementById('heroBadge');
-  if (badge) badge.innerHTML = '<i class="ti ' + window.EcoConnex.getCategoryIcon(categoryEntry.key) + '"></i> ' + window.EcoConnex.escapeHtml(categoryEntry.label);
-
   var title = document.getElementById('heroTitle');
-  if (title) title.innerHTML = window.EcoConnex.escapeHtml(categoryEntry.label) + ' <span>for Your EV</span>';
+  if (title) title.textContent = categoryEntry.label;
 
-  var subtitle = document.getElementById('heroSubtitle');
-  if (subtitle) subtitle.textContent = 'Browse all ' + categoryEntry.label + ' available for your EV — genuine parts, fast delivery.';
+  var description = document.getElementById('heroDescription');
+  if (description && description.textContent.trim() === '') {
+    // Static HTML already has the correct description baked in at generation
+    // time — this is only a safety fallback if it were ever empty.
+    description.textContent = 'Explore quality-tested ' + categoryEntry.label + ' for reliable EV performance.';
+  }
 
   var statCount = document.getElementById('heroStatCount');
   if (statCount) statCount.textContent = categoryEntry.count;
-  var statLabel = document.getElementById('heroStatCountLabel');
-  if (statLabel) statLabel.textContent = 'Products';
 
   document.title = categoryEntry.label + ' – Genuine EV Spare Parts | Eco Connex';
 }

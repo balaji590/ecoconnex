@@ -178,16 +178,9 @@ function pageTemplate(cat) {
 '<section class="hero category-hero" aria-labelledby="heroTitle">\n' +
 '  <div class="category-hero-inner">\n' +
 '    <div class="category-hero-left">\n' +
-'      <div class="hero-badge" id="heroBadge"><i class="ti ' + "ph-icon-placeholder" + '"></i> ' + escapeHtml(label) + "</div>\n" +
-'      <h1 id="heroTitle">' + escapeHtml(label) + " <span>for Your EV</span></h1>\n" +
-'      <p id="heroSubtitle">Browse all ' + escapeHtml(label) + " available for your EV — genuine parts, fast delivery.</p>\n" +
-'      <div class="hero-stats">\n' +
-'        <div class="hero-stat"><div class="hero-stat-num" id="heroStatCount">' + cat.count + '</div><div class="hero-stat-label" id="heroStatCountLabel">Products</div></div>\n' +
-'        <div class="hero-stat"><div class="hero-stat-num">COD</div><div class="hero-stat-label">Available</div></div>\n' +
-'        <div class="hero-stat"><div class="hero-stat-num">All India</div><div class="hero-stat-label">Delivery</div></div>\n' +
-'        <div class="hero-stat"><div class="hero-stat-num">GST</div><div class="hero-stat-label">Registered</div></div>\n' +
-"      </div>\n" +
-'      <p class="category-hero-description">' + escapeHtml(heroDescription) + "</p>\n" +
+'      <h1 id="heroTitle">' + escapeHtml(label) + "</h1>\n" +
+'      <p class="category-hero-description" id="heroDescription">' + escapeHtml(heroDescription) + "</p>\n" +
+'      <div class="category-hero-count-badge" id="heroCountBadge"><i class="ti ti-box-seam"></i><span id="heroStatCount">' + cat.count + '</span>&nbsp;Products</div>\n' +
 "    </div>\n" +
 '    <div class="category-hero-right">' + heroBanner + "</div>\n" +
 "  </div>\n" +
@@ -316,9 +309,7 @@ function main() {
   categories.forEach(function (cat) {
     const dir = path.join(OUTPUT_BASE, cat.key);
     fs.mkdirSync(dir, { recursive: true });
-    const html = pageTemplate(cat).replace(/<i class="ti ph-icon-placeholder"><\/i>/g,
-      '<i class="ti ' + require("./category-icon-map")(cat.key) + '"></i>'
-    );
+    const html = pageTemplate(cat);
     fs.writeFileSync(path.join(dir, "index.html"), html, "utf-8");
     console.log("Generated:", "/products/category/" + cat.key + "/  (" + cat.count + " products)");
   });
