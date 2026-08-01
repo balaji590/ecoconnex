@@ -458,8 +458,20 @@ window.EcoConnex = window.EcoConnex || {};
       .sort(function (a, b) { return b.count - a.count; });
   }
 
+  /**
+   * Returns the list of image filenames for a product's gallery. If the
+   * CMS ever adds a multi-image `images` array field, it's used
+   * automatically — no changes needed to existing single-image products,
+   * which just get a 1-item gallery (thumbnails/nav auto-hide for those).
+   */
+  function getProductImages(p) {
+    if (Array.isArray(p.images) && p.images.length > 0) return p.images.filter(Boolean);
+    return p.image ? [p.image] : [];
+  }
+
   ns.getStockClass = getStockClass;
   ns.getCategoryIcon = getCategoryIcon;
+  ns.getProductImages = getProductImages;
   ns.getCategoriesWithCounts = getCategoriesWithCounts;
   ns.isOutOfStock = isOutOfStock;
 })(window.EcoConnex);

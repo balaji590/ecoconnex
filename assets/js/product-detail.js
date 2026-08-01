@@ -213,11 +213,32 @@ window.waEnquiry = window.waEnquiry || function (product) {
     const outOfStock = EC.isOutOfStock(product);
     const hasPrice = typeof product.price === "number" && product.price > 0;
 
+    const galleryImages = EC.getProductImages(product);
+    const hasMultipleImages = galleryImages.length > 1;
+
+    function galleryImgHtml(filename, idx, w, h) {
+      const tempObj = { image: filename, name: product.name + (galleryImages.length > 1 ? " – view " + (idx + 1) : ""), icon: product.icon };
+      return EC.renderProductImageHtml(tempObj, { width: w, height: h });
+    }
+
+    const thumbsHtml = hasMultipleImages
+      ? '<div class="pdp-thumbs" id="pdpThumbs" role="tablist" aria-label="Product images">' +
+          galleryImages.map(function (img, idx) {
+            return '<button type="button" class="pdp-thumb' + (idx === 0 ? " active" : "") + '" data-index="' + idx + '" role="tab" aria-selected="' + (idx === 0 ? "true" : "false") + '" aria-label="View image ' + (idx + 1) + ' of ' + galleryImages.length + '">' + galleryImgHtml(img, idx, 64, 64) + "</button>";
+          }).join("") +
+        "</div>"
+      : "";
+
     root.innerHTML =
       '<div class="pdp-grid">' +
         '<div class="pdp-gallery">' +
-          '<div class="pdp-image-frame" id="zoomFrame">' + EC.renderProductImageHtml(product, { width: 480, height: 480 }) + "</div>" +
-          '<div class="pdp-thumbs"><div class="pdp-thumb active">' + EC.renderProductImageHtml(product, { width: 64, height: 64 }) + "</div></div>" +
+          '<div class="pdp-image-frame" id="zoomFrame" role="button" tabindex="0" aria-label="Product image — click to zoom or view fullscreen">' +
+            '<div class="pdp-image-skeleton" id="pdpImageSkeleton" aria-hidden="true"></div>' +
+            galleryImgHtml(galleryImages[0], 0, 480, 480) +
+            (hasMultipleImages ? '<div class="pdp-image-counter" id="pdpImageCounter">1 / ' + galleryImages.length + "</div>" : "") +
+            '<button type="button" class="pdp-expand-btn" id="pdpExpandBtn" aria-label="View fullscreen"><i class="ti ti-maximize"></i></button>' +
+          "</div>" +
+          thumbsHtml +
         "</div>" +
         '<div class="pdp-info">' +
           '<div class="pdp-info-badges">' +
@@ -331,6 +352,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
   }
 
   function wireInteractions(product, hasPrice) {
+    const galleryImages = EC.getProductImages(product);
     const shareBtn = document.getElementById("pdpShareProduct");
     if (shareBtn) {
       shareBtn.addEventListener("click", function () {
@@ -414,13 +436,225 @@ window.waEnquiry = window.waEnquiry || function (product) {
       }
     });
 
-    // Zoom: desktop hover handled by CSS; mobile tap toggles zoom class.
+    wirePdpGallery(product, galleryImages);
+    wireMobileStickyBar(product, hasPrice, EC.isOutOfStock(product));
+  }
+
+  let galleryState = { images: [], index: 0 };
+
+  function galleryImageMarkup(product, filename, idx, total) {
+    const tempObj = { image: filename, name: product.name + (total > 1 ? " – view " + (idx + 1) : ""), icon: product.icon };
+    return EC.renderProductImageHtml(tempObj, { width: 480, height: 480 });
+  }
+
+  function setActiveGalleryImage(product, index, opts) {
+    const images = galleryState.images;
+    if (index < 0 || index >= images.length) return;
+    galleryState.index = index;
+    opts = opts || {};
+
     const frame = document.getElementById("zoomFrame");
-    frame.addEventListener("click", function () {
-      frame.classList.toggle("zoomed");
+    frame.classList.remove("zoomed");
+    frame.classList.add("fading");
+    setTimeout(function () {
+      const skeleton = document.getElementById("pdpImageSkeleton");
+      if (skeleton) skeleton.style.display = "block";
+      const oldImg = frame.querySelector("img.product-photo, .product-icon-fallback");
+      if (oldImg) oldImg.remove();
+      frame.insertAdjacentHTML("afterbegin", galleryImageMarkup(product, images[index], index, images.length));
+      const newImg = frame.querySelector("img.product-photo");
+      if (newImg) {
+        if (newImg.complete) { if (skeleton) skeleton.style.display = "none"; }
+        else newImg.addEventListener("load", function () { if (skeleton) skeleton.style.display = "none"; });
+        newImg.addEventListener("error", function () { if (skeleton) skeleton.style.display = "none"; });
+      } else if (skeleton) {
+        skeleton.style.display = "none";
+      }
+      frame.classList.remove("fading");
+    }, 140);
+
+    const counter = document.getElementById("pdpImageCounter");
+    if (counter) counter.textContent = (index + 1) + " / " + images.length;
+
+    if (!opts.skipThumbs) {
+      document.querySelectorAll(".pdp-thumb").forEach(function (t, i) {
+        t.classList.toggle("active", i === index);
+        t.setAttribute("aria-selected", i === index ? "true" : "false");
+      });
+    }
+
+    if (opts.updateLightbox) updateLightboxImage(product);
+  }
+
+  function wirePdpGallery(product, images) {
+    galleryState = { images: images, index: 0 };
+    const frame = document.getElementById("zoomFrame");
+
+    // First-image skeleton: hide once loaded (or immediately if already cached).
+    const skeleton = document.getElementById("pdpImageSkeleton");
+    const firstImg = frame.querySelector("img.product-photo");
+    if (firstImg) {
+      if (firstImg.complete) { if (skeleton) skeleton.style.display = "none"; }
+      else firstImg.addEventListener("load", function () { if (skeleton) skeleton.style.display = "none"; });
+      firstImg.addEventListener("error", function () { if (skeleton) skeleton.style.display = "none"; });
+    } else if (skeleton) {
+      skeleton.style.display = "none";
+    }
+
+    const isFinePointer = window.matchMedia && window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+
+    if (isFinePointer) {
+      // Desktop: hovering pans a magnified view toward the cursor.
+      frame.addEventListener("mouseenter", function () { frame.classList.add("zoomed"); });
+      frame.addEventListener("mousemove", function (e) {
+        const rect = frame.getBoundingClientRect();
+        const xPct = ((e.clientX - rect.left) / rect.width) * 100;
+        const yPct = ((e.clientY - rect.top) / rect.height) * 100;
+        const img = frame.querySelector("img.product-photo, .product-icon-fallback");
+        if (img) img.style.transformOrigin = xPct + "% " + yPct + "%";
+      });
+      frame.addEventListener("mouseleave", function () { frame.classList.remove("zoomed"); });
+      frame.addEventListener("click", function (e) {
+        if (e.target.closest(".pdp-expand-btn")) return;
+        openPdpLightbox(product);
+      });
+    } else {
+      // Mobile/touch: tap toggles a centered zoom (no cursor to track).
+      frame.addEventListener("click", function (e) {
+        if (e.target.closest(".pdp-expand-btn")) return;
+        frame.classList.toggle("zoomed");
+      });
+    }
+
+    // Thumbnails
+    document.querySelectorAll(".pdp-thumb").forEach(function (thumb) {
+      thumb.addEventListener("click", function () {
+        setActiveGalleryImage(product, parseInt(thumb.getAttribute("data-index"), 10));
+      });
     });
 
-    wireMobileStickyBar(product, hasPrice, EC.isOutOfStock(product));
+    // Expand to fullscreen
+    const expandBtn = document.getElementById("pdpExpandBtn");
+    if (expandBtn) {
+      expandBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        openPdpLightbox(product);
+      });
+    }
+
+    frame.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        if (isFinePointer) openPdpLightbox(product);
+        else frame.classList.toggle("zoomed");
+      }
+    });
+
+    // Swipe left/right on the main frame to change image (mobile, only if multiple images)
+    if (images.length > 1) {
+      let touchStartX = null;
+      frame.addEventListener("touchstart", function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+      frame.addEventListener("touchend", function (e) {
+        if (touchStartX === null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) {
+          const next = dx < 0 ? galleryState.index + 1 : galleryState.index - 1;
+          setActiveGalleryImage(product, (next + images.length) % images.length);
+        }
+        touchStartX = null;
+      }, { passive: true });
+    }
+  }
+
+  // ── Fullscreen lightbox ──
+  function ensurePdpLightbox() {
+    if (document.getElementById("pdpLightboxOverlay")) return;
+    const overlay = document.createElement("div");
+    overlay.className = "pdp-lightbox-overlay";
+    overlay.id = "pdpLightboxOverlay";
+    overlay.innerHTML =
+      '<button type="button" class="pdp-lightbox-close" id="pdpLightboxClose" aria-label="Close fullscreen view"><i class="ti ti-x"></i></button>' +
+      '<button type="button" class="pdp-lightbox-nav prev" id="pdpLightboxPrev" aria-label="Previous image"><i class="ti ti-chevron-left"></i></button>' +
+      '<div class="pdp-lightbox-image-wrap"><img id="pdpLightboxImg" alt=""/></div>' +
+      '<button type="button" class="pdp-lightbox-nav next" id="pdpLightboxNext" aria-label="Next image"><i class="ti ti-chevron-right"></i></button>' +
+      '<div class="pdp-lightbox-counter" id="pdpLightboxCounter"></div>';
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener("click", function (e) { if (e.target === overlay) closePdpLightbox(); });
+    document.getElementById("pdpLightboxClose").addEventListener("click", closePdpLightbox);
+    document.getElementById("pdpLightboxPrev").addEventListener("click", function () { lightboxStep(-1); });
+    document.getElementById("pdpLightboxNext").addEventListener("click", function () { lightboxStep(1); });
+
+    document.addEventListener("keydown", function (e) {
+      if (!overlay.classList.contains("open")) return;
+      if (e.key === "Escape") closePdpLightbox();
+      else if (e.key === "ArrowLeft") lightboxStep(-1);
+      else if (e.key === "ArrowRight") lightboxStep(1);
+      else if (e.key === "Tab") {
+        // Simple focus trap across the three interactive controls.
+        const focusable = [document.getElementById("pdpLightboxClose"), document.getElementById("pdpLightboxPrev"), document.getElementById("pdpLightboxNext")].filter(function (el) { return el.offsetParent !== null; });
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    let touchStartX = null;
+    overlay.addEventListener("touchstart", function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+    overlay.addEventListener("touchend", function (e) {
+      if (touchStartX === null) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) lightboxStep(dx < 0 ? 1 : -1);
+      touchStartX = null;
+    }, { passive: true });
+  }
+
+  function lightboxStep(delta) {
+    const images = galleryState.images;
+    if (images.length < 2) return;
+    const next = (galleryState.index + delta + images.length) % images.length;
+    galleryState.index = next;
+    updateLightboxImageFromState();
+    document.querySelectorAll(".pdp-thumb").forEach(function (t, i) {
+      t.classList.toggle("active", i === next);
+      t.setAttribute("aria-selected", i === next ? "true" : "false");
+    });
+    const counter = document.getElementById("pdpImageCounter");
+    if (counter) counter.textContent = (next + 1) + " / " + images.length;
+  }
+
+  function updateLightboxImageFromState() {
+    const img = document.getElementById("pdpLightboxImg");
+    const counter = document.getElementById("pdpLightboxCounter");
+    const images = galleryState.images;
+    const file = images[galleryState.index];
+    const src = /\.(webp|jpg|jpeg|png|gif|avif)$/i.test(file || "")
+      ? (file.startsWith("http") || file.startsWith("/") ? file : "/assets/images/products/" + encodeURIComponent(file))
+      : "";
+    if (img) img.src = src;
+    if (counter) counter.textContent = images.length > 1 ? (galleryState.index + 1) + " / " + images.length : "";
+    const prevBtn = document.getElementById("pdpLightboxPrev");
+    const nextBtn = document.getElementById("pdpLightboxNext");
+    if (prevBtn) prevBtn.style.display = images.length > 1 ? "flex" : "none";
+    if (nextBtn) nextBtn.style.display = images.length > 1 ? "flex" : "none";
+  }
+
+  function openPdpLightbox(product) {
+    ensurePdpLightbox();
+    updateLightboxImageFromState();
+    const overlay = document.getElementById("pdpLightboxOverlay");
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+    document.getElementById("pdpLightboxClose").focus();
+  }
+
+  function closePdpLightbox() {
+    const overlay = document.getElementById("pdpLightboxOverlay");
+    if (!overlay) return;
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+    const expandBtn = document.getElementById("pdpExpandBtn");
+    if (expandBtn) expandBtn.focus();
   }
 
   function ensureMobileStickyBar() {
