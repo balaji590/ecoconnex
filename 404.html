@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECH2NE3GTT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ECH2NE3GTT');
+  </script>
+  <title>Page Not Found | Eco Connex</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Browse genuine EV spare parts at Eco Connex or return to the homepage."/>
+  <meta name="robots" content="noindex, follow"/>
+  <meta name="author" content="Eco Connex"/>
+  <meta name="theme-color" content="#f97316"/>
+  <link rel="manifest" href="/manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any"/>
+  <link rel="icon" type="image/png" href="/assets/images/logo.png"/>
+  <link rel="apple-touch-icon" href="/assets/images/logo.png"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <link rel="stylesheet" href="/assets/css/header.css"/>
+  <link rel="stylesheet" href="/assets/css/footer.css"/>
+  <link rel="stylesheet" href="/assets/css/home.css"/>
+  <style>
+    .hero{background:linear-gradient(135deg,var(--black) 0%,#1a0800 60%,#0d0d0d 100%);padding:80px 24px;border-bottom:1px solid rgba(249,115,22,0.15);min-height:56vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.3);color:#fdba74;font-size:13px;font-weight:600;padding:7px 18px;border-radius:20px;margin-bottom:18px;}
+    .hero h1{font-size:44px;font-weight:800;color:#fff;margin-bottom:14px;}
+    .hero h1 span{color:var(--orange);}
+    .hero p{font-size:15px;color:rgba(255,255,255,0.72);max-width:440px;margin:0 auto;}
+    @media(max-width:600px){.hero{padding:56px 20px;}.hero h1{font-size:30px;}}
+  </style>
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main>
+<div class="hero" style="text-align:center;">
+  <div class="hero-badge"><i class="ti ti-map-off"></i> Error 404</div>
+  <h1>Page Not <span>Found</span></h1>
+  <p>The page you're looking for doesn't exist or may have moved. Let's get you back on track.</p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px;">
+    <a href="/index.html" class="btn-quote-nav" style="padding:12px 26px;font-size:14px;"><i class="ti ti-home"></i> Back to Home</a>
+    <a href="/products.html" class="btn-quote-nav" style="padding:12px 26px;font-size:14px;background:rgba(255,255,255,0.08);"><i class="ti ti-packages"></i> Browse Products</a>
+  </div>
+</div>
+</main>
+
+<div id="site-footer"></div>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3><i class="ti ti-shopping-cart"></i> Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()" aria-label="Close cart"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total-row"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+    <button class="btn-cart-checkout" onclick="EcoConnex.openCheckoutModal()"><i class="ti ti-brand-whatsapp"></i> Checkout via WhatsApp</button>
+  </div>
+</div>
+
+<script src="/assets/js/products-data.js"></script>
+<script src="/assets/js/cart.js"></script>
+<script src="/assets/js/wishlist.js"></script>
+<script src="/assets/js/category-nav.js"></script>
+<script src="/assets/js/orders.js"></script>
+<script src="/assets/js/checkout.js"></script>
+<script src="/assets/js/search-widget.js"></script>
+<script src="/assets/js/shared-layout.js"></script>
+<script>
+function updateCartUI() {
+  var cart = window.EcoConnex.cart.getCart();
+  var total = window.EcoConnex.cart.getTotal();
+  var count = window.EcoConnex.cart.getCount();
+  var badge = document.getElementById('cartBadge');
+  if (badge) { badge.textContent = count; badge.style.display = count > 0 ? 'flex' : 'none'; }
+  var container = document.getElementById('cartItems');
+  var footer = document.getElementById('cartFooter');
+  if (document.getElementById('cartTotal')) document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty"><i class="ti ti-shopping-cart-off"></i><p>Your cart is empty</p></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  container.innerHTML = cart.map(function (item) {
+    return '<div class="cart-item"><div class="cart-item-icon">' + window.EcoConnex.renderProductImageHtml({image:item.image,icon:item.icon,name:item.name},{width:44,height:44}) + '</div><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-qty"><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" onclick="EcoConnex.cart.updateQty(\'' + item.sku + '\',1)">+</button></div></div><button class="cart-item-remove" onclick="EcoConnex.cart.removeItem(\'' + item.sku + '\')"><i class="ti ti-trash"></i></button></div>';
+  }).join('');
+}
+window.EcoConnex.cart.onChange(updateCartUI);
+function openCart() { document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartSidebar').classList.add('open'); }
+function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartSidebar').classList.remove('open'); }
+</script>
+</body>
+</html>

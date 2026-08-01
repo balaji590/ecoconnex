@@ -469,9 +469,24 @@ window.EcoConnex = window.EcoConnex || {};
     return p.image ? [p.image] : [];
   }
 
+  /**
+   * Returns the absolute, browser-resolvable URL for a product image
+   * filename — same path-resolution rules as renderProductImageHtml
+   * (external URL / already-absolute / bare filename), but as a plain
+   * string for contexts that need a URL rather than an <img> tag: Open
+   * Graph/Twitter meta tags, JSON-LD schema, the PDP lightbox.
+   */
+  function getProductImageUrl(filename) {
+    if (!filename) return null;
+    if (filename.startsWith("http://") || filename.startsWith("https://")) return filename;
+    if (filename.startsWith("/")) return "https://ecoconnex.in" + filename;
+    return "https://ecoconnex.in/assets/images/products/" + encodeURIComponent(filename);
+  }
+
   ns.getStockClass = getStockClass;
   ns.getCategoryIcon = getCategoryIcon;
   ns.getProductImages = getProductImages;
+  ns.getProductImageUrl = getProductImageUrl;
   ns.getCategoriesWithCounts = getCategoriesWithCounts;
   ns.isOutOfStock = isOutOfStock;
 })(window.EcoConnex);

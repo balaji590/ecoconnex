@@ -258,7 +258,7 @@ function filterProducts() {
 
 function wa(product, price) {
   var msg = 'Hi Eco Connex! I am interested in: *' + product + '* (' + price + '). Please share details and availability.';
-  window.open('https://wa.me/918778657912?text=' + encodeURIComponent(msg), '_blank');
+  window.open('https://wa.me/918778657912?text=' + encodeURIComponent(msg), '_blank', 'noopener');
 }
 
 function highlightFromSearch() {

@@ -274,7 +274,7 @@ window.EcoConnex = window.EcoConnex || {};
     };
     const orderId = "ORD" + Date.now();
     const message = buildMessage(details, cart, totals, orderId);
-    const waWindow = window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank");
+    const waWindow = window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener");
 
     submitting = false;
     btn.disabled = false;

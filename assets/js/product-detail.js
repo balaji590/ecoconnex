@@ -5,7 +5,7 @@
    No product data or cart logic is duplicated here.
    ============================================================ */
 window.waEnquiry = window.waEnquiry || function (product) {
-  window.open('https://wa.me/918778657912?text=' + encodeURIComponent('Hi Eco Connex! I am interested in: ' + product + '. Please share details and pricing.'), '_blank');
+  window.open('https://wa.me/918778657912?text=' + encodeURIComponent('Hi Eco Connex! I am interested in: ' + product + '. Please share details and pricing.'), '_blank', 'noopener');
 };
 
 (function () {
@@ -155,6 +155,9 @@ window.waEnquiry = window.waEnquiry || function (product) {
     setEl("ogUrl", "content", pageUrl);
     setEl("twitterTitle", "content", product.name + " – Eco Connex");
     setEl("twitterDesc", "content", shortDesc);
+    const imgUrl = EC.getProductImageUrl(product.image) || "https://ecoconnex.in/assets/images/logo.png";
+    setEl("ogImage", "content", imgUrl);
+    setEl("twitterImage", "content", imgUrl);
 
     const breadcrumbLd = {
       "@context": "https://schema.org",
@@ -428,7 +431,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
         priceLine + "\n\n" +
         "Website: https://ecoconnex.in\n\n" +
         "Please confirm availability and pricing.";
-      window.open("https://wa.me/918778657912?text=" + encodeURIComponent(msg), "_blank");
+      window.open("https://wa.me/918778657912?text=" + encodeURIComponent(msg), "_blank", "noopener");
 
       if (window.EcoConnex.orders && typeof window.EcoConnex.orders.saveOrder === "function") {
         const orderItem = { name: product.name, sku: product.sku, price: hasPrice ? product.price : null, mrp: hasPrice ? product.mrp : null, currency: product.currency || "INR", icon: product.icon, image: product.image, qty: qty };
@@ -628,9 +631,8 @@ window.waEnquiry = window.waEnquiry || function (product) {
     const counter = document.getElementById("pdpLightboxCounter");
     const images = galleryState.images;
     const file = images[galleryState.index];
-    const src = /\.(webp|jpg|jpeg|png|gif|avif)$/i.test(file || "")
-      ? (file.startsWith("http") || file.startsWith("/") ? file : "/assets/images/products/" + encodeURIComponent(file))
-      : "";
+    const looksLikeFile = /\.(webp|jpg|jpeg|png|gif|avif)$/i.test(file || "");
+    const src = looksLikeFile ? (EC.getProductImageUrl(file) || "") : "";
     if (img) img.src = src;
     if (counter) counter.textContent = images.length > 1 ? (galleryState.index + 1) + " / " + images.length : "";
     const prevBtn = document.getElementById("pdpLightboxPrev");
