@@ -344,7 +344,14 @@ window.EcoConnex = window.EcoConnex || {};
     if (!looksLikeFile) {
       return '<span class="product-icon-fallback ' + imgClass + '">' + icon + "</span>";
     }
-    const src = "/assets/images/products/" + encodeURIComponent(p.image);
+    let src;
+    if (p.image.startsWith("http://") || p.image.startsWith("https://")) {
+      src = p.image; // external URL, use as-is
+    } else if (p.image.startsWith("/")) {
+      src = p.image; // already a full site-root path (e.g. saved by the CMS media picker)
+    } else {
+      src = "/assets/images/products/" + encodeURIComponent(p.image); // bare filename (legacy/manual entries)
+    }
     return (
       '<img src="' + src + '" alt="' + escapeHtml(p.name) + '" class="product-photo ' + imgClass + '" ' +
       'width="' + w + '" height="' + h + '" loading="lazy" decoding="async" ' +
