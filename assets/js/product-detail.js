@@ -190,7 +190,7 @@ window.waEnquiry = window.waEnquiry || function (product) {
         "@type": "Offer",
         "priceCurrency": "INR",
         "price": product.price,
-        "availability": /low/i.test(product.stock || "") ? "https://schema.org/LimitedAvailability" : (/enquire/i.test(product.stock || "") ? "https://schema.org/PreOrder" : "https://schema.org/InStock"),
+        "availability": /out/i.test(product.stock || "") ? "https://schema.org/OutOfStock" : (/low/i.test(product.stock || "") ? "https://schema.org/LimitedAvailability" : (/enquire/i.test(product.stock || "") ? "https://schema.org/PreOrder" : "https://schema.org/InStock")),
         "url": pageUrl
       };
     }
